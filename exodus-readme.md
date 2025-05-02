@@ -29,3 +29,7 @@
 - https://anchortacoma.org/
 - https://www.elevationchurch.org/
 - https://dribbble.com/shots/19031634-Lifepoint-Church-Website
+
+## ToDo
+- use seo module
+- color-mode, animation
