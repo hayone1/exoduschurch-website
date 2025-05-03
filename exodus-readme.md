@@ -30,6 +30,10 @@
 - https://www.elevationchurch.org/
 - https://dribbble.com/shots/19031634-Lifepoint-Church-Website
 
+## Backgrounds
+- https://www.freepik.com/free-photo/black-abstract-texture-background_1273439.htm#fromView=search&page=1&position=8&uuid=de412740-834b-41be-8dc1-5ee568d4c6a7&query=Grain+Background
+
+
 ## ToDo
 - use seo module
 - color-mode, animation
