@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { DropdownMenuItem } from '@nuxt/ui';
 
-
 const colorMode = useColorMode();
 const colorModeitems = computed<DropdownMenuItem[]>(() => [
   {
@@ -35,27 +34,29 @@ const colorModeitems = computed<DropdownMenuItem[]>(() => [
 const currentColorMode = computed(() => colorModeitems.value.find(
   menuItem => menuItem.checked === true
 ));
-
+const textStyle = computed(() =>
+  colorMode.value === 'light' ? "text-2xl text-black" : "text-2xl text-white"
+);
 </script>
 <template>
-  <div class="mt-6 pb-20">
-    <Divider />
-    <footer class="mx-auto flex max-w-7xl flex-col items-center gap-4 px-4 py-6">
-      <Logo :size="8" />
-      <span class="text-center text-sm text-muted">
-        © {{ new Date().getFullYear() }}, <ULink to="https://dub.sh/hrcd">HugoRCD</ULink> - {{ $t("global.all_rights_reserved") }}.
-      </span>
-    </footer>
-    <!-- <div class="p-4 grid grid-cols-12"></div> -->
-    <UButtonGroup class="justify-self-end self-center">
-      <UBadge :icon="currentColorMode?.icon" color="neutral" variant="outline"/>
-      <UDropdownMenu :items="colorModeitems">
-        <UButton
-          color="neutral"
-          variant="outline"
-          icon="i-fluent-chevron-down-20-regular"
-        />
-      </UDropdownMenu>
-    </UButtonGroup>
-  </div>
+  <footer class="absolute bottom-0 w-full mb-2">
+    <USeparator :label="`© ${new Date().getFullYear()} Exodus Church`" />
+    <div class="grid grid-cols-3 max-w-full my-2">
+      <div class="justify-self-start grid grid-cols-2 justify-items-center content-center divide-x-1 divide-muted max-w-30">
+        <div>logo</div>
+        <UButtonGroup>
+          <UBadge :icon="currentColorMode?.icon" color="neutral" variant="outline" />
+          <UDropdownMenu :items="colorModeitems">
+            <UButton color="neutral" variant="outline" icon="i-fluent-chevron-down-20-regular" />
+          </UDropdownMenu>
+        </UButtonGroup>
+      </div>
+      <div class="justify-self-center">middle</div>
+      <UButtonGroup orientation="horizontal" class="justify-self-end grid grid-cols-3">
+        <UButton icon="i-mdi-instagram" variant="link" color="neutral" :class="textStyle" />
+        <UButton icon="i-mdi-youtube" variant="link" color="error" :class="textStyle" />
+        <UButton icon="i-mdi-telegram" variant="link" color="info" :class="textStyle" />
+      </UButtonGroup>
+    </div>
+  </footer>
 </template>
