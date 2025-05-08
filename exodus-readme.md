@@ -19,7 +19,6 @@
 - https://sm-cove-demo.squarespace.com/?password=smdemo
 - https://www.elevationchurch.org/
 - https://centralchristianocala.org/new-here/
-- https://centralchristianocala.org/new-here/
 - https://www.pinterest.com/pin/5629568279173198/
 - https://www.pinterest.com/pin/1759287348204194/
 - https://www.pinterest.com/pin/752734525258299590/
