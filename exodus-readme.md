@@ -11,6 +11,7 @@
 - https://www.youtube.com/watch?v=RAJZOqr3JZU
 - https://www.youtube.com/watch?v=_GrdYoO3h0g
 - https://soubiran.dev/posts/the-perfect-guide-to-setting-up-a-new-nuxt-project
+- https://grainy-gradients.vercel.app/
 
 ### Inspiration
 - Tags - https://www.pinterest.com/pin/11470174046180232/

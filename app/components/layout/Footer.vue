@@ -35,7 +35,7 @@ const currentColorMode = computed(() => colorModeitems.value.find(
   menuItem => menuItem.checked === true
 ));
 const textStyle = computed(() =>
-  colorMode.value === 'light' ? "text-2xl text-black" : "text-2xl text-white"
+  colorMode.value === 'light' ? "text-2xl text-primary" : "text-2xl text-white"
 );
 </script>
 <template>
