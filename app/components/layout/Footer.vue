@@ -35,11 +35,11 @@ const currentColorMode = computed(() => colorModeitems.value.find(
   menuItem => menuItem.checked === true
 ));
 const textStyle = computed(() =>
-  colorMode.value === 'light' ? "text-2xl text-primary" : "text-2xl text-white"
+  colorMode.value === 'light' ? "text-2xl text-black" : "text-2xl text-white"
 );
 </script>
 <template>
-  <footer class="absolute bottom-0 w-full mb-2">
+  <footer class="bottom-0 w-full mb-2 px-2">
     <USeparator :label="`© ${new Date().getFullYear()} Exodus Church`" />
     <div class="grid grid-cols-3 max-w-full my-2">
       <div class="justify-self-start grid grid-cols-2 justify-items-center content-center divide-x-1 divide-muted max-w-30">

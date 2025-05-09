@@ -1,4 +1,13 @@
 ## Ideas
+- supernatural school/RISE slider
+    - supernatural school has fire glow and ember particles
+    - rise has blue/purple color
+    - refire?
+    - This Jesus campaign
+    - testimonies from the various meetings including church service
+- section to submit testimonies
+- animated border for overlay cards
+- divider before our events
 
 ### Components library candidates
 - Nuxt UI
@@ -24,12 +33,11 @@
 - https://www.pinterest.com/pin/1759287348204194/
 - https://www.pinterest.com/pin/752734525258299590/
 - https://www.pinterest.com/pin/1105070827318456944/
-- https://www.pinterest.com/pin/108649409754171952/
 - https://www.pinterest.com/pin/21321798231009285/
 - https://www.pinterest.com/pin/20125529579545135/
 - https://www.pinterest.com/pin/4925880837041312/
 - https://www.pinterest.com/pin/6685099441218958/
-- 
+- https://www.pinterest.com/pin/212795151138048616/
 
 ## More Inspiration
 - https://canvas.hrcd.fr/en
