@@ -28,44 +28,53 @@ const defaultpageCardsData = [
         class: "col-span-7 w-full aspect-21/9"
     },
 ];
-const pageCardsData = ref(defaultpageCardsData.map((cardData, index) => ({
-    ...cardData, id: "page-card-" + index
-})));
-const cardsRefs = useTemplateRef('pageCards');
-cardsRefs.value
-const rowCount = "grid-rows-" + Math.ceil(pageCardsData.value.length/2);
-
-const mainContainerRef = useTemplateRef('mainContainerRef')
-watch(mainContainerRef, () => {
-    const elements = 
-    inView(cardsRefs.value, (element) => {
-
-    })
-}, { once: true });
+const pageCardsData = defaultpageCardsData.map((cardData, index) => ({
+    ...cardData, id: "page-card-" + index, domRef: ref()
+}));
+const mainContainerRef = useTemplateRef('mainContainerRef');
+// const cardsRefs = useTemplateRef('pageCards');
+const rowCount = "grid-rows-" + Math.ceil(pageCardsData.length / 2);
+// const cardRef = ref();
+// const isInView = useInView(cardRef)
+// watch(mainContainerRef, () => {
+//     // pageCardsData.forEach(cardData => {
+//     //     const isInView = useInView(cardRef, { once: true });
+//     //     watch(isInView, (inView) => {
+//     //         console.log('Element is in view: ', inView)
+//     //     });
+//     // });
+//     watch(isInView, (inView) => {
+//         console.log('Element is in view: ', inView)
+//     })
+// }, { once: true });
 </script>
 
 <template>
     <UContainer ref="mainContainerRef">
-        <div :class="`grid grid-flow-row grid-cols-10 ${rowCount} gap-6`"
-                id="index-page-div">
-            <motion.div v-for="cardData in pageCardsData" :class="cardData.class">
-                <UCard  ref="pageCards"
-                       :id="cardData.id" variant="subtle">
+        <div :class="`grid grid-flow-row grid-cols-10 ${rowCount} gap-6`" id="index-page-div">
+            <motion.div v-for="cardData in pageCardsData" :class="cardData.class" :initial="{ opacity: .5 }"
+                ref="cardData.domRef">
+                <UCard variant="subtle">
                     <template #header>
                         <!-- <Placeholder class="h-8" /> -->
                         <h2>{{ cardData.title }}</h2>
                     </template>
-                    
+
                     <p>{{ cardData.body }}</p>
-    
+
                     <template #footer>
                         <p>This is the card footer</p>
                     </template>
                 </UCard>
-
             </motion.div>
             <!-- <NuxtImg class="col-span-7 rounded-xl w-full"
                 src="https://hayone1.github.io/throneofgrace_site-configs/laboratory.jpg" /> -->
         </div>
     </UContainer>
+    <UCard ref="cardRef">
+        <template #header>
+            <!-- <Placeholder class="h-8" /> -->
+            <h2>Hallos</h2>
+        </template>
+    </UCard>
 </template>
