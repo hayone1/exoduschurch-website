@@ -35,6 +35,6 @@ export default defineNuxtConfig({
     '@nuxtjs/seo',
     'nuxt-viewport',
     'motion-v/nuxt',
-    'nuxt-qrcode'
+    'nuxt-qrcode',
   ]
 })

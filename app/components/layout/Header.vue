@@ -108,7 +108,8 @@ const navItems = computed(() => [
 </script>
 
 <template>
-  <div class="p-4">
+  <!-- <div class="pt-4 sm:py-4"> -->
+  <div class="pt-4">
     <UContainer :class="`col-span-10 rounded-full border-solid border-secondary border-1
                         transition delay-150 duration-300 ease-in-out hover:-translate-y-1
                         ${hoverStyle} max-w-fit ${backgroundColor}`">
