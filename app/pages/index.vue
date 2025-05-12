@@ -1,14 +1,14 @@
 <script setup lang="ts">
-import { card } from '#build/ui';
-import { animate, useInView, stagger, motion } from 'motion-v';
-import { ImgComparisonSlider } from '@img-comparison-slider/vue';
+import type { CardAnimation, CardData } from '~/types';
 
-// interface slidesData {
-//     title: string
-//     body: string
-//     footer: string
-//     texts: string[]
-// }
+const defaultCarousalAnimation: CardAnimation = {
+    offscreen: { opacity: 1},
+    onscreen: {opacity: 1},
+    textOffscreen: {opacity: 1},
+    textOnScreen: {opacity: 1},
+    backdropOffscreen: {opacity: 1},
+    backdropOnScreen: {opacity: 1}
+};
 
 const defaultpageCardsData: CardData[] = [
     {
@@ -140,6 +140,7 @@ const defaultpageCardsData: CardData[] = [
                     backdropClasses: [
                         "bg-cover bg-[url(/images/worship-stock-image-1.jpg)]"
                     ],
+                    cardAnimation: defaultCarousalAnimation
                 },
                 {
                     body: "testBody 111",
@@ -148,6 +149,7 @@ const defaultpageCardsData: CardData[] = [
                     backdropClasses: [
                         "bg-cover bg-[url(/images/worship-stock-image-2.jpg)]"
                     ],
+                    cardAnimation: defaultCarousalAnimation
                 },
             ],
             [
@@ -158,6 +160,7 @@ const defaultpageCardsData: CardData[] = [
                     backdropClasses: [
                         "bg-cover bg-[url(/images/worship-stock-image-3.jpg)]"
                     ],
+                    cardAnimation: defaultCarousalAnimation
                 },
                 {
                     body: "testBody 111",
@@ -166,6 +169,7 @@ const defaultpageCardsData: CardData[] = [
                     backdropClasses: [
                         "bg-cover bg-[url(/images/worship-stock-image-4.jpg)]"
                     ],
+                    cardAnimation: defaultCarousalAnimation
                 },
             ],
         ],
@@ -185,8 +189,8 @@ const rowCount = "grid-rows-" + Math.ceil(pageCardsData.length / 2);
 <template>
     <!-- The other breakpoints padding is based on defaults -->
     <UContainer ref="mainContainerRef" class="px-0 ">
-        <div :class="`grid grid-flow-row-dense grid-cols-10 lg:grid-cols-9 ${rowCount} gap-0 sm:gap-6`"
-            id="index-page-div">
+        <div :class="`grid grid-flow-row-dense grid-cols-10
+                    lg:grid-cols-9 ${rowCount} gap-0 sm:gap-6`" id="index-page-div">
             <PageCard v-for="(cardData, index) in pageCardsData" :pageCardData="cardData" :offset="index">
             </PageCard>
 

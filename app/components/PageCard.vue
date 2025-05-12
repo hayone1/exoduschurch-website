@@ -1,71 +1,87 @@
 <script setup lang="ts">
 import { ImgComparisonSlider } from '@img-comparison-slider/vue';
 import { animate, useInView, stagger, motion } from 'motion-v';
-const props = defineProps<{
+import type { CardData, CardAnimation } from '~/types';
+
+//the const defines defaults, the defineProps is used for typing
+const {
+    pageCardData = {} as CardData,
+    offset = 0,
+} = defineProps<{
     pageCardData: CardData,
     offset: number
 }>();
 
-const pageCardVariant = (delayIndex: number) => ({
-    offscreen: {
-        opacity: 0,
-        y: 300,
-        // opacity: .5,
-        filter: "blur(10px)",
-    },
-    onscreen: {
-        opacity: 1,
-        y: 0,
-        // opacity: 1,
-        filter: "blur(0px)",
-        transition: {
-            type: "spring",
-            // bounce: 0.3,
-            duration: .8,
-            delay: (delayIndex) / 10
+const pageCardAnimation = (delayIndex: number): CardAnimation => {
+    return pageCardData.cardAnimation ?? {
+        offscreen: {
+            opacity: 0,
+            y: 300,
+            // opacity: .5,
+            filter: "blur(10px)",
         },
-    },
-    textOffscreen: {
-        opacity: 0,
-        y: 50,
-        // backdropFilter: "blur(15px)"
-    },
-    textOnScreen: {
-        y: 0,
-        // backdropFilter: "blur(0px)",
-        opacity: 1,
-        transition: {
-            duration: .6,
-            //will happen after the onscreen animation is complete
-            delay: ((delayIndex) / 10) + .8,
-            ease: "easeOut"
+        onscreen: {
+            opacity: 1,
+            y: 0,
+            // opacity: 1,
+            filter: "blur(0px)",
+            transition: {
+                type: "spring",
+                // bounce: 0.3,
+                duration: .8,
+                delay: (delayIndex) / 10
+            },
         },
-    },
-    backdropOffscreen: {
-        opacity: 0,
-        // backdropFilter: "blur(15px)"
-    },
-    backdropOnScreen: {
-        // backdropFilter: "blur(0px)",
-        opacity: 1,
-        transition: {
-            duration: .6,
-            //will happen after the text animation is complete
-            delay: ((delayIndex) / 10) + 1,
-            ease: "easeOut"
+        textOffscreen: {
+            opacity: 0,
+            y: 50,
+            // backdropFilter: "blur(15px)"
         },
-    },
-});
+        textOnScreen: {
+            y: 0,
+            // backdropFilter: "blur(0px)",
+            opacity: 1,
+            transition: {
+                duration: .6,
+                //will happen after the onscreen animation is complete
+                delay: ((delayIndex) / 10) + .8,
+                ease: "easeOut"
+            },
+        },
+        backdropOffscreen: {
+            opacity: 0,
+            // backdropFilter: "blur(15px)"
+        },
+        backdropOnScreen: {
+            // backdropFilter: "blur(0px)",
+            opacity: 1,
+            transition: {
+                duration: .6,
+                //will happen after the text animation is complete
+                delay: ((delayIndex) / 10) + 1,
+                ease: "easeOut"
+            },
+        },
+    };
+}
+
+const slotPosition: Record<string,string> = {
+    0: "first",
+    1: "second"
+}
+
+
 </script>
 
 <template>
-    <motion.div :class="`rounded-none sm:rounded-lg ${pageCardData.class}`" :initial="pageCardVariant(offset).offscreen"
-        :whileInView="pageCardVariant(offset).onscreen" :inViewOptions="{ once: true, margin: '50% 0px' }">
+    <motion.div :class="`rounded-none sm:rounded-lg ${pageCardData.class}`"
+        :initial="pageCardAnimation(offset).offscreen" :whileInView="pageCardAnimation(offset).onscreen"
+        :inViewOptions="{ once: true, margin: '50% 0px' }">
         <div v-if="pageCardData.backdropClasses" class="absolute size-full">
             <motion.div v-for="overlayClass in pageCardData.backdropClasses"
                 :class="`absolute size-full rounded-none sm:rounded-lg ${overlayClass}`"
-                :initial="pageCardVariant(offset).backdropOffscreen"
-                :whileInView="pageCardVariant(offset).backdropOnScreen" :inViewOptions="{ once: true }" />
+                :initial="pageCardAnimation(offset).backdropOffscreen"
+                :whileInView="pageCardAnimation(offset).backdropOnScreen" :inViewOptions="{ once: true }" />
 
         </div>
         <UCard :variant="pageCardData.variant"
@@ -78,20 +94,11 @@ const pageCardVariant = (delayIndex: number) => ({
                     <h2 v-if="pageCardData.title" class="text-2xl font-semibold">{{ pageCardData.title }}</h2>
                 </div>
             </template>
-            <motion.div :data-name="`main-card-body-${offset}`" :initial="pageCardVariant(offset).textOffscreen"
+            <motion.div :data-name="`main-card-body-${offset}`" :initial="pageCardAnimation(offset).textOffscreen"
                 :class="`flex flex-col ${pageCardData.contentJustification}`"
-                :whileInView="pageCardVariant(offset).textOnScreen" :inViewOptions="{ once: true }">
+                :whileInView="pageCardAnimation(offset).textOnScreen" :inViewOptions="{ once: true }">
 
-                <div v-if="pageCardData.textWithImage" class="flex flex-row text-3xl sm:text-5xl logo-title">
-                    <span v-if="pageCardData.textWithImage.pretext">
-                        {{ pageCardData.textWithImage.pretext }}
-                    </span>
-                    <NuxtImg v-if="pageCardData.textWithImage.imageUrl" :src="pageCardData.textWithImage.imageUrl"
-                        :class="pageCardData.textWithImage.imageClass" />
-                    <span v-if="pageCardData.textWithImage.postText">
-                        {{ pageCardData.textWithImage.postText }}
-                    </span>
-                </div>
+                <TextWithImage v-if="pageCardData.textWithImage" :textWithImage="pageCardData.textWithImage" />
 
                 <Qrcode v-if="pageCardData.qrCodeUrl" :value="pageCardData.qrCodeUrl" variant="circle" :radius="1"
                     class="rounded-xl" />
@@ -103,20 +110,23 @@ const pageCardVariant = (delayIndex: number) => ({
                         dot: 'w-6 h-1'
                     }">
 
-                    <div class="size-full">
-                        <!-- <ImgComparisonSlider>
-                            <PageCard v-for="(cardData, index) in (item as CardData[])" :pageCardData="cardData"
-                                :offset="index" />
-                        </ImgComparisonSlider> -->
-                        <PageCard :pageCardData="((item as CardData[])[0] as CardData)"
-                            :offset="0" ></PageCard>
+                    <ImgComparisonSlider class="size-full">
+                        <div v-for="(cardData, index) in (item as CardData[])"
+                                :slot="slotPosition[index]">
+                            <PageCard :pageCardData="cardData" :offset="index" />
+
+                        </div>
+                    </ImgComparisonSlider>
+                    <!-- <div class="size-full">
+                         <PageCard :pageCardData="((item as CardData[])[0] as CardData)"
+                            :offset="0" ></PageCard> -->
                         <!-- <ImgComparisonSlider>
                             <img slot="first" style="width: 100%"
                                 src="/images/worship-stock-image-4.jpg" />
                             <img slot="second" style="width: 100%"
                                 src="/images/worship-stock-image-3.jpg" />
-                        </ImgComparisonSlider> -->
-                    </div>
+                        </ImgComparisonSlider>
+                    </div> -->
 
                 </UCarousel>
 
