@@ -2,12 +2,12 @@
 import type { CardAnimation, CardData } from '~/types';
 
 const defaultCarousalAnimation: CardAnimation = {
-    offscreen: { opacity: 1},
-    onscreen: {opacity: 1},
-    textOffscreen: {opacity: 1},
-    textOnScreen: {opacity: 1},
-    backdropOffscreen: {opacity: 1},
-    backdropOnScreen: {opacity: 1}
+    offscreen: { opacity: 1 },
+    onscreen: { opacity: 1 },
+    textOffscreen: { opacity: 1 },
+    textOnScreen: { opacity: 1 },
+    backdropOffscreen: { opacity: 1 },
+    backdropOnScreen: { opacity: 1 }
 };
 
 const defaultpageCardsData: CardData[] = [
@@ -26,7 +26,7 @@ const defaultpageCardsData: CardData[] = [
             { label: "About us", variant: 'outline' },
         ],
         // body: "making disciples of all nations",
-        class: "flex flex-row col-span-full -translate-y-3",
+        class: "-z-1 flex flex-row col-span-full -translate-y-3",
         cardClass: "mt-20 bg-gradient-to-r",
         variant: "solid",
         footer: "Making disciples of all nations.",
@@ -35,13 +35,13 @@ const defaultpageCardsData: CardData[] = [
         backdropClasses: [
             "bg-cover mask-repeat-x mask-[url(/images/brush-mask-1-from-top.svg)] bg-[url(/images/worship-stock-image-1.jpg)]",
             "bg-cover mask-t-from-50% mask-t-to-70% sm:mask-t-from-10% sm:mask-t-to-60%  bg-[url(/images/worship-stock-image-1.jpg)]",
-            "backdrop-blur-xs -z-1 mask-r-from-10% mask-r-to-40%",
-            "backdrop-grayscale z-0 mask-r-from-40% mask-r-to-80%",
+            "backdrop-grayscale mask-r-from-30% mask-r-to-50%",
         ]
     },
     {
         // title: "Testimonies",
         contentJustification: "justify-center",
+        footerButtonsParentClass: "justify-center",
         footerButtons: [
             { label: "Share a testimony" },
             { label: "View testimonies", variant: 'outline' },
@@ -50,11 +50,11 @@ const defaultpageCardsData: CardData[] = [
         cardClass: "bg-transparent",
         variant: "solid",
         //should apply to all button?
-        buttonsParentClass: "justify-center h-80 pt-20",
+        bodyButtonsParentClass: "justify-center h-80 pt-30",
         bodyButtons: [{
             label: "Testimonies",
             variant: 'link',
-            class: "text-6xl md:text-4xl font-extrabold text-neutral-600"
+            class: "text-5xl md:text-4xl font-extrabold text-neutral-600"
         }],
         showFooter: true,
         // showHeader: true,
@@ -64,6 +64,7 @@ const defaultpageCardsData: CardData[] = [
     },
     {
         contentJustification: "justify-center",
+        footerButtonsParentClass: "justify-center",
         footerButtons: [
             { label: "Join a unit" },
         ],
@@ -71,7 +72,7 @@ const defaultpageCardsData: CardData[] = [
         cardClass: "bg-transparent",
         variant: "solid",
         //should apply to all button?
-        buttonsParentClass: "justify-center h-80 pt-20",
+        bodyButtonsParentClass: "justify-center h-80 pt-30",
         bodyButtons: [{
             label: "Service",
             variant: 'link',
@@ -86,6 +87,7 @@ const defaultpageCardsData: CardData[] = [
     {
         // title: "Testimonies",
         contentJustification: "justify-center",
+        footerButtonsParentClass: "justify-center",
         footerButtons: [
             { label: "Share a testimony" },
             { label: "View testimonies", variant: 'outline' },
@@ -93,12 +95,11 @@ const defaultpageCardsData: CardData[] = [
         class: "col-span-full md:col-span-5 lg:col-span-3",
         cardClass: "bg-transparent",
         variant: "solid",
-        //should apply to all button?
-        buttonsParentClass: "justify-center h-80 pt-20",
+        bodyButtonsParentClass: "justify-center h-80 pt-30",
         bodyButtons: [{
             label: "Testimonies",
             variant: 'link',
-            class: "text-6xl md:text-4xl font-extrabold text-neutral-600"
+            class: "text-5xl md:text-4xl font-extrabold text-neutral-600"
         }],
         showFooter: true,
         // showHeader: true,
@@ -131,48 +132,48 @@ const defaultpageCardsData: CardData[] = [
         variant: "solid"
     },
     {
+        cardAnimation: defaultCarousalAnimation,
         carousals: [
             [
                 {
-                    body: "testBody",
-                    class: "",
+                    showFooter: true,
+                    showHeader: true,
                     contentJustification: "justify-center",
+                    title: "December",
+                    bodyButtons: [{
+                        label: "Supernatural School",
+                        variant: 'link',
+                        class: "text-3xl md:text-4xl font-extrabold text-white"
+                    }],
                     backdropClasses: [
-                        "bg-cover bg-[url(/images/worship-stock-image-1.jpg)]"
+                        "-z-1 bg-cover bg-[url(/images/worship-stock-image-1.jpg)]"
                     ],
-                    cardAnimation: defaultCarousalAnimation
                 },
                 {
-                    body: "testBody 111",
-                    class: "",
+                    showFooter: true,
+                    showHeader: true,
                     contentJustification: "justify-center",
+                    title: "August",
+                    bodyButtons: [{
+                        label: "Supernatural School",
+                        variant: 'link',
+                        class: "text-3xl md:text-4xl font-extrabold text-white"
+                    }],
                     backdropClasses: [
-                        "bg-cover bg-[url(/images/worship-stock-image-2.jpg)]"
+                        "-z-1 bg-cover bg-[url(/images/worship-stock-image-2.jpg)]"
                     ],
-                    cardAnimation: defaultCarousalAnimation
                 },
             ],
-            [
-                {
-                    body: "testBody",
-                    class: "",
-                    contentJustification: "justify-center",
-                    backdropClasses: [
-                        "bg-cover bg-[url(/images/worship-stock-image-3.jpg)]"
-                    ],
-                    cardAnimation: defaultCarousalAnimation
-                },
-                {
-                    body: "testBody 111",
-                    class: "",
-                    contentJustification: "justify-center",
-                    backdropClasses: [
-                        "bg-cover bg-[url(/images/worship-stock-image-4.jpg)]"
-                    ],
-                    cardAnimation: defaultCarousalAnimation
-                },
-            ],
-        ],
+        ].map(carousal => carousal.map(card => {
+            return {
+                ...card,
+                class: "h-80 -z-1",
+                cardClass: "bg-transparent",
+                variant: "solid",
+                bodyButtonsParentClass: "justify-center h-80",
+                cardAnimation: defaultCarousalAnimation
+            } as CardData
+        })),
         class: "col-span-full lg:col-span-5",
         variant: "subtle"
     },

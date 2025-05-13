@@ -10,16 +10,10 @@ interface CardData {
     textWithImage?: InlineImageText
     bodyImage?: string
     qrCodeUrl?: string
-    buttonsParentClass?: string,
-    bodyButtons?: {
-        label: string
-        variant?: "outline" | "subtle" | "solid" | "soft" | "ghost" | "link"
-        class?: string
-    }[]
-    footerButtons?: {
-        label: string
-        variant?: "outline" | "subtle" | "solid" | "soft" | "ghost" | "link"
-    }[]
+    bodyButtonsParentClass?: string,
+    bodyButtons?: ButtonContent[]
+    footerButtonsParentClass?: string,
+    footerButtons?: ButtonContent[]
     body?: string
     bodies?: BasicContent[],
     //could be single images of multiplace image per slot for comparison
@@ -33,15 +27,21 @@ interface CardData {
     cardAnimation?: CardAnimation
 }
 
+interface ButtonContent {
+    label: string
+    variant?: "outline" | "subtle" | "solid" | "soft" | "ghost" | "link"
+    class?: string
+}
+
 interface BasicContent {
-    title: string
-    body: string
-    footer: string
+    title?: string
+    body?: string
+    footer?: string
 }
 
 interface InlineImageText {
     pretext?: string
-    imageUrl: string
+    imageUrl?: string
     postText?: string
     imageClass?: string
 }

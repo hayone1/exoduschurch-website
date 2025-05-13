@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ImgComparisonSlider } from '@img-comparison-slider/vue';
 import { animate, useInView, stagger, motion } from 'motion-v';
 import type { CardData, CardAnimation } from '~/types';
 
@@ -65,11 +64,6 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
     };
 }
 
-const slotPosition: Record<string,string> = {
-    0: "first",
-    1: "second"
-}
-
 
 </script>
 
@@ -103,65 +97,14 @@ const slotPosition: Record<string,string> = {
                 <Qrcode v-if="pageCardData.qrCodeUrl" :value="pageCardData.qrCodeUrl" variant="circle" :radius="1"
                     class="rounded-xl" />
 
-                <UCarousel v-if="pageCardData.carousals" arrows dots loop v-slot="{ item }"
-                    :items="pageCardData.carousals" class="w-full mx-auto" :ui="{
-                        controls: 'absolute bottom-8 inset-x-12',
-                        dots: 'bottom-7',
-                        dot: 'w-6 h-1'
-                    }">
-
-                    <ImgComparisonSlider class="size-full">
-                        <div v-for="(cardData, index) in (item as CardData[])"
-                                :slot="slotPosition[index]">
-                            <PageCard :pageCardData="cardData" :offset="index" />
-
-                        </div>
-                    </ImgComparisonSlider>
-                    <!-- <div class="size-full">
-                         <PageCard :pageCardData="((item as CardData[])[0] as CardData)"
-                            :offset="0" ></PageCard> -->
-                        <!-- <ImgComparisonSlider>
-                            <img slot="first" style="width: 100%"
-                                src="/images/worship-stock-image-4.jpg" />
-                            <img slot="second" style="width: 100%"
-                                src="/images/worship-stock-image-3.jpg" />
-                        </ImgComparisonSlider>
-                    </div> -->
-
-                </UCarousel>
+                <ImgCompareCarousal v-if="pageCardData.carousals" :carousalContent="pageCardData.carousals" />
 
                 <p v-if="pageCardData.body" class>{{ pageCardData.body }}</p>
 
-                <div v-if="pageCardData.bodies" class="grid grid-cols-2 gap-2 justify-center divide-x-0 divide-y-2
-                                    sm:divide-x-2 sm:divide-y-0 divide-double">
-                    <UCard v-for="bodyData in pageCardData.bodies" variant="solid"
-                        class="bg-transparent rounded-none col-span-full sm:col-span-1 text-white">
-                        <template #header>
-                            <div class="flex justify-center w-full border-2">
-                                <h2 v-if="bodyData.title" class="text-2xl font-semibold">
-                                    {{ bodyData.title }}
-                                </h2>
-                            </div>
-                        </template>
-
-                        <div class="flex justify-center w-full">
-                            <h2 v-if="bodyData.body" class="font-semibold">
-                                {{ bodyData.body }}
-                            </h2>
-                        </div>
-
-                        <template #footer>
-                            <div class="flex justify-center w-full">
-                                <h2 v-if="bodyData.footer" class="">
-                                    {{ bodyData.footer }}
-                                </h2>
-                            </div>
-                        </template>
-                    </UCard>
-                </div>
+                <CardGrid v-if="pageCardData.bodies" :content="pageCardData.bodies" />
 
                 <div v-if="pageCardData.bodyButtons"
-                    :class="`flex flex-row flex-wrap gap-2 ${pageCardData.buttonsParentClass}`">
+                    :class="`flex flex-row flex-wrap gap-2 ${pageCardData.bodyButtonsParentClass}`">
                     <UButton v-for="buttonData in pageCardData.bodyButtons" :label="buttonData.label"
                         :variant="buttonData.variant" color="neutral" :class="buttonData.class" />
 
@@ -169,12 +112,14 @@ const slotPosition: Record<string,string> = {
 
             </motion.div>
             <template v-if="pageCardData.showFooter" #footer>
-                <div :class="`flex w-full ${pageCardData.contentJustification}`">
-                    <span v-if="pageCardData.footer">{{ pageCardData.footer }}</span>
-                    <div v-if="pageCardData.footerButtons" class="flex flex-row flex-wrap gap-2">
-                        <UButton v-for="buttonData in pageCardData.footerButtons" :label="buttonData.label"
-                            :variant="buttonData.variant" color="neutral" />
-                    </div>
+                <h2 v-if="pageCardData.footer"
+                    :class="`w-full flex ${pageCardData.contentJustification}`" >
+                    {{ pageCardData.footer }}
+                </h2>
+                <div v-if="pageCardData.footerButtons"
+                    :class="`flex flex-row flex-wrap gap-2 ${pageCardData.footerButtonsParentClass}`">
+                    <UButton v-for="buttonData in pageCardData.footerButtons" :label="buttonData.label"
+                        :variant="buttonData.variant" color="neutral" :class="buttonData.class" />
                 </div>
             </template>
         </UCard>

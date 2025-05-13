@@ -14,24 +14,24 @@ const hoverStyle = computed(() =>
 );
 
 function navProps(label: string | undefined) {
-  var navClass: string = "";
+  var navClass: string = "z-20";
   var navLabel: string = label ?? "";
   if (colorMode.value === 'light') {
-    navClass += "text-primary";
+    navClass += " text-neutral-700";
   }
   if (viewport.isLessThan('mobileWide')) {
-    navClass += "text-lg";
+    navClass += " text-lg";
     navLabel = "";
   }
   else if (viewport.isLessOrEquals('tablet')) {
-    navClass += "text-sm";
+    navClass += " text-sm";
     navLabel = label ?? "";
     if (label === navLabels.at(-1)) {
       navClass = "hidden";
     }
   }
   else {
-    navClass += "text-base";
+    navClass += " text-base";
   }
   return { navClass, navLabel };
 };
@@ -67,7 +67,18 @@ const navItems = computed(() => [
     },
     to: '/components',
     class: navProps(navLabels[2]).navClass,
-    children: []
+    children: [
+      {
+        label: 'Supernatural School',
+      },
+      {
+        label: 'Rise',
+      },
+      {
+        label: 'Faith & Fire',
+      },
+    ]
+    
   },
   {
     label: navProps(navLabels[3]).navLabel,
@@ -113,7 +124,7 @@ const navItems = computed(() => [
     <UContainer :class="`col-span-10 rounded-full border-solid border-secondary border-1
                         transition delay-150 duration-300 ease-in-out hover:-translate-y-1
                         ${hoverStyle} max-w-fit ${backgroundColor}`">
-      <UNavigationMenu :items="navItems" variant="pill" color="neutral" highlight class="flex justify-center-safe" />
+      <UNavigationMenu :items="navItems" variant="pill" color="secondary" highlight class="flex justify-center-safe" />
     </UContainer>
   </div>
 </template>
