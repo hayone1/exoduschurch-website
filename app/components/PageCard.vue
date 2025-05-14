@@ -97,7 +97,9 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
                 <Qrcode v-if="pageCardData.qrCodeUrl" :value="pageCardData.qrCodeUrl" variant="circle" :radius="1"
                     class="rounded-xl" />
 
-                <ImgCompareCarousal v-if="pageCardData.carousals" :carousalContent="pageCardData.carousals" />
+                <ClientOnly>
+                    <ImgCompareCarousal v-if="pageCardData.carousals" :carousalsContent="pageCardData.carousals" />
+                </ClientOnly>
 
                 <p v-if="pageCardData.body" class>{{ pageCardData.body }}</p>
 

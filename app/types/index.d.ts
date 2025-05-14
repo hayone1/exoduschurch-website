@@ -54,3 +54,14 @@ interface CardAnimation {
     backdropOffscreen: boolean | Variant | VariantLabels
     backdropOnScreen: Variant | VariantLabels
 }
+
+interface BoundingBox {
+  height: number
+  bottom: number
+  left: number
+  right: number
+  top: number
+  width: number
+  x: number
+  y: number
+}

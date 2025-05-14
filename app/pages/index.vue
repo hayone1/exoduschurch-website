@@ -132,13 +132,13 @@ const defaultpageCardsData: CardData[] = [
         variant: "solid"
     },
     {
+        title: "Special Meetings",
+        showHeader: true,
+        contentJustification: "justify-center",
         cardAnimation: defaultCarousalAnimation,
         carousals: [
             [
                 {
-                    showFooter: true,
-                    showHeader: true,
-                    contentJustification: "justify-center",
                     title: "December",
                     bodyButtons: [{
                         label: "Supernatural School",
@@ -150,9 +150,6 @@ const defaultpageCardsData: CardData[] = [
                     ],
                 },
                 {
-                    showFooter: true,
-                    showHeader: true,
-                    contentJustification: "justify-center",
                     title: "August",
                     bodyButtons: [{
                         label: "Supernatural School",
@@ -164,9 +161,59 @@ const defaultpageCardsData: CardData[] = [
                     ],
                 },
             ],
+            [
+                {
+                    class: 'w-50 border-5',
+                    title: "Ajah",
+                    bodyButtons: [{
+                        label: "RISE",
+                        variant: 'link',
+                        class: "text-3xl md:text-4xl font-extrabold text-white"
+                    }],
+                    backdropClasses: [
+                        "-z-1 bg-cover bg-[url(/images/worship-stock-image-2.jpg)]"
+                    ],
+                },
+                {
+                    title: "Abuja",
+                    bodyButtons: [{
+                        label: "RISE",
+                        variant: 'link',
+                        class: "text-3xl md:text-4xl font-extrabold text-white"
+                    }],
+                    backdropClasses: [
+                        "-z-1 bg-cover bg-[url(/images/worship-stock-image-2.jpg)]"
+                    ],
+                },
+                {
+                    title: "Ibadan",
+                    bodyButtons: [{
+                        label: "RISE",
+                        variant: 'link',
+                        class: "text-3xl md:text-4xl font-extrabold text-white"
+                    }],
+                    backdropClasses: [
+                        "-z-1 bg-cover bg-[url(/images/worship-stock-image-3.jpg)]"
+                    ],
+                },
+                {
+                    title: "United Kingdom",
+                    bodyButtons: [{
+                        label: "RISE",
+                        variant: 'link',
+                        class: "text-3xl md:text-4xl font-extrabold text-white"
+                    }],
+                    backdropClasses: [
+                        "-z-1 bg-cover bg-[url(/images/worship-stock-image-4.jpg)]"
+                    ],
+                },
+            ],
         ].map(carousal => carousal.map(card => {
             return {
                 ...card,
+                contentJustification: "justify-center",
+                showFooter: true,
+                showHeader: true,
                 class: "h-80 -z-1",
                 cardClass: "bg-transparent",
                 variant: "solid",
