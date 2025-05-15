@@ -2,7 +2,7 @@
 import type { CardAnimation, CardData } from '~/types';
 
 const defaultCarousalAnimation: CardAnimation = {
-    offscreen: { opacity: 1 },
+    offscreen: { opacity: 1, },
     onscreen: { opacity: 1 },
     textOffscreen: { opacity: 1 },
     textOnScreen: { opacity: 1 },
@@ -218,7 +218,7 @@ const defaultpageCardsData: CardData[] = [
                 cardClass: "bg-transparent",
                 variant: "solid",
                 bodyButtonsParentClass: "justify-center h-80",
-                cardAnimation: defaultCarousalAnimation
+                // cardAnimation: defaultCarousalAnimation
             } as CardData
         })),
         class: "col-span-full lg:col-span-5",

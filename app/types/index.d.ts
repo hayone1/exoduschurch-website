@@ -56,12 +56,12 @@ interface CardAnimation {
 }
 
 interface BoundingBox {
-  height: number
+  height?: number
   bottom: number
   left: number
   right: number
   top: number
-  width: number
-  x: number
-  y: number
+  width?: number
+  x?: number
+  y?: number
 }

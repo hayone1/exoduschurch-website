@@ -31,6 +31,20 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
                 delay: (delayIndex) / 10
             },
         },
+        backdropOffscreen: {
+            opacity: 0,
+            // backdropFilter: "blur(15px)"
+        },
+        backdropOnScreen: {
+            // backdropFilter: "blur(0px)",
+            opacity: 1,
+            transition: {
+                duration:  .6,
+                //will happen after the text animation is complete
+                delay:  ((delayIndex) / 10) + .4,
+                ease: "easeOut"
+            },
+        },
         textOffscreen: {
             opacity: 0,
             y: 50,
@@ -41,26 +55,13 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
             // backdropFilter: "blur(0px)",
             opacity: 1,
             transition: {
-                duration: .6,
-                //will happen after the onscreen animation is complete
+                duration:  .6,
+                //will finish after the backdrop animation is complete
                 delay: ((delayIndex) / 10) + .8,
                 ease: "easeOut"
             },
         },
-        backdropOffscreen: {
-            opacity: 0,
-            // backdropFilter: "blur(15px)"
-        },
-        backdropOnScreen: {
-            // backdropFilter: "blur(0px)",
-            opacity: 1,
-            transition: {
-                duration: .6,
-                //will happen after the text animation is complete
-                delay: ((delayIndex) / 10) + 1,
-                ease: "easeOut"
-            },
-        },
+        
     };
 }
 
