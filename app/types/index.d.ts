@@ -10,27 +10,32 @@ interface CardData {
     textWithImage?: InlineImageText
     bodyImage?: string
     qrCodeUrl?: string
-    bodyButtonsParentClass?: string,
+    bodyButtonsParentClass?: string
     bodyButtons?: ButtonContent[]
-    footerButtonsParentClass?: string,
+    footerButtonsParentClass?: string
     footerButtons?: ButtonContent[]
     body?: string
-    bodies?: BasicContent[],
+    bodies?: BasicContent[]
     //could be single images of multiplace image per slot for comparison
-    carousals?: CardData[][],
+    carousals?: CardData[][]
     showFooter?: boolean
     showHeader?: boolean
     footer?: string
     class: string
     cardClass?: string
-    variant?: "outline" | "subtle" | "solid" | "soft",
+    variant?: "outline" | "subtle" | "solid" | "soft"
     cardAnimation?: CardAnimation
+}
+
+interface ParallaxData extends CardData {
+    
 }
 
 interface ButtonContent {
     label: string
     variant?: "outline" | "subtle" | "solid" | "soft" | "ghost" | "link"
     class?: string
+    color?: "error" | "primary" | "secondary" | "success" | "info" | "warning" | "neutral"
 }
 
 interface BasicContent {

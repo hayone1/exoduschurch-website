@@ -1,18 +1,12 @@
 <script setup lang="ts">
 import type { BoundingBox, CardData } from '~/types';
-import { ImgComparisonSlider } from '@img-comparison-slider/vue';
-import { useElementSize } from '@vueuse/core';
-import { UseElementSize, vElementBounding } from '@vueuse/components';
-import { motion, motionValue, MotionValue, useDomRef } from 'motion-v';
-import type { ShallowRef } from 'vue';
+import { UseElementSize, vResizeObserver } from '@vueuse/components';
+import { animate, motion, MotionValue, useDomRef, type AnimationPlaybackControls } from 'motion-v';
 
 interface PositionMotionValue {
     xPosValue: MotionValue<number>
     yPosValue: MotionValue<number>
-    // width: globalThis.Ref<number, number>
-    // height: globalThis.Ref<number, number>
-    constraint: BoundingBox
-    // clipPathTransform?: ClipPathTransform
+    constraint: globalThis.Ref<BoundingBox, BoundingBox>
 }
 interface ClipPathTransform {
     leftClipPath: MotionValue<string>
@@ -28,82 +22,109 @@ const { carousalsContent } = defineProps<{
 }>();
 
 const constraintRef = useDomRef();
-const constraintSize = useElementSize(constraintRef);
-const dividerDragged = ref(false);
-// const x = useMotionValue(0);
-// const y = useMotionValue(0);
+// const constraintSize = useElementSize(constraintRef);
 
-const constraintRefPrefix = "carousalContent-";
-const dividerMotionValues = () => carousalsContent.map(
-    (contents, index) => computed(() => {
+const defaultClipPath: ClipPathTransform = {
+    leftClipPath: useMotionTemplate`inset(0% 50% 0% 0%)`,
+    rightClipPath: useMotionTemplate`inset(0% 0% 0% 50%)`,
+    topLeftClipPath: useMotionTemplate`inset(0% 50% 50% 0%)`,
+    topRightClipPath: useMotionTemplate`inset(0% 0% 50% 50%)`,
+    bottomLeftClipPath: useMotionTemplate`inset(50% 50% 0% 0%)`,
+    bottomRightClipPath: useMotionTemplate`inset50% 0% 0% 50%`,
+}
+const defaultBoundingBox: BoundingBox = {
+    left: 0, right: 0,
+    top: 0, bottom: 0,
+};
+const dividerMotionPosition: PositionMotionValue[] = carousalsContent.map(
+    (contents, index) => {
         const xPosValue = useMotionValue(0);
         const yPosValue = useMotionValue(0);
-        // const width = ref(0);
-        // const height = ref(0);
-        const constraint = ref({
-            left: 0, right: 0,
-            bottom: 0, top: 0
-        });
+        const constraint = ref(defaultBoundingBox);
         // const clipPathTransform = getMotionTransform(
         //     xPosValue, yPosValue, widthValue, heightValue
         // );
         return { xPosValue, yPosValue, constraint }
         // constraintSize: useElementSize(useTemplateRef(constraintRefPrefix + index)),
-    }));
-
-function OnConstraintMounted(index: number, width: number, height: number,
-    enableAllAxis: boolean = true) {
-    // dividerMotionValues[index]
-    console.log("initial data: ", JSON.stringify({ index, width: constraintSize.width.value, height: constraintSize.height.value, enableAllAxis }));
-    // console.log("First motionValue: " + dividerMotionValues[0]?.xPosValue.get());
-    dividerMotionValues[0]!.clipPathTransform.leftClipPath.on("change", latestvalue => {
-        console.log("Latest dividersTransform is: " + latestvalue);
-    })
-    // dividerMotionValues.forEach(
-    //     motionObject => {
-    //         motionObject.clipPathTransform = getMotionTransform(motionObject)
-    //     }
-    // );
-    // if (typeof (dividerMotionValues[index]) !== 'undefined') {
-    //     dividerMotionValues[index].boundingBox.value = getDragConstraints(
-    //         width, height, enableAllAxis
-    //     );
-    // }
-    // setMotionTransform(dividerMotionValues[index]!);
-}
-
-const globalDragConstraints = computed(() => getDragConstraints(
-    constraintSize.width.value, constraintSize.height.value
+    });
+const dividerMotionTransform = dividerMotionPosition.map(
+    (motionPosition, index) => computed(() => {
+        const motionTransform = getMotionTransform(motionPosition);
+        if (carousalsContent[index]?.length === 2) {
+            return [ motionTransform.leftClipPath, motionTransform.rightClipPath ]
+        }
+        return [
+            motionTransform.topLeftClipPath, motionTransform.topRightClipPath,
+            motionTransform.bottomLeftClipPath, motionTransform.bottomRightClipPath
+        ]
+    }
 ));
 
-// const clipPath = getMotionTransform({
-//     xPosValue: motionValue(40),
-//     yPosValue: motionValue(60),
-// }).leftClipPath;
+// const controlsGestureHint = [
+//     ['.carousal-control', {  }],
+    
+// ];
 
-// const testClipPath = getMotionTransform(dividerMotionValues[0]!);
+// var carousalControlsAnimationControl: AnimationPlaybackControls
 
-function getMotionTransform(
-    xPosValue: MotionValue<number>, yPosValue: MotionValue<number>,
-    constraint: Partial<BoundingBox>) {
-    // console.log("setting motion value with outndingbox: ", JSON.stringify(positionMotionValue.boundingBox));
+onMounted(() => {
+    // carousalControlsAnimationControl = animate('.carousal-control',
+    animate('.carousal-control',
+        { y: [0, 10, 0], },
+        {
+            repeat: Infinity,
+            duration: 1.8,
+            repeatType: 'mirror',
+            ease: 'circInOut',
+            repeatDelay: 10,
+            
+        }
+    )
+})
+
+function onResize(entries: any) {
+    // console.log("component has been resized with constraints: ",
+    //     JSON.stringify(dividerMotionPosition[0]?.constraint.value)
+    // );
+    dividerMotionPosition.forEach((motionPosition, index) => {
+        resetDivider(index);
+    })
+}
+
+function resetDivider(index: number) {
+    if (typeof(dividerMotionPosition[index]) === 'undefined') {
+        return;
+    }
+    if (dividerMotionPosition[index].xPosValue.get() !== 0) {
+            dividerMotionPosition[index].xPosValue.jump(0);
+    }
+}
+
+function getMotionTransform(positionMotionValue: PositionMotionValue): ClipPathTransform {
+    //     defaultBoundingBox == positionMotionValue.constraint.value);
+    if (JSON.stringify(positionMotionValue.constraint.value) ===
+            JSON.stringify(defaultBoundingBox)) {
+        console.log("setting motion value with default boundingbox: ");
+        return defaultClipPath;
+    }
+    
     const xPercentTransform = useTransform(
-        xPosValue,
-        [constraint.left!, constraint.right!],
+        positionMotionValue.xPosValue,
+        [positionMotionValue.constraint.value.left!, positionMotionValue.constraint.value.right!],
         // [globalDragConstraints.value.left!, globalDragConstraints.value.right!],
-        [0, 100]
+        [1, 99]
     );
     const xPercentAlternateTransform = useTransform(() =>
-        100 - xPercentTransform.get()
+        99 - xPercentTransform.get()
     );
     const yPercentTransform = useTransform(
-        yPosValue,
-        [constraint.top!, constraint.bottom!],
+        positionMotionValue.yPosValue,
+        [positionMotionValue.constraint.value.top!, positionMotionValue.constraint.value.bottom!],
         // [globalDragConstraints.value.top!, globalDragConstraints.value.bottom!],
-        [0, 100]
+        [1, 99]
     );
     const yPercentAlternateTransform = useTransform(() =>
-        100 - yPercentTransform.get()
+        99 - yPercentTransform.get()
     );
 
     const leftClipPath = useMotionTemplate`inset(0% ${xPercentAlternateTransform}% 0% 0%)`;
@@ -125,26 +146,27 @@ const slotPosition: Record<string, string> = {
     1: "second"
 };
 
-function getDragConstraints(width: number, height: number,
+function getDragConstraints(index: number, width: number, height: number,
     enableAllAxis: boolean = true): Partial<BoundingBox> {
-    console.log("getDragConstraints called");
-    // dividerMotionValues[index]!.width = width;
-    // dividerMotionValues[index]!.height = height;
+        // dividerMotionPosition[index]!.width = width;
+        // dividerMotionPosition[index]!.height = height;
+        const constraint = {
+            left: -(width / 2),
+            right: (width / 2),
+            top: enableAllAxis ? -(height / 2) : 0,
+            bottom: enableAllAxis ? (height / 2) : 0,
+        };
+        // console.log("getDragConstraints called: ", JSON.stringify(constraint));
 
-    return {
-        left: -(width / 2),
-        right: (width / 2),
-        top: enableAllAxis ? -(height / 2) : 0,
-        bottom: enableAllAxis ? (height / 2) : 0,
-    };
-
-    // if (typeof (dividerMotionValues[index]) !== 'undefined') {
-    //     dividerMotionValues[index].boundingBox = boundingBox;
-    // }
-
-    // // console.log("I ran");
-    // return boundingBox;
+    if (JSON.stringify(constraint) !==
+        JSON.stringify(defaultBoundingBox)) {
+        // console.log("setting getMotionTransform constraint value: ");
+        dividerMotionPosition[index]!.constraint.value = constraint;
+    }
+    return constraint;
 };
+
+// function getClipPath
 
 function enableExtraCarousals(item: any, asString = false) {
     return (item as CardData[]).length > 2
@@ -154,39 +176,38 @@ function enableExtraCarousals(item: any, asString = false) {
 </script>
 
 <template>
-    <motion.div>
-        <!-- <PageCard :pageCardData="((item as CardData[])[0] as CardData)" :offset="0" /> -->
+    <motion.div v-resize-observer="onResize">
+        <!-- <div vresiz>
 
+        </div> -->
         <UCarousel ref="constraintRef" arrows dots loop v-slot="{ item, index }" :items="carousalsContent"
-            class="z-1 w-full" :watchDrag="false" :ui="{
-                controls: 'bottom-1 inset-x-1 top-78',
-                dots: 'bottom-4',
+            class="z-1 w-full border-2 border-amber-500" :watchDrag="false" :ui="{
+                controls: 'carousal-control absolute -top-12 sm:-top-14 -inset-x-6 sm:inset-x-12',
+                dots: 'top-1',
                 dot: 'w-6 h-1'
             }">
 
-            <UseElementSize v-slot="{ width, height }" class="flex justify-center">
+            <UseElementSize v-slot="{ width, height }" class="flex justify-center border-green-500">
                 <!-- <motion.div drag :dragConstraints="dragConstraints(width, height)" :style="{ x, y }" -->
-                <motion.div drag :dragConstraints="getDragConstraints(width, height, enableExtraCarousals(item))"
+                <motion.div drag :dragConstraints="getDragConstraints(index, width, height, enableExtraCarousals(item))"
                     :dragElastic="0.2"
-                    :style="{ x: dividerMotionValues[index]!.xPosValue, y: dividerMotionValues[index]!.yPosValue }"
+                    :style="{ x: dividerMotionPosition[index]!.xPosValue, y: dividerMotionPosition[index]!.yPosValue }"
                     class="absolute bg-neutral-100 rounded-full self-center
-                                flex text-neutral-800 z-2"
-                    @vue:mounted="OnConstraintMounted(index, width, height, enableExtraCarousals(item))">
+                                flex text-neutral-800 z-2">
                     <UIcon name="i-icon-park-outline-direction-adjustment-two" size="30" />
                 </motion.div>
-                <!-- <ImgComparisonSlider class="w-full pointer-events-none" keyboard="disabled"
-                    :value="dividerMotionValues[index]!.xPercent.value">
-                    <div v-for="(cardData, index) in (item as CardData[]).slice(0, 2)" :slot="slotPosition[index]">
-                        <PageCard :pageCardData="cardData" :offset="index" />
-                    </div>
-                    <UIcon slot="handle" name="i-fluent-arrow-bidirectional-left-right-20-regular" size="40" />
-                </ImgComparisonSlider> -->
-                <motion.div class="w-full" :style="{
-                    clipPath: dividerMotionValues[index]!.clipPathTransform?.leftClipPath
-                }">
-                    <PageCard v-for="(cardData, inner_index) in (item as CardData[]).slice(0, 1)"
-                        :pageCardData="cardData" :offset="index" class="w-full border-2 bg-cover border-amber-500" />
-
+                <motion.div :class='`absolute self-center border-1 z-1 h-full`'
+                            :style="{ x: dividerMotionPosition[index]!.xPosValue }"/>
+                <motion.div v-if="(item as CardData[]).length > 2"
+                            :class='`absolute self-center border-1 z-1 w-full`'
+                            :style="{ y: dividerMotionPosition[index]!.yPosValue }"/>
+                <!-- :style="{clipPath: dividerMotionTransform[index]!.value.leftClipPath}"> -->
+                <motion.div v-for="(cardData, inner_index) in (item as CardData[])"
+                            :class='`w-full ${(inner_index === 0 ? "" : "absolute")}`'
+                            :style="{clipPath: dividerMotionTransform[index]!.value[inner_index]}">
+                    <PageCard :pageCardData="cardData" :offset="index" class="w-full bg-cover"
+                             />
+                    
                 </motion.div>
                 <!-- <div class="absolute border-2 w-full">
                     <PageCard v-for="(cardData, index) in (item as CardData[]).slice(2, 4)"

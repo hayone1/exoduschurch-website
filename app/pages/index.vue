@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import type { CardAnimation, CardData } from '~/types';
+import type { ParallaxData, CardAnimation, CardData } from '~/types';
+import type { Node } from '@vue-flow/core';
+import { VueFlow, Panel } from '@vue-flow/core';
 
 const defaultCarousalAnimation: CardAnimation = {
     offscreen: { opacity: 1, },
@@ -9,6 +11,53 @@ const defaultCarousalAnimation: CardAnimation = {
     backdropOffscreen: { opacity: 1 },
     backdropOnScreen: { opacity: 1 }
 };
+
+const defaultCardAnimation: CardAnimation = {
+        offscreen: {
+            opacity: 0,
+        },
+        onscreen: {
+            opacity: 1,
+            // opacity: 1,
+            transition: {
+                type: "spring",
+                // bounce: 0.3,
+                duration: .8,
+                delay: .4
+            },
+        },
+        backdropOffscreen: {
+            opacity: 0,
+            // backdropFilter: "blur(15px)"
+        },
+        backdropOnScreen: {
+            // backdropFilter: "blur(0px)",
+            opacity: 1,
+            transition: {
+                duration:  .6,
+                //will happen after the text animation is complete
+                delay:  .6,
+                ease: "easeOut"
+            },
+        },
+        textOffscreen: {
+            opacity: 0,
+            y: 50,
+            // backdropFilter: "blur(15px)"
+        },
+        textOnScreen: {
+            y: 0,
+            // backdropFilter: "blur(0px)",
+            opacity: 1,
+            transition: {
+                duration:  .6,
+                //will finish after the backdrop animation is complete
+                delay: .8,
+                ease: "easeOut"
+            },
+        },
+        
+    };
 
 const defaultpageCardsData: CardData[] = [
     {
@@ -22,8 +71,8 @@ const defaultpageCardsData: CardData[] = [
         },
         // backgroundImage: "bg-[linear-gradient(to_right,_#1e3a8a_30%,_transparent_70%),url('/images/worship-stock-image-1.jpg')]",
         bodyButtons: [
-            { label: "I'm New" },
-            { label: "About us", variant: 'outline' },
+            { label: "I'm New", color: 'neutral' },
+            { label: "About us", color: 'neutral', variant: 'outline' },
         ],
         // body: "making disciples of all nations",
         class: "-z-1 flex flex-row col-span-full -translate-y-3",
@@ -143,7 +192,8 @@ const defaultpageCardsData: CardData[] = [
                     bodyButtons: [{
                         label: "Supernatural School",
                         variant: 'link',
-                        class: "text-3xl md:text-4xl font-extrabold text-white"
+                        color: 'secondary',
+                        class: "text-3xl md:text-4xl font-extrabold text-white z-0"
                     }],
                     backdropClasses: [
                         "-z-1 bg-cover bg-[url(/images/worship-stock-image-1.jpg)]"
@@ -211,6 +261,7 @@ const defaultpageCardsData: CardData[] = [
         ].map(carousal => carousal.map(card => {
             return {
                 ...card,
+                cardAnimation: defaultCardAnimation,
                 contentJustification: "justify-center",
                 showFooter: true,
                 showHeader: true,
@@ -228,6 +279,17 @@ const defaultpageCardsData: CardData[] = [
 const pageCardsData = defaultpageCardsData.map((cardData, index) => ({
     ...cardData, id: "page-card-" + index, domRef: ref()
 }));
+
+const pageParallaxData: ParallaxData[] = [
+
+];
+const nodes = ref<Node[]>([
+    {
+        id: '1',
+        position: { x: 50, y: 50},
+        data: { label: 'Node1' }
+    }
+]);
 const mainContainerRef = useTemplateRef('mainContainerRef');
 // const cardsRefs = useTemplateRef('pageCards');
 const rowCount = "grid-rows-" + Math.ceil(pageCardsData.length / 2);
@@ -241,9 +303,6 @@ const rowCount = "grid-rows-" + Math.ceil(pageCardsData.length / 2);
                     lg:grid-cols-9 ${rowCount} gap-0 sm:gap-6`" id="index-page-div">
             <PageCard v-for="(cardData, index) in pageCardsData" :pageCardData="cardData" :offset="index">
             </PageCard>
-
-            <!-- <NuxtImg class="col-span-7 rounded-xl w-full"
-                src="https://hayone1.github.io/throneofgrace_site-configs/laboratory.jpg" /> -->
         </div>
     </UContainer>
 </template>

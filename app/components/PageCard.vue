@@ -6,9 +6,11 @@ import type { CardData, CardAnimation } from '~/types';
 const {
     pageCardData = {} as CardData,
     offset = 0,
+    bodyButtonHandler = (event: MouseEvent) => {}
 } = defineProps<{
     pageCardData: CardData,
     offset: number
+    bodyButtonHandler?: (event: MouseEvent) => void
 }>();
 
 const pageCardAnimation = (delayIndex: number): CardAnimation => {
@@ -109,7 +111,8 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
                 <div v-if="pageCardData.bodyButtons"
                     :class="`flex flex-row flex-wrap gap-2 ${pageCardData.bodyButtonsParentClass}`">
                     <UButton v-for="buttonData in pageCardData.bodyButtons" :label="buttonData.label"
-                        :variant="buttonData.variant" color="neutral" :class="buttonData.class" />
+                        :variant="buttonData.variant" :color="buttonData.color" :class="buttonData.class"
+                        @click="bodyButtonHandler" />
 
                 </div>
 
