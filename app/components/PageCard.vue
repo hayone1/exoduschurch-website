@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { animate, useInView, stagger, motion } from 'motion-v';
+import { motion } from 'motion-v';
 import type { CardData, CardAnimation } from '~/types';
 
 //the const defines defaults, the defineProps is used for typing

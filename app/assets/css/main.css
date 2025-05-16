@@ -2,7 +2,6 @@
 @import "@nuxt/ui";
 @import '@vue-flow/core/dist/style.css';
 @import '@vue-flow/core/dist/theme-default.css';
-
 @theme {
   --font-sans: 'Intro', 'Roboto', sans-serif;
 }

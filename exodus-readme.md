@@ -56,6 +56,8 @@
 - file:///C:/Users/Admin/Downloads/envato/bentofolio-personal-portfolio-html-template/main-file/index.html
 - https://prismic.io/blog/css-image-effects#44-image-hover-effect
 - https://www.frontend.fyi/?utm_source=motion
+- https://vueflow.dev/
+- https://www.micro.so/
 ## Backgrounds
 - https://www.freepik.com/free-photo/black-abstract-texture-background_1273439.htm#fromView=search&page=1&position=8&uuid=de412740-834b-41be-8dc1-5ee568d4c6a7&query=Grain+Background
 
@@ -63,3 +65,5 @@
 ## ToDo
 - use seo module
 - color-mode, animation
+- spirit inspired books
+- Meet our pastor

@@ -2,6 +2,13 @@
 import type { ParallaxData, CardAnimation, CardData } from '~/types';
 import type { Node } from '@vue-flow/core';
 import { VueFlow, Panel } from '@vue-flow/core';
+import { Background } from '@vue-flow/background'
+import { useWindowSize } from '@vueuse/core';
+import { UseElementSize } from '@vueuse/components';
+
+const colorMode = useColorMode();
+const viewport = useViewport();
+const windowSize = useWindowSize();
 
 const defaultCarousalAnimation: CardAnimation = {
     offscreen: { opacity: 1, },
@@ -57,7 +64,7 @@ const defaultCardAnimation: CardAnimation = {
             },
         },
         
-    };
+};
 
 const defaultpageCardsData: CardData[] = [
     {
@@ -280,16 +287,103 @@ const pageCardsData = defaultpageCardsData.map((cardData, index) => ({
     ...cardData, id: "page-card-" + index, domRef: ref()
 }));
 
+//-----------------Parallax---------------------
+
+const vueFlowColor = computed(() => 
+    colorMode.value === 'light' ? {
+        parentBackground: "",
+        patternBackground: "#1B1C1E"
+    } : {
+        parentBackground: "bg-black",
+        patternBackground: ""
+    }
+        
+)
 const pageParallaxData: ParallaxData[] = [
 
 ];
-const nodes = ref<Node[]>([
-    {
-        id: '1',
-        position: { x: 50, y: 50},
-        data: { label: 'Node1' }
-    }
-]);
+// const vnode = h('div', { class: 'my-class' }, 'Hello, Worldx!');
+const nodes = (width: number, height: number) => ref([
+  {
+    id: 'node-ia',
+    position: {
+        x: viewport.isGreaterThan('mobile') ?
+            width/1.4 : width/2,
+        y: height/12
+    },
+    type: 'output',
+    data: { label: 'Paypal' },
+    class: 'bg-black rounded',
+  },
+  {
+    id: 'node-i',
+    color: '#ff00ff',
+    position: {
+        x: viewport.isGreaterThan('mobile') ?
+            width/1.4 : width/2,
+        y: (height/12) + 45
+    },
+    type: 'input',
+    data: { label: '@myexoduschurch' }
+  },
+  {
+    id: 'node-1a',
+    position: { x: (width/12) - 20, y: height/12 },
+    type: 'output',
+    data: { label: 'Account No' }
+  },
+  {
+    id: 'node-1',
+    color: '#ff00ff',
+    position: { x: (width/12) - 20, y: (height/12) + 45 },
+    type: 'input',
+    data: { label: '3883006315' }
+  },
+  {
+    id: 'node-2a',
+    position: {
+        x: viewport.isGreaterThan('mobile') ?
+            width/2.4 : width/4,
+        y: height/2.5
+    },
+    type: 'output',
+    data: { label: 'BANK' }
+  },
+  {
+    id: 'node-2',
+    color: '#ff00ff',
+    position: {
+        x: viewport.isGreaterThan('mobile') ?
+            width/2.4 : width/4,
+        y: (height/2.5) + 45
+    },
+    type: 'input',
+    data: { label: 'ECOBANK' }
+  },
+  {
+    id: 'node-3a',
+    position: {
+        x: viewport.isGreaterThan('mobileMedium') ?
+            width/1.4 : width/2.4,
+        y: height/1.4
+    },
+    type: 'output',
+    data: { label: 'Account Name' }
+  },
+  {
+    id: 'node-3',
+    color: '#ff00ff',
+    position: {
+        x: viewport.isGreaterThan('mobileMedium') ?
+            width/1.4 : width/2.4,
+        y: (height/1.4) + 45
+    },
+    type: 'input',
+    data: { label: 'Isibor Eseosa Valerie' }
+  },
+].map(node => ({
+    ...node, style: { backgroundColor: '#1B1C1E', color: 'white', borderRadius: '20px' },
+})));
 const mainContainerRef = useTemplateRef('mainContainerRef');
 // const cardsRefs = useTemplateRef('pageCards');
 const rowCount = "grid-rows-" + Math.ceil(pageCardsData.length / 2);
@@ -298,11 +392,24 @@ const rowCount = "grid-rows-" + Math.ceil(pageCardsData.length / 2);
 
 <template>
     <!-- The other breakpoints padding is based on defaults -->
-    <UContainer ref="mainContainerRef" class="px-0 ">
+    <!-- <UContainer ref="mainContainerRef" class="px-0 ">
         <div :class="`grid grid-flow-row-dense grid-cols-10
                     lg:grid-cols-9 ${rowCount} gap-0 sm:gap-6`" id="index-page-div">
             <PageCard v-for="(cardData, index) in pageCardsData" :pageCardData="cardData" :offset="index">
             </PageCard>
         </div>
-    </UContainer>
+    </UContainer> -->
+    <ClientOnly>
+        <UseElementSize v-slot="{ width, height }" class="border-green-500 border-2">
+            <div :class="`h-screen ${vueFlowColor.parentBackground}`">
+                <VueFlow :nodes="nodes(width, height).value" :zoom-on-scroll="false" :zoom-on-pinch="false"
+                        :zoom-on-double-click="false" :pan-on-scroll="false">
+                    <Background :patternColor="vueFlowColor.patternBackground" :size="1.4"/>
+              </VueFlow>
+    
+            </div>
+
+        </UseElementSize>
+
+    </ClientOnly>
 </template>

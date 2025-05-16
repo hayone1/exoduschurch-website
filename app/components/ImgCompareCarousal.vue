@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { BoundingBox, CardData } from '~/types';
-import { UseElementSize, vResizeObserver } from '@vueuse/components';
+import { UseElementSize } from '@vueuse/components';
 import { animate, motion, MotionValue, useDomRef, type AnimationPlaybackControls } from 'motion-v';
 
 interface PositionMotionValue {
