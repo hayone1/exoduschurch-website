@@ -6,6 +6,13 @@ export const useParallax = () => {
     const colorMode = useColorMode();
     return [
         {
+            focusNodes: ['node-1a','node-2', 'node-3','node-ia'],
+            visibleNodesGroup: [
+                ['node-1a', 'node-1'],
+                ['node2a','node-2'],
+                ['node-3a','node-3'],
+                ['node-ia','node-i'],
+            ],
             backGroundColor: computed(() => colorMode.value === 'light' ? {
                 parentBackground: "",
                 patternBackground: "#1B1C1E"
@@ -18,28 +25,31 @@ export const useParallax = () => {
                     id: 'node-ia',
                     position: {
                         x: viewport.isGreaterThan('mobileMedium') ?
-                            width / 1.6 : width / 2,
+                            width / 1.6 : width / 2.4,
                         y: height / 12
                     },
                     type: 'output',
+                    width: '12rem',
                     data: { label: 'Paypal' },
-                    class: 'bg-black rounded',
+                    class: 'node-1',
                 },
                 {
                     id: 'node-i',
                     color: '#ff00ff',
                     position: {
                         x: viewport.isGreaterThan('mobileMedium') ?
-                            width / 1.6 : width / 2,
+                            width / 1.6 : width / 2.4,
                         y: (height / 12) + 45
                     },
                     type: 'input',
-                    data: { label: '@myexoduschurch' }
+                    width: '12rem',
+                    data: { label: 'paypal.me/myexoduschurch' }
                 },
                 {
                     id: 'node-1a',
                     position: { x: (width / 12) - 20, y: height / 12 },
                     type: 'output',
+                    width: '8rem',
                     data: { label: 'Account No' }
                 },
                 {
@@ -47,6 +57,7 @@ export const useParallax = () => {
                     color: '#ff00ff',
                     position: { x: (width / 12) - 20, y: (height / 12) + 45 },
                     type: 'input',
+                    width: '8rem',
                     data: { label: '3883006315' }
                 },
                 {
@@ -108,8 +119,12 @@ export const useParallax = () => {
                 id: edgeId,
                 source: edgeId.split('->').at(0) ?? "",
                 target: edgeId.split('->').at(-1) ?? "",
-                style: { backgroundColor: '#1B1C1E' },
+                style: {
+                    stroke: computed(() => 
+                        colorMode.value === 'light' ? '#1B1C1E' : ""
+                    )
+                },
             })))
-        }
+        },
     ] as ParallaxFlow[]
 }

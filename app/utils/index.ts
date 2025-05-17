@@ -19,3 +19,18 @@ export function randomInt(min: number, max: number) {
     max = Math.floor(max);
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
+
+export function divideIntoParts(value: number, n: number): number[] {
+  if (n <= 1) {
+    return [0, value];
+  }
+
+  const step = value / (n - 1);
+  const result: number[] = [];
+
+  for (let i = 0; i < n; i++) {
+    result.push(parseFloat((i * step).toFixed(3))); // rounding to 2 decimals for cleaner output
+  }
+
+  return result;
+}

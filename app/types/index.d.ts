@@ -28,6 +28,8 @@ interface CardData {
 }
 
 interface ParallaxFlow {
+    visibleNodesGroup: string[][],
+    focusNodes: string[],
     nodes: (width: number, height: number) => Node<any, any, string>[],
     edges: Edge<any, any, string>[],
     backGroundColor: ComputedRef<{
