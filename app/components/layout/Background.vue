@@ -1,28 +1,32 @@
 <script setup lang="ts">
 
 import { LayoutLoading } from "#components";
+import { useElementSize } from "@vueuse/core";
 import { frame, motion, useMotionValue, useSpring, type AnimationPlaybackControls, type AnimationSequence, type Transition } from "motion-v"
+import type { PointerLocation } from '~/types';
 const colorMode = useColorMode();
-const time = useTime();
 const [scope, animate] = useAnimate();
 
 const animatedBackgroundRef = useTemplateRef("animatedBackgroundRef");
 
 
-const spring = { damping: 3, stiffness: 20, restDelta: 0.001 };
-const mouseFollower = ref(null);
+const springConfig = { damping: 3, stiffness: 20, restDelta: 0.001 };
+const mouseFollower = useTemplateRef('mouseFollower');
+const mouseFollowerSize = useElementSize(mouseFollower);
 const xPoint = useMotionValue(0);
 const yPoint = useMotionValue(0);
-const x = useSpring(xPoint, spring);
-const y = useSpring(yPoint, spring);
+const x = useSpring(xPoint, springConfig);
+const y = useSpring(yPoint, springConfig);
 
-const handlePointerMove = ({ clientX, clientY }) => {
+const handlePointerMove = ({ clientX, clientY }: PointerLocation) => {
   const element = mouseFollower.value?.$el
   if (!element) return
 
   frame.read(() => {
-    xPoint.set(clientX - element.offsetLeft - element.offsetWidth / 2);
-    yPoint.set(clientY - element.offsetTop - element.offsetHeight / 2);
+    // xPoint.set(clientX - element.offsetLeft - element.offsetWidth / 2);
+    // yPoint.set(clientY - element.offsetTop - element.offsetHeight / 2);
+    xPoint.set(clientX - mouseFollowerSize.width.value/2);
+    yPoint.set(clientY - mouseFollowerSize.height.value/2);
   })
 };
 
@@ -32,7 +36,7 @@ const defaultTransition: Transition = {
   duration: 20,
   ease: 'easeInOut'
 }
-const rotate = useTransform(time, [0, 4000], [0, 360], { clamp: false });
+// const rotate = useTransform(time, [0, 4000], [0, 360], { clamp: false });
 const defaultBackgroundBlobs = [
   { borderRadius: '30% 70% 70% 30% / 30% 30% 70% 70%', backGroundColor: "linear-gradient(180deg, #12c2e9 0%, #f64f59 100%)" },
   { borderRadius: '15% 85% 79% 21% / 25% 36% 64% 75%', backGroundColor: "linear-gradient(180deg, #0100EC 0%, #FB36F4 100%)" },
@@ -68,7 +72,7 @@ function getBlobTargets(blobIndex: number): AnimationSequence {
 const blobsColumsNo = backgroundBlobs.length / 2;
 
 watch(animatedBackgroundRef, () => {
-  window.addEventListener("pointermove", handlePointerMove)
+  window.addEventListener("pointermove", handlePointerMove);
   if (colorMode.value === 'light') {
     backgroundBlobs.forEach(blob => {
       // updateblobTarget(blob.index);
@@ -98,12 +102,13 @@ onUnmounted(() => {
     <motion.div v-if="colorMode.value === 'light'" :class="`-z-5 fixed w-screen h-screen
                     overflow-hidden grid grid-cols-${blobsColumsNo}`"
       :animate="{ scale: 1.4, transition: defaultTransition }">
-      <motion.div v-for="(blob, index) in backgroundBlobs" :id=blob.id class="pointer-events-none blur-3xl" :initial="{
+      <motion.div v-for="(blob, index) in backgroundBlobs" :id=blob.id class="pointer-events-none" :initial="{
         borderRadius: blob.borderRadius,
         background: blob.backGroundColor
       }" />
-      <motion.div class="size-24 absolute bg-primary rounded-full pointer-events-none blur-3xl"
+      <motion.div class="size-24 absolute bg-primary rounded-full pointer-events-none"
         :style="{ x, y }" ref="mouseFollower" />
+        <div class="absolute size-full blurred"></div>
     </motion.div>
 
   </section>
@@ -125,5 +130,10 @@ onUnmounted(() => {
   top: 0px;
   width: 200px;
   height: 200px;
+}
+
+.blurred {
+  backdrop-filter: blur( 40px );
+  -webkit-backdrop-filter: blur( 40px );
 }
 </style>

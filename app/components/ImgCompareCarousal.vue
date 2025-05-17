@@ -102,6 +102,7 @@ function resetDivider(index: number) {
 
 function getMotionTransform(positionMotionValue: PositionMotionValue): ClipPathTransform {
     //     defaultBoundingBox == positionMotionValue.constraint.value);
+    if (!positionMotionValue) {return defaultClipPath};
     if (JSON.stringify(positionMotionValue.constraint.value) ===
             JSON.stringify(defaultBoundingBox)) {
         console.log("setting motion value with default boundingbox: ");

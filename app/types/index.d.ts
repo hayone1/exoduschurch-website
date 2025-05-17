@@ -27,8 +27,17 @@ interface CardData {
     cardAnimation?: CardAnimation
 }
 
-interface ParallaxData extends CardData {
-    
+interface ParallaxFlow {
+    nodes: (width: number, height: number) => Node<any, any, string>[],
+    edges: Edge<any, any, string>[],
+    backGroundColor: ComputedRef<{
+        parentBackground: string;
+        patternBackground: string;
+    }>
+    // {
+    //     parentBackground: string,
+    //     patternBackground: string
+    // }
 }
 
 interface ButtonContent {
@@ -69,4 +78,9 @@ interface BoundingBox {
   width?: number
   x?: number
   y?: number
+}
+
+interface PointerLocation {
+  clientX: number
+  clientY: number
 }
