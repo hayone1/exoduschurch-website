@@ -1,11 +1,12 @@
 <script setup lang="ts">
 import { useElementBounding, useElementSize, useMouseInElement } from '@vueuse/core'
 import type { PointerLocation, ParallaxFlow } from '~/types';
-import type { Node } from '@vue-flow/core';
+import type { Edge, Node } from '@vue-flow/core';
 import { VueFlow, Panel, useVueFlow } from '@vue-flow/core';
 import { Background } from '@vue-flow/background'
 import { UseElementSize } from '@vueuse/components';
 import { animate, frame, motion, MotionValue, motionValue, useMotionValue, useSpring } from "motion-v"
+import type { WatchHandle } from 'vue';
 
 const {
     parallaxFlow = {} as ParallaxFlow,
@@ -15,12 +16,27 @@ const {
     scrollYProgress: MotionValue
 }>();
 
-//---------Nodes Animation-----------
+
 const { fitView } = useVueFlow();
 const parallaxFocusThresholds = divideIntoParts(
     1, parallaxFlow.focusNodes.length + 1
 );
 var visibleNodesElement: Element[][];
+
+const xPoint = useMotionValue(0);
+const yPoint = useMotionValue(0);
+const springConfig = { damping: 5, stiffness: 20, restDelta: 0.001 };
+
+const mouseFollower = useTemplateRef('mouseFollower');
+const mouseFollowerSize = useElementSize(mouseFollower);
+const mainContainer = useTemplateRef<HTMLDivElement>('mainContainer');
+const mainContainerSize = useElementSize(mainContainer);
+const mouseInMainContainer = useMouseInElement(mainContainer);
+
+const mouseFollowerX = useSpring(xPoint, springConfig);
+const mouseFollowerY = useSpring(yPoint, springConfig);
+
+//---------Nodes Animation-----------
 useMotionValueEvent(scrollYProgress, 'change', (currentProgress) => {
     console.log("[Flow Item]: parallaxScroll Value: ", currentProgress)
     parallaxFocusThresholds.forEach((threshold, index) => {
@@ -42,9 +58,9 @@ useMotionValueEvent(scrollYProgress, 'change', (currentProgress) => {
             //     // visibleNodesElement[index]
             //     // console.log("element to animate: " + visibleNodesElement[index][0]);
             // }
-            console.log("visibleNodesElements: " + JSON.stringify(document.querySelectorAll('[data-id]')));
-            
-            console.log("focus on Nodes: ", JSON.stringify(parallaxFlow.focusNodes.slice(0, index + 1)))
+            // console.log("visibleNodesElements: " + JSON.stringify(document.querySelectorAll('[data-id]')));
+
+            // console.log("focus on Nodes: ", JSON.stringify(parallaxFlow.focusNodes.slice(0, index + 1)))
         }
         else if (scrollYProgress.getPrevious() > offsetThreshold &&
             currentProgress <= threshold) {
@@ -58,18 +74,6 @@ useMotionValueEvent(scrollYProgress, 'change', (currentProgress) => {
 })
 
 //-----------Mouse Follower---------------
-const xPoint = useMotionValue(0);
-const yPoint = useMotionValue(0);
-const springConfig = { damping: 5, stiffness: 20, restDelta: 0.001 };
-
-const mouseFollower = useTemplateRef('mouseFollower');
-const mouseFollowerSize = useElementSize(mouseFollower);
-const mouseFollowerParent = useTemplateRef<HTMLDivElement>('mouseFollowerParent');
-const mouseFollowerBounds = useMouseInElement(mouseFollowerParent);
-
-const mouseFollowerX = useSpring(xPoint, springConfig);
-const mouseFollowerY = useSpring(yPoint, springConfig);
-
 const handleMouseMove = (elementX: number, elementY: number) => {
     frame.read(() => {
         xPoint.set(elementX - mouseFollowerSize.width.value / 2);
@@ -80,11 +84,11 @@ const handleMouseMove = (elementX: number, elementY: number) => {
 const mouseMovementWatcher = watchEffect(
     () => {
         handleMouseMove(
-            mouseFollowerBounds.elementX.value,
-            mouseFollowerBounds.elementY.value,
+            mouseInMainContainer.elementX.value,
+            mouseInMainContainer.elementY.value,
         )
-    });
-watch(mouseFollowerBounds.isOutside, (isOutside) => {
+});
+watch(mouseInMainContainer.isOutside, (isOutside) => {
     if (!isOutside) {
         mouseMovementWatcher.resume();
     }
@@ -93,10 +97,35 @@ watch(mouseFollowerBounds.isOutside, (isOutside) => {
     }
 })
 
+var nodes: Node[];
+var edges: Edge[];
+var sizeWatcher: WatchHandle;
+
+
 onMounted(() => {
     visibleNodesElement = parallaxFlow.visibleNodesGroup.map(nodeGroup =>
         nodeGroup.map(node => document.querySelector(`[data-id="${node}"]`))
     ) as Element[][];
+
+    const mouseMovementWatcher = watchEffect(
+    () => {
+        handleMouseMove(
+            mouseInMainContainer.elementX.value,
+            mouseInMainContainer.elementY.value,
+        )
+});
+    sizeWatcher = watchEffect(() => {
+        nodes = parallaxFlow.nodes(
+            mainContainerSize.width.value,
+            mainContainerSize.height.value,
+        );
+    })
+    edges = parallaxFlow.edges;
+    //     nodes = parallaxFlow.nod
+    // es(
+    //     mouseInMainContainer.elementWidth.value,
+    //     mouseInMainContainer.elementHeight.value
+    // );
     // console.log("visibleNodesElements: " + visibleNodesElement);
     // console.log("visibleNodesElements: " + JSON.stringify(document.querySelectorAll('[data-id]')));
 })
@@ -107,16 +136,16 @@ onMounted(() => {
 
 </script>
 <template>
-    <div ref="mouseFollowerParent" class="absolute size-full overflow-hidden">
+    <div class="absolute size-full overflow-hidden">
         <motion.div class="size-10  bg-transparent
         border-green-500 border-1 rounded-full pointer-events-none" :style="{ x: mouseFollowerX, y: mouseFollowerY }"
             ref="mouseFollower" />
     </div>
     <UseElementSize v-slot="{ width, height }">
-        <div :class="`h-screen overfow-hidden ${parallaxFlow.backGroundColor.value.parentBackground}`">
-            <VueFlow :nodes="parallaxFlow.nodes(width, height)" :edges="parallaxFlow.edges" :zoom-on-scroll="false"
-                :zoom-on-pinch="false" :zoom-on-double-click="false" :pan-on-scroll="false" :pan-on-drag="false"
-                :prevent-scrolling="true">
+        <div ref="mainContainer"
+            :class="`h-screen overfow-hidden ${parallaxFlow.backGroundColor.value.parentBackground}`">
+            <VueFlow :nodes="nodes" :edges="edges" :zoom-on-scroll="false" :zoom-on-pinch="false"
+                :zoom-on-double-click="false" :pan-on-scroll="false" :pan-on-drag="false" :prevent-scrolling="true">
                 <Background :patternColor="parallaxFlow.backGroundColor.value.patternBackground" :size="1.4" />
             </VueFlow>
 
