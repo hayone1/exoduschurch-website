@@ -6,7 +6,7 @@ import { VueFlow, Panel, useVueFlow } from '@vue-flow/core';
 import { Background } from '@vue-flow/background'
 import { UseElementSize } from '@vueuse/components';
 import { animate, frame, motion, MotionValue, motionValue, useMotionValue, useSpring } from "motion-v"
-import type { WatchHandle } from 'vue';
+import type { Reactive, WatchHandle } from 'vue';
 
 const {
     parallaxFlow = {} as ParallaxFlow,
@@ -35,18 +35,29 @@ const mouseInMainContainer = useMouseInElement(mainContainer);
 
 const mouseFollowerX = useSpring(xPoint, springConfig);
 const mouseFollowerY = useSpring(yPoint, springConfig);
+var visibleNodeGroups: string[] = [];
 
+var nodes: globalThis.Ref<
+    Node<any, any, string>[],
+    Node<any, any, string>[]> = ref([]);
+// var nodes: Reactive<Node<any, any, string>[]>;
+var edges: Edge[];
+var sizeWatcher: WatchHandle;
 //---------Nodes Animation-----------
 useMotionValueEvent(scrollYProgress, 'change', (currentProgress) => {
-    console.log("[Flow Item]: parallaxScroll Value: ", currentProgress)
+    // console.log("[Flow Item]: parallaxScroll Value: ", currentProgress)
     parallaxFocusThresholds.forEach((threshold, index) => {
         const offsetThreshold = (threshold + .05);
         if (scrollYProgress.getPrevious() < offsetThreshold &&
             currentProgress >= threshold) {
-            fitView({
-                nodes: parallaxFlow.focusNodes.slice(0, index + 1),
-                duration: 500
-            });
+            visibleNodeGroups = parallaxFlow.visibilityNodesGroup.slice(
+                0, index + 1
+            ).flat();
+            updateNodes();
+            // fitView({
+            //     nodes: parallaxFlow.focusNodes.slice(0, index + 1),
+            //     duration: 500
+            // });
             // parallaxFlow.visibleNodesGroup[index]?.forEach(node => {
             //     parallaxFlow.nodes.
             // })
@@ -87,7 +98,7 @@ const mouseMovementWatcher = watchEffect(
             mouseInMainContainer.elementX.value,
             mouseInMainContainer.elementY.value,
         )
-});
+    });
 watch(mouseInMainContainer.isOutside, (isOutside) => {
     if (!isOutside) {
         mouseMovementWatcher.resume();
@@ -97,29 +108,36 @@ watch(mouseInMainContainer.isOutside, (isOutside) => {
     }
 })
 
-var nodes: Node[];
-var edges: Edge[];
-var sizeWatcher: WatchHandle;
-
-
-onMounted(() => {
-    visibleNodesElement = parallaxFlow.visibleNodesGroup.map(nodeGroup =>
-        nodeGroup.map(node => document.querySelector(`[data-id="${node}"]`))
-    ) as Element[][];
-
-    const mouseMovementWatcher = watchEffect(
-    () => {
-        handleMouseMove(
-            mouseInMainContainer.elementX.value,
-            mouseInMainContainer.elementY.value,
-        )
-});
+function updateNodes() {
+    // updateNodes();
     sizeWatcher = watchEffect(() => {
-        nodes = parallaxFlow.nodes(
+        nodes.value = parallaxFlow.nodes(
             mainContainerSize.width.value,
             mainContainerSize.height.value,
-        );
+        ).map(node => ({
+            ...node,
+            hidden: !visibleNodeGroups.includes(node.id)
+        }));
+        console.log("current Visibility Group: ", JSON.stringify(visibleNodeGroups));
+        // console.log("Is hidden values: ",
+        //     JSON.stringify(nodes.map(node => node.hidden))
+        // );
     })
+}
+
+onMounted(() => {
+    // visibleNodesElement = parallaxFlow.visibleNodesGroup.map(nodeGroup =>
+    //     nodeGroup.map(node => document.querySelector(`[data-id="${node}"]`))
+    // ) as Element[][];
+
+    // const mouseMovementWatcher = watchEffect(
+    //     () => {
+    //         handleMouseMove(
+    //             mouseInMainContainer.elementX.value,
+    //             mouseInMainContainer.elementY.value,
+    //         )
+    //     });
+    updateNodes();
     edges = parallaxFlow.edges;
     //     nodes = parallaxFlow.nod
     // es(

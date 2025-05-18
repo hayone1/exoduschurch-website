@@ -1,3 +1,4 @@
+import type { Node } from "@vue-flow/core";
 import type { ParallaxFlow } from "~/types";
 
 export const useParallax = () => {
@@ -7,9 +8,9 @@ export const useParallax = () => {
     return [
         {
             focusNodes: ['node-1a','node-2', 'node-3','node-ia'],
-            visibleNodesGroup: [
+            visibilityNodesGroup: [
                 ['node-1a', 'node-1'],
-                ['node2a','node-2'],
+                ['node-2a','node-2'],
                 ['node-3a','node-3'],
                 ['node-ia','node-i'],
             ],
@@ -20,7 +21,7 @@ export const useParallax = () => {
                 parentBackground: "bg-black",
                 patternBackground: ""
             }),
-            nodes: (width: number, height: number) => reactive([
+            nodes: (width: number, height: number) => [
                 {
                     id: 'node-ia',
                     position: {
@@ -109,7 +110,7 @@ export const useParallax = () => {
                     color: colorMode.value === 'light' ? "" : 'white',
                     borderRadius: '20px'
                 },
-            }))),
+            })) as Node[],
 
             edges: reactive([
                 'node-1->node-2a',
