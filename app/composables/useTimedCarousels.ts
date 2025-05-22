@@ -83,13 +83,10 @@ export const useTimedCarousels = () => {
                         { label: "Listen" },
                     ],
                     motionStyle: {
-                        backgroundColor: '#000435'
-                    }
-                    // backdropClasses: [
-                    //     "h-full ",
-                    //     // "bg-cover mask-t-from-50% mask-t-to-70% sm:mask-t-from-10% sm:mask-t-to-60%  bg-[url(/images/worship-stock-image-1.jpg)]",
-                    //     // "backdrop-grayscale mask-r-from-30% mask-r-to-50%",
-                    // ]
+                        background: 'url(/images/a-christmas-thought-the-most-precious-gift.jpg) center',
+                        backgroundSize: 'cover',
+                        backgroundColor: 'rgba(27, 28, 30, 0.5)'
+                    },
                 },
                 {
                     title: "December",
@@ -100,21 +97,21 @@ export const useTimedCarousels = () => {
                         { label: "View testimonies", variant: 'outline' },
                     ],
                     motionStyle: {
-                        backgroundColor: '#FFD700'
+                        background: 'url(/images/adventures-in-the-miraculous.jpg'
                     }
                 },
                 {
                     title: "August",
                     class: "rounded-lg bg-cover bg-no-repeat bg-[url(/images/burden-of-redemption.jpg)]",
                     motionStyle: {
-                        backgroundColor: '#d84418'
+                        background: 'url(/images/burden-of-redemption.jpg'
                     }
                 },
                 {
                     title: "March",
                     class: "rounded-lg bg-cover bg-no-repeat bg-[url(/images/God-will-and-you.jpg)]",
                     motionStyle: {
-                        backgroundColor: '#4f42b5'
+                        background: 'url(/images/God-will-and-you.jpg)'
                     }
                 },
             ].map(card => {
@@ -123,6 +120,7 @@ export const useTimedCarousels = () => {
                     cardAnimation: defaultCardAnimation,
                     contentJustification: "justify-center",
                     showFooter: true,
+                    carousels: [],
                     // showHeader: true,
                     // class: "-z-1",
                     cardClass: "bg-transparent h-50 w-full border-2",
@@ -131,11 +129,11 @@ export const useTimedCarousels = () => {
                     // cardAnimation: defaultCarousalAnimation
                 } as CardData
             }),
-            // class: "",
+            class: "",
             // cardClass: "size-full",
             variant: "subtle",
             backdropClasses: [
-                "mask-contain mask-center mask-no-repeat -z-1 mask-[url(/images/brush-mask-0-linear.svg)] bg-white"
+                "backdrop-blur-lg",
             ]
         },
     ] as CardData[]

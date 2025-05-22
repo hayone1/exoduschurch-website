@@ -3,7 +3,7 @@ import type { StyleValue } from 'vue';
 
 interface CardData {
     backgroundImage?: string
-    motionStyle?: StyleValue
+    motionStyle?: Record<string,string>
     backdropClasses?: string[]
     contentJustification?: string
     title?: string
@@ -21,7 +21,7 @@ interface CardData {
     bodies?: BasicContent[]
     //could be single images of multiplace image per slot for comparison
     comparisonCarousals?: CardData[][]
-    carousels?: CardData[]
+    carousels: CardData[]
     carouselsClass?: string
     carouselsUi?: any
     showFooter?: boolean

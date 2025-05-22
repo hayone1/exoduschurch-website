@@ -1,6 +1,6 @@
 <script setup lang="ts">
 // import type { setInterval } from '#imports';
-import { motion } from 'motion-v';
+import { motion, motionValue } from 'motion-v';
 import type { StyleValue } from 'vue';
 import type { CardData, CardAnimation } from '~/types';
 
@@ -8,7 +8,7 @@ import type { CardData, CardAnimation } from '~/types';
 const {
     carouselCardData = {} as CardData,
     offset = 0,
-    bodyButtonHandler = (event: MouseEvent) => {}
+    bodyButtonHandler = (event: MouseEvent) => { }
 } = defineProps<{
     carouselCardData: CardData,
     offset: number
@@ -43,9 +43,9 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
             // backdropFilter: "blur(0px)",
             opacity: 1,
             transition: {
-                duration:  .6,
+                duration: .6,
                 //will happen after the text animation is complete
-                delay:  ((delayIndex) / 10) + .4,
+                delay: ((delayIndex) / 10) + .4,
                 ease: "easeOut"
             },
         },
@@ -59,47 +59,56 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
             // backdropFilter: "blur(0px)",
             opacity: 1,
             transition: {
-                duration:  .6,
+                duration: .6,
                 //will finish after the backdrop animation is complete
                 delay: ((delayIndex) / 10) + .8,
                 ease: "easeOut"
             },
         },
-        
+
     };
 
 
 }
 
-const springConfig = { damping: 5, stiffness: 20, restDelta: 0.001 };
-const backGroundColor = useMotionValue('#4f42b5');
-const backgroundColorSpring = useSpring(backGroundColor, springConfig);
+const springConfig = { damping: 20, stiffness: 40, restDelta: 0.001 };
+var carouselIndex = 0;
+const motionCarouselIndex = motionValue(0);
+// const motionCarouselIndexSpring = useSpring(motionCarouselIndex, springConfig);
+// const backgroundColorTransform = useTransform(
+//     motionCarouselIndexSpring,
+//     // [0, carouselCardData.carousels!.length-1],
+//     divideIntoParts(
+//         carouselCardData.carousels!.length, carouselCardData.carousels!.length
+//     ),
+//     carouselCardData.carousels?.map(carousel =>
+//         carousel.motionStyle!.backgroundColor
+//     ) as string[]
+// );
 
-const activeCarouselIndex = ref(0);
+// backgroundColorTransform.on('change', (currentValue) => {
+//     console.log("New color is: ", currentValue);
+
+// })
+
 onMounted(() => {
     // window.setInterval(() => {
 
     // }, 1000)
     carousel.value?.emblaApi?.on('autoplay:select', () => {
-        activeCarouselIndex.value++;
-        if (activeCarouselIndex.value === carouselCardData.carousels?.length) {
-            activeCarouselIndex.value = 0;
+        carouselIndex++;
+        if (carouselIndex === carouselCardData.carousels?.length) {
+            carouselIndex = 0;
         }
-        backGroundColor.set(
-            carouselCardData.carousels[activeCarouselIndex.value].motionStyle?.backgroundColor ?? 'black'
-        )
+        motionCarouselIndex.set(carouselIndex);
     });
 })
 
-function overrideCarousalCardClass(cardData: CardData): CardData{
+function overrideCarousalCardClass(cardData: CardData): CardData {
     return {
         ...cardData,
         cardClass: "bg-transparent size-full"
     };
-    // newCardData.carousels.forEach(carousel => {
-    //     carousel.cardClass = "size-full"
-    // });
-    // return newCardData;
 }
 
 const carousel = useTemplateRef('carousel');
@@ -108,11 +117,18 @@ const autoPlayOptions = {
     stopOnInteraction: false,
     stopOnMouseEnter: true,
 }
+const defaultTransition = {
+    duration: 1,
+    //will happen after the text animation is complete
+    // delay: ((delayIndex) / 10) + .4,
+    ease: "easeOut"
+}
 </script>
 
 <template>
-    <motion.div :class="`h-screen rounded-none sm:rounded-lg ${carouselCardData.class}`"
-        :style="{ backgroundColor: backgroundColorSpring }">
+    <!-- <div :style="{ backgroundColor: 'red' }"></div> -->
+    <motion.div :class="`h-screen rounded-none sm:rounded-lg ${carouselCardData.class}`" :transition="defaultTransition"
+        >
 
         <div v-if="carouselCardData.backdropClasses" class="absolute size-full">
             <motion.div v-for="overlayClass in carouselCardData.backdropClasses"
@@ -121,23 +137,29 @@ const autoPlayOptions = {
                 :whileInView="pageCardAnimation(offset).backdropOnScreen" :inViewOptions="{ once: true }" />
 
         </div>
-        <ul class="absolute size-full flex justify-center">
-            <motion.li v-for="(carouselCard, index) in carouselCardData.carousels.slice(0,2)"
-                class="timed-card" :data-first="(index === 0)">
+        <!-- <ul class="absolute size-full flex justify-center">
+            <motion.li v-for="(carouselCard, index) in carouselCardData.carousels.slice(0, 2)" class="timed-card"
+                :data-first="(index === 0)">
                 <PageCard :pageCardData="overrideCarousalCardClass(carouselCard)" :offset="offset" />
             </motion.li>
-        </ul>
-        <div class="size-full flex flex-nowrap flex-row justify-end
+        </ul> -->
+        
+        <div class="absolute size-full flex flex-nowrap flex-row justify-end
             items-end overflow-hidden">
-            <UCarousel ref="carousel" v-if="carouselCardData.carousels" arrows loop
-                    :autoplay="autoPlayOptions"
-                    :items="carouselCardData.carousels" v-slot="{ item, index }"
-                    :ui="carouselCardData.carouselsUi" :class="carouselCardData.carouselsClass">
-                    <PageCard :pageCardData="(item as CardData)" :offset="index"
-                        />
-                </UCarousel>
+            <UCarousel ref="carousel" v-if="carouselCardData.carousels" arrows loop :autoplay="autoPlayOptions"
+                :items="carouselCardData.carousels" v-slot="{ item, index }" :ui="carouselCardData.carouselsUi"
+                :class="carouselCardData.carouselsClass">
+                <PageCard :pageCardData="(item as CardData)" :offset="index" />
+            </UCarousel>
             <!-- <PageCard :pageCardData="carouselCardData" :offset="offset"
                 /> -->
+        </div>
+        <div class="size-full opacity-30" :style="carouselCardData.carousels[motionCarouselIndex.get()]?.motionStyle">
+            <!-- <motion.div class="rounded-lg border-2"
+                style="{ boxShadow: '', background: '' }">
+    
+            </motion.div> -->
+
         </div>
     </motion.div>
 </template>
@@ -149,12 +171,14 @@ const autoPlayOptions = {
 .logo-title {
     font-family: 'Roboto', sans-serif;
 }
+
 .timed-card {
     position: absolute;
     height: 15rem;
     align-self: end;
     /* margin-bottom: 1rem; */
 }
+
 .timed-card[data-first="true"] {
     position: relative;
     /* border-width: 4px; */
@@ -164,4 +188,6 @@ const autoPlayOptions = {
     margin-bottom: 0;
     /* transform: scale(0.5); */
 }
+
+/* .neumorphic */
 </style>
