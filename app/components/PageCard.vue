@@ -71,7 +71,8 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
 </script>
 
 <template>
-    <motion.div :class="`rounded-none sm:rounded-lg ${pageCardData.class}`"
+    <!-- <div :style="{ backgroundColor }"> </div> -->
+    <motion.div class="sm:rounded-lg" :class="pageCardData.class"
         :initial="pageCardAnimation(offset).offscreen" :whileInView="pageCardAnimation(offset).onscreen"
         :inViewOptions="{ once: true, margin: '50% 0px' }">
         <div v-if="pageCardData.backdropClasses" class="absolute size-full">
@@ -99,12 +100,12 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
 
                 <Qrcode v-if="pageCardData.qrCodeUrl" :value="pageCardData.qrCodeUrl" variant="circle" :radius="1"
                     class="rounded-xl" />
-
+                
                 <ClientOnly>
-                    <ImgCompareCarousal v-if="pageCardData.carousals" :carousalsContent="pageCardData.carousals" />
+                    <ImgCompareCarousal v-if="pageCardData.comparisonCarousals" :carousalsContent="pageCardData.comparisonCarousals" />
                 </ClientOnly>
 
-                <p v-if="pageCardData.body" class>{{ pageCardData.body }}</p>
+                <p v-if="pageCardData.body" :class="pageCardData.bodyClass">{{ pageCardData.body }}</p>
 
                 <CardGrid v-if="pageCardData.bodies" :content="pageCardData.bodies" />
 
@@ -112,7 +113,7 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
                     :class="`flex flex-row flex-wrap gap-2 ${pageCardData.bodyButtonsParentClass}`">
                     <UButton v-for="buttonData in pageCardData.bodyButtons" :label="buttonData.label"
                         :variant="buttonData.variant" :color="buttonData.color" :class="buttonData.class"
-                        @click="bodyButtonHandler" />
+                        :icon="buttonData.icon" @click="bodyButtonHandler" />
 
                 </div>
 
@@ -125,7 +126,8 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
                 <div v-if="pageCardData.footerButtons"
                     :class="`flex flex-row flex-wrap gap-2 ${pageCardData.footerButtonsParentClass}`">
                     <UButton v-for="buttonData in pageCardData.footerButtons" :label="buttonData.label"
-                        :variant="buttonData.variant" color="neutral" :class="buttonData.class" />
+                        :variant="buttonData.variant" color="neutral" :class="buttonData.class"
+                        :icon="buttonData.icon" />
                 </div>
             </template>
         </UCard>

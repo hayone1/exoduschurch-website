@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { BoundingBox, CardData } from '~/types';
 import { UseElementSize } from '@vueuse/components';
-import { animate, motion, MotionValue, useDomRef, type AnimationPlaybackControls } from 'motion-v';
+import { animate, motion, MotionValue, useDomRef } from 'motion-v';
 
 interface PositionMotionValue {
     xPosValue: MotionValue<number>
@@ -41,9 +41,6 @@ const dividerMotionPosition: PositionMotionValue[] = carousalsContent.map(
         const xPosValue = useMotionValue(0);
         const yPosValue = useMotionValue(0);
         const constraint = ref(defaultBoundingBox);
-        // const clipPathTransform = getMotionTransform(
-        //     xPosValue, yPosValue, widthValue, heightValue
-        // );
         return { xPosValue, yPosValue, constraint }
         // constraintSize: useElementSize(useTemplateRef(constraintRefPrefix + index)),
     });
@@ -161,7 +158,6 @@ function getDragConstraints(index: number, width: number, height: number,
 
     if (JSON.stringify(constraint) !==
         JSON.stringify(defaultBoundingBox)) {
-        // console.log("setting getMotionTransform constraint value: ");
         dividerMotionPosition[index]!.constraint.value = constraint;
     }
     return constraint;
@@ -182,7 +178,7 @@ function enableExtraCarousals(item: any, asString = false) {
 
         </div> -->
         <UCarousel ref="constraintRef" arrows dots loop v-slot="{ item, index }" :items="carousalsContent"
-            class="z-1 w-full border-2 border-amber-500" :watchDrag="false" :ui="{
+            class="z-1 w-full border-2" :watchDrag="false" :ui="{
                 controls: 'carousal-control absolute -top-12 sm:-top-14 -inset-x-6 sm:inset-x-12',
                 dots: 'top-1',
                 dot: 'w-6 h-1'
@@ -197,6 +193,7 @@ function enableExtraCarousals(item: any, asString = false) {
                                 flex text-neutral-800 z-2">
                     <UIcon name="i-icon-park-outline-direction-adjustment-two" size="30" />
                 </motion.div>
+                <!-- visual divider lines -->
                 <motion.div :class='`absolute self-center border-1 z-1 h-full`'
                             :style="{ x: dividerMotionPosition[index]!.xPosValue }"/>
                 <motion.div v-if="(item as CardData[]).length > 2"
@@ -206,23 +203,9 @@ function enableExtraCarousals(item: any, asString = false) {
                 <motion.div v-for="(cardData, inner_index) in (item as CardData[])"
                             :class='`w-full ${(inner_index === 0 ? "" : "absolute")}`'
                             :style="{clipPath: dividerMotionTransform[index]!.value[inner_index]}">
-                    <PageCard :pageCardData="cardData" :offset="index" class="w-full bg-cover"
-                             />
+                    <PageCard :pageCardData="cardData" :offset="index" class="w-full bg-cover" />
                     
                 </motion.div>
-                <!-- <div class="absolute border-2 w-full">
-                    <PageCard v-for="(cardData, index) in (item as CardData[]).slice(2, 4)"
-                        :pageCardData="cardData" :offset="index" />
-                </div> -->
-                <!-- <div v-if="enableExtraCarousals(item)" class="absolute size-full flex justify-center items-center">
-                    <ImgComparisonSlider class="w-full pointer-events-none" keyboard="disabled">
-                        <div v-for="(cardData, index) in (item as CardData[]).slice(2, 4)" :slot="slotPosition[index]">
-                            <PageCard :pageCardData="cardData" :offset="index" />
-                        </div>
-                        <UIcon slot="handle" name="i-fluent-arrow-bidirectional-left-right-20-regular" size="40" />
-                    </ImgComparisonSlider>
-                </div> -->
-
             </UseElementSize>
 
 

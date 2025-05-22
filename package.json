@@ -23,6 +23,7 @@
     "@vue-flow/core": "^1.43.1",
     "@vueuse/components": "^13.2.0",
     "@vueuse/core": "^13.2.0",
+    "@zumer/orbit": "^1.3.0",
     "eslint": "^9.25.1",
     "motion-v": "^1.0.2",
     "nuxt": "^3.17.1",

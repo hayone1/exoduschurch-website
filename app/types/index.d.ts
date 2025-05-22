@@ -1,7 +1,9 @@
-import { type Variant, type VariantLabels } from 'motion-v';
+import type { Variant, VariantLabels } from 'motion-v';
+import type { StyleValue } from 'vue';
 
 interface CardData {
     backgroundImage?: string
+    motionStyle?: StyleValue
     backdropClasses?: string[]
     contentJustification?: string
     title?: string
@@ -15,9 +17,13 @@ interface CardData {
     footerButtonsParentClass?: string
     footerButtons?: ButtonContent[]
     body?: string
+    bodyClass?: string
     bodies?: BasicContent[]
     //could be single images of multiplace image per slot for comparison
-    carousals?: CardData[][]
+    comparisonCarousals?: CardData[][]
+    carousels?: CardData[]
+    carouselsClass?: string
+    carouselsUi?: any
     showFooter?: boolean
     showHeader?: boolean
     footer?: string
@@ -27,11 +33,11 @@ interface CardData {
     cardAnimation?: CardAnimation
 }
 
-interface ParallaxFlow {
+interface IParallaxFlow {
     visibilityNodesGroup: string[][],
     focusNodes: string[],
     nodes: (width: number, height: number) => Node<any, any, string>[],
-        // globalThis.Ref<Node<any, any, string>[],Node<any, any, string>[]>,
+    // globalThis.Ref<Node<any, any, string>[],Node<any, any, string>[]>,
     // nodes: (width: number, height: number) => Node<any, any, string>[],
     edges: Edge<any, any, string>[],
     backGroundColor: ComputedRef<{
@@ -44,10 +50,23 @@ interface ParallaxFlow {
     // }
 }
 
+interface IParallaxVariant {
+    backGroundColor: string
+    graphic: {
+        centralImage: string,
+        icons: string[],
+    },
+    nodes: {
+        label: string,
+        locationClass: string
+    }[]
+}
+
 interface ButtonContent {
     label: string
     variant?: "outline" | "subtle" | "solid" | "soft" | "ghost" | "link"
     class?: string
+    icon?: string
     color?: "error" | "primary" | "secondary" | "success" | "info" | "warning" | "neutral"
 }
 
@@ -74,17 +93,17 @@ interface CardAnimation {
 }
 
 interface BoundingBox {
-  height?: number
-  bottom: number
-  left: number
-  right: number
-  top: number
-  width?: number
-  x?: number
-  y?: number
+    height?: number
+    bottom: number
+    left: number
+    right: number
+    top: number
+    width?: number
+    x?: number
+    y?: number
 }
 
 interface PointerLocation {
-  clientX: number
-  clientY: number
+    clientX: number
+    clientY: number
 }

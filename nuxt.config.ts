@@ -8,6 +8,11 @@ export default defineNuxtConfig({
   future: {
     compatibilityVersion: 4
   },
+  vue: {
+    compilerOptions: {
+      isCustomElement: (tag) => ['o-arc', 'o-progress'].includes(tag),
+    }
+  },
   // vite: {
   //   plugins: [
   //     Components({

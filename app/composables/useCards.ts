@@ -43,7 +43,7 @@ export const useCards = () => {
             transition: {
                 duration: .6,
                 //will finish after the backdrop animation is complete
-                delay: .8,
+                delay: .6,
                 ease: "easeOut"
             },
         },
@@ -78,7 +78,7 @@ export const useCards = () => {
             ],
             // body: "making disciples of all nations",
             class: "-z-1 flex flex-row col-span-full -translate-y-3",
-            cardClass: "mt-20 bg-gradient-to-r",
+            cardClass: "mt-20 bg-gradient-to-r h-[70vh]",
             variant: "solid",
             footer: "Making disciples of all nations.",
             showFooter: true,
@@ -114,6 +114,44 @@ export const useCards = () => {
             ]
         },
         {
+            // title: "Testimonies",
+            contentJustification: "justify-center",
+            footerButtonsParentClass: "justify-center",
+            footerButtons: [
+                {
+                    label: "Follow Us",
+                    variant: "soft",
+                    class: "text-xl"
+                },
+            ],
+            class: "col-span-full md:col-span-5 lg:col-span-3",
+            cardClass: "bg-transparent",
+            variant: "solid",
+            bodyButtonsParentClass: "justify-center h-80 pt-30",
+            bodyButtons: [
+                {
+                icon: "i-mdi-instagram",
+                variant: 'solid',
+                class: "text-5xl md:text-4xl font-extrabold bg-linear-65 from-purple-500 to-red-500"
+            },
+                {
+                icon: "i-mdi-telegram",
+                variant: 'solid',
+                class: "text-5xl md:text-4xl font-extrabold bg-blue-500"
+            },
+                {
+                icon: "i-mdi-youtube",
+                variant: 'solid',
+                class: "text-5xl md:text-4xl font-extrabold bg-red-500"
+            },
+        ],
+            showFooter: true,
+            // showHeader: true,
+            backdropClasses: [
+                "mask-contain mask-center mask-no-repeat -z-1 mask-[url(/images/brush-mask-0-linear.svg)] bg-white"
+            ]
+        },
+        {
             contentJustification: "justify-center",
             footerButtonsParentClass: "justify-center",
             footerButtons: [
@@ -125,7 +163,7 @@ export const useCards = () => {
             //should apply to all button?
             bodyButtonsParentClass: "justify-center h-80 pt-30",
             bodyButtons: [{
-                label: "Service",
+                label: "Serve",
                 variant: 'link',
                 class: "text-6xl md:text-4xl font-extrabold text-white-600"
             }],
@@ -135,29 +173,7 @@ export const useCards = () => {
                 "mask-contain mask-center mask-no-repeat -z-1 mask-[url(/images/brush-mask-0-linear.svg)] bg-neutral-600/30"
             ]
         },
-        {
-            // title: "Testimonies",
-            contentJustification: "justify-center",
-            footerButtonsParentClass: "justify-center",
-            footerButtons: [
-                { label: "Share a testimony" },
-                { label: "View testimonies", variant: 'outline' },
-            ],
-            class: "col-span-full md:col-span-5 lg:col-span-3",
-            cardClass: "bg-transparent",
-            variant: "solid",
-            bodyButtonsParentClass: "justify-center h-80 pt-30",
-            bodyButtons: [{
-                label: "Testimonies",
-                variant: 'link',
-                class: "text-5xl md:text-4xl font-extrabold text-neutral-600"
-            }],
-            showFooter: true,
-            // showHeader: true,
-            backdropClasses: [
-                "mask-contain mask-center mask-no-repeat -z-1 mask-[url(/images/brush-mask-0-linear.svg)] bg-white"
-            ]
-        },
+        
         {
             titleIcon: "i-fluent-location-ripple-20-regular",
             contentJustification: "justify-center",
@@ -183,11 +199,32 @@ export const useCards = () => {
             variant: "solid"
         },
         {
+            body: "Meet our Pastor",
+            bodyClass: "text-6xl",
+            contentJustification: "justify-start",
+            // backgroundImage: "bg-[linear-gradient(to_right,_#1e3a8a_30%,_transparent_70%),url('/images/worship-stock-image-1.jpg')]",
+            bodyButtons: [
+                { label: "Abhulimen Desmond", color: 'neutral' },
+            ],
+            // body: "making disciples of all nations",
+            class: "col-span-full lg:col-span-5 -z-1 flex flex-row h-100 border-2",
+            cardClass: "mt-20 bg-gradient-to-r",
+            variant: "solid",
+            // showFooter: true,
+            // showHeader: true,
+            backdropClasses: [
+                `bg-cover bg-[url(/images/pastor-desmond-1.jpg)] sm:bg-[url(/images/pastor-desmond-3-shape.jpg)] bg-right h-full`,
+                // "bg-cover mask-t-from-50% mask-t-to-70% sm:mask-t-from-10% sm:mask-t-to-60%  bg-[url(/images/worship-stock-image-1.jpg)]",
+                // "backdrop-grayscale mask-r-from-30% mask-r-to-50%",
+                "backdrop-blur-xs sm:backdrop-blur-lg mask-cover mask-[url(/images/pastor-desmond-1-mask.png)] sm:mask-[url(/images/pastor-desmond-3-mask.png)] mask-right h-full",
+            ]
+        },
+        {
             title: "Special Meetings",
             showHeader: true,
             contentJustification: "justify-center",
             cardAnimation: defaultCarousalAnimation,
-            carousals: [
+            comparisonCarousals: [
                 [
                     {
                         title: "December",
@@ -215,7 +252,7 @@ export const useCards = () => {
                 ],
                 [
                     {
-                        class: 'w-50 border-5',
+                        class: 'w-50',
                         title: "Ajah",
                         bodyButtons: [{
                             label: "RISE",
@@ -267,14 +304,15 @@ export const useCards = () => {
                     contentJustification: "justify-center",
                     showFooter: true,
                     showHeader: true,
-                    class: "h-80 -z-1",
+                    class: "h-100 -z-1",
                     cardClass: "bg-transparent",
                     variant: "solid",
                     bodyButtonsParentClass: "justify-center h-80",
                     // cardAnimation: defaultCarousalAnimation
                 } as CardData
             })),
-            class: "col-span-full lg:col-span-5",
+            class: "col-span-full",
+            // cardClass: "h-100",
             variant: "subtle"
         },
     ] as CardData[]
