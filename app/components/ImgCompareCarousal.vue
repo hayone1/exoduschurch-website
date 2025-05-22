@@ -1,28 +1,16 @@
 <script setup lang="ts">
-import type { BoundingBox, CardData } from '~/types';
+import type { BoundingBox, CardData, ClipPathTransform, PositionMotionValue } from '~/types';
 import { UseElementSize } from '@vueuse/components';
 import { animate, motion, MotionValue, useDomRef } from 'motion-v';
 import { useResizeObserver } from '@vueuse/core';
-
-interface PositionMotionValue {
-    xPosValue: MotionValue<number>
-    yPosValue: MotionValue<number>
-    constraint: globalThis.Ref<BoundingBox, BoundingBox>
-}
-interface ClipPathTransform {
-    leftClipPath: MotionValue<string>
-    rightClipPath: MotionValue<string>
-    topLeftClipPath: MotionValue<string>
-    topRightClipPath: MotionValue<string>
-    bottomLeftClipPath: MotionValue<string>
-    bottomRightClipPath: MotionValue<string>
-}
+import type { Reactive } from 'vue';
 
 const { carousalsContent } = defineProps<{
     carousalsContent: CardData[][]
 }>();
 
 const constraintRef = useDomRef();
+var showPageCard = ref(false);
 // const constraintSize = useElementSize(constraintRef);
 
 const defaultClipPath: ClipPathTransform = {
@@ -46,7 +34,9 @@ const dividerMotionPosition: PositionMotionValue[] = carousalsContent.map(
         // constraintSize: useElementSize(useTemplateRef(constraintRefPrefix + index)),
     });
 
-var dividerMotionTransform: ComputedRef<MotionValue<string>[]>[] = [];
+var dividerMotionTransform: MotionValue<string>[][] = dividerMotionPosition.map(
+    () => [defaultClipPath.leftClipPath, defaultClipPath.rightClipPath]
+);
 
 onMounted(() => {
     // carousalControlsAnimationControl = animate('.carousal-control',
@@ -61,18 +51,26 @@ onMounted(() => {
 
         }
     );
-    dividerMotionTransform = dividerMotionPosition.map(
-    (motionPosition, index) => computed(() => {
-        const motionTransform = getMotionTransform(motionPosition);
-        if (carousalsContent[index]?.length === 2) {
-            return [motionTransform.leftClipPath, motionTransform.rightClipPath]
-        }
-        return [
-            motionTransform.topLeftClipPath, motionTransform.topRightClipPath,
-            motionTransform.bottomLeftClipPath, motionTransform.bottomRightClipPath
-        ]
-    }
-    ));
+    // dividerMotionTransform = 
+    dividerMotionPosition.forEach(
+        (motionPosition, index) => {
+            watch(motionPosition.constraint, (box) => {
+                const motionTransform = getMotionTransform(motionPosition);
+                if (carousalsContent[index]?.length === 2) {
+                    dividerMotionTransform[index] = [motionTransform.leftClipPath, motionTransform.rightClipPath]
+                }
+                else {
+                    dividerMotionTransform[index] = [
+                        motionTransform.topLeftClipPath, motionTransform.topRightClipPath,
+                        motionTransform.bottomLeftClipPath, motionTransform.bottomRightClipPath
+                    ]
+
+                }
+                showPageCard.value = true;
+            })
+
+        },
+    )
 })
 
 // function onResize(entries: any) {
@@ -103,6 +101,7 @@ function getMotionTransform(positionMotionValue: PositionMotionValue): ClipPathT
         return defaultClipPath;
     }
 
+    // console.log("setting motion value with updated boundingbox: ");
     const xPercentTransform = useTransform(
         positionMotionValue.xPosValue,
         [positionMotionValue.constraint.value.left!, positionMotionValue.constraint.value.right!],
@@ -199,11 +198,12 @@ function enableExtraCarousals(item: any, asString = false) {
                 <!-- visual divider lines -->
 
                 <!-- :style="{clipPath: dividerMotionTransform[index]!.value.leftClipPath}"> -->
-                <motion.div v-for="(cardData, inner_index) in (item as CardData[])"
-                        :class='`w-full ${(inner_index === 0 ? "" : "absolute")}`'
-                        :style="{ clipPath: dividerMotionTransform[index]?.value[inner_index] }">
+                <motion.div v-if="showPageCard" v-for="(cardData, inner_index) in (item as CardData[])"
+                    :class='`w-full ${(inner_index === 0 ? "" : "absolute")}`'
+                    :style="{ clipPath: dividerMotionTransform[index][inner_index] }">
                     <PageCard :pageCardData="cardData" :offset="index" class="w-full bg-cover" />
                 </motion.div>
+
             </UseElementSize>
 
 

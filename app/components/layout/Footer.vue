@@ -1,4 +1,5 @@
 <script setup lang="ts">
+import { NuxtImg } from '#components';
 import type { DropdownMenuItem } from '@nuxt/ui';
 
 const colorMode = useColorMode();
@@ -43,7 +44,8 @@ const textStyle = computed(() =>
     <USeparator :label="`© ${new Date().getFullYear()} Exodus Church`" />
     <div class="grid grid-cols-3 max-w-full my-2">
       <div class="justify-self-start grid grid-cols-2 justify-items-center content-center divide-x-1 divide-muted max-w-30">
-        <div>logo</div>
+        <!-- <div>ok</div> -->
+        <!-- <NuxtImg src="/images/light/exodus-missions-logo.png" class="h-5"/> -->
         <UButtonGroup>
           <UBadge :icon="currentColorMode?.icon" color="neutral" variant="outline" />
           <UDropdownMenu :items="colorModeitems">
@@ -51,7 +53,7 @@ const textStyle = computed(() =>
           </UDropdownMenu>
         </UButtonGroup>
       </div>
-      <div class="justify-self-center">middle</div>
+      <div class="justify-self-center text-white">Making disciples of all nations</div>
       <UButtonGroup orientation="horizontal" class="justify-self-end grid grid-cols-3">
         <UButton icon="i-mdi-instagram" variant="link" color="neutral" :class="textStyle" />
         <UButton icon="i-mdi-youtube" variant="link" color="error" :class="textStyle" />

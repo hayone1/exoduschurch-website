@@ -109,3 +109,17 @@ interface PointerLocation {
     clientX: number
     clientY: number
 }
+
+interface PositionMotionValue {
+    xPosValue: MotionValue<number>
+    yPosValue: MotionValue<number>
+    constraint: globalThis.Ref<BoundingBox, BoundingBox>
+}
+interface ClipPathTransform {
+    leftClipPath: MotionValue<string>
+    rightClipPath: MotionValue<string>
+    topLeftClipPath: MotionValue<string>
+    topRightClipPath: MotionValue<string>
+    bottomLeftClipPath: MotionValue<string>
+    bottomRightClipPath: MotionValue<string>
+}

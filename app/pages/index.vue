@@ -98,6 +98,7 @@ const rowCount = "grid-rows-" + Math.ceil(pageCardsData.length / 2);
         </div>
         <TimedCarousel v-for="timedCarousal in timedCarousals" :carouselCardData="timedCarousal" :offset="0" />
     </ClientOnly>
+    <br />
 </template>
 
 <style lang="css" scoped></style>
