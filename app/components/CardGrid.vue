@@ -19,7 +19,7 @@ const props = defineProps<{
             </template>
 
             <div class="flex justify-center w-full">
-                <h2 v-if="contentData.body" class="font-semibold">
+                <h2 v-if="contentData.body" class="font-semibold text-center">
                     {{ contentData.body }}
                 </h2>
             </div>

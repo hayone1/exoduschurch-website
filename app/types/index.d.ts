@@ -34,6 +34,7 @@ interface CardData {
 }
 
 interface IParallaxFlow {
+    title: string
     visibilityNodesGroup: string[][],
     focusNodes: string[],
     nodes: (width: number, height: number) => Node<any, any, string>[],
@@ -51,6 +52,7 @@ interface IParallaxFlow {
 }
 
 interface IParallaxVariant {
+    title: string,
     backGroundColor: string
     graphic: {
         centralImage: string,

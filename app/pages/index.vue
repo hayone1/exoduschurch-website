@@ -2,6 +2,7 @@
 import type { CardAnimation, CardData } from '~/types';
 
 import { useWindowSize } from '@vueuse/core';
+import type { MotionValue } from 'motion-v';
 
 
 const windowSize = useWindowSize();
@@ -17,21 +18,37 @@ const parallaxSectionHeight = `${parallaxTotal + 1}00vh`;
 // const parallaxSectionHeight = `h-[${parallaxFlows.length + 1}00vh]`;
 const parallaxScrollSections = divideIntoParts(1, parallaxTotal + 1 + 1);
 const parallaxSectionParent = useTemplateRef('parallaxSectionParent');
-const parallaxScroll = useScroll({
-    target: parallaxSectionParent,
-    offset: ['start start', 'end start'],
-});
+var parallaxScroll: {
+    scrollX: MotionValue<number>;
+    scrollY: MotionValue<number>;
+    scrollXProgress: MotionValue<number>;
+    scrollYProgress: MotionValue<number>;
+};
+var parallaxFlowsProgress: MotionValue<number>[];
+var parallaxVariantProgress: MotionValue<number>[];
 
-// onMounted(() => {
-//     console.log("parallaxScrollSections: ", JSON.stringify(parallaxScrollSections));
-// })
+onMounted(() => {
+    // console.log("parallaxScrollSections: ", JSON.stringify(parallaxScrollSections));
+    parallaxScroll = useScroll({
+        target: parallaxSectionParent,
+        offset: ['start start', 'end start'],
+    });
+    parallaxFlowsProgress = parallaxFlows.map((parallaxFlowData, index) =>
+        getParallaxScrollProgress(index)
+    );
+    parallaxVariantProgress = parallaxVariants.map((parallaxVariantData, index) =>
+        getParallaxScrollProgress(parallaxFlows.length + index)
+    );
+})
 
 //to detect scroll progress for an individual parallax flow component
-const parallaxScrollProgress = (index: number) => useTransform(
-    parallaxScroll.scrollYProgress,
-    [ parallaxScrollSections[index]!, parallaxScrollSections[index+1]! ],
-    [0, 1]
-)
+function getParallaxScrollProgress(index: number) {
+    return useTransform(
+        parallaxScroll.scrollYProgress,
+        [parallaxScrollSections[index]!, parallaxScrollSections[index + 1]!],
+        [0, 1]
+    )
+}
 
 // useMotionValueEvent(parallaxScroll.scrollYProgress, 'change', (current) => {
 //     console.log("[Flow Parent]: parallaxScroll Value: ", current)
@@ -50,6 +67,13 @@ const mainContainerRef = useTemplateRef('mainContainerRef');
 
 const rowCount = "grid-rows-" + Math.ceil(pageCardsData.length / 2);
 
+// watch(parallaxSectionParent, () => {
+//     parallaxScroll = useScroll({
+//         target: parallaxSectionParent,
+//         offset: ['start start', 'end start'],
+//     });
+// }, { once: true });
+
 </script>
 
 <template>
@@ -63,22 +87,17 @@ const rowCount = "grid-rows-" + Math.ceil(pageCardsData.length / 2);
     </UContainer>
     <!-- <br /> -->
     <ClientOnly>
-        <div ref="parallaxSectionParent" class="cursor-crosshair"
-                :style="{ height: parallaxSectionHeight }"> 
+        <div ref="parallaxSectionParent" class="cursor-crosshair" :style="{ height: parallaxSectionHeight }">
             <div v-for="(parallaxFlowData, index) in parallaxFlows" class="sticky top-0">
-                <ParallaxFlow :parallaxFlow="parallaxFlowData"
-                    :scrollYProgress="parallaxScrollProgress(index)"/>
+                <ParallaxFlow :parallaxFlow="parallaxFlowData" :scrollYProgress="parallaxFlowsProgress[index]" />
             </div>
             <div v-for="(parallaxVariantData, index) in parallaxVariants" class="sticky top-0">
                 <ParallaxVariant :parallaxVariant="parallaxVariantData"
-                    :scrollYProgress="parallaxScrollProgress(parallaxFlows.length + index)"/>
+                    :scrollYProgress="parallaxVariantProgress[index]" />
             </div>
         </div>
-        <TimedCarousel v-for="timedCarousal in timedCarousals"
-            :carouselCardData="timedCarousal" :offset="0"/>
+        <TimedCarousel v-for="timedCarousal in timedCarousals" :carouselCardData="timedCarousal" :offset="0" />
     </ClientOnly>
 </template>
 
-<style lang="css" scoped>
-
-</style>
+<style lang="css" scoped></style>

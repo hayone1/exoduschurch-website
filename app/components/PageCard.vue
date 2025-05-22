@@ -19,7 +19,7 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
             opacity: 0,
             y: 300,
             // opacity: .5,
-            filter: "blur(10px)",
+            filter: "blur(0px)",
         },
         onscreen: {
             opacity: 1,

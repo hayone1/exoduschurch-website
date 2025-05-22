@@ -57,7 +57,7 @@ useMotionValueEvent(scrollYProgress, 'change', (currentProgress) => {
             visibleNodeGroups = parallaxFlow.visibilityNodesGroup.slice(
                 0, index + 1
             ).flat();
-            console.log("current Visibility Group: ", JSON.stringify(visibleNodeGroups));
+            // console.log("current Visibility Group: ", JSON.stringify(visibleNodeGroups));
             updateNodes();
             fitView({
                 nodes: visibleNodeGroups,
@@ -136,7 +136,9 @@ onMounted(() => {
             <motion.div class="size-10  bg-transparent
             border-green-500 border-1 rounded-full pointer-events-none"
                 :style="{ x: mouseFollowerX, y: mouseFollowerY }" ref="mouseFollower" />
-            <h2 class="absolute self-center font-bold text-8xl opacity-25">GIVE</h2>
+            <h2 class="absolute self-center font-bold text-8xl opacity-25">
+                {{ parallaxFlow.title }}
+            </h2>
         </div>
         <div :class="`h-screen overfow-hidden ${parallaxFlow.backGroundColor.value.parentBackground}`">
             <VueFlow :nodes="nodes" :edges="edges" :zoom-on-scroll="false" :zoom-on-pinch="false"

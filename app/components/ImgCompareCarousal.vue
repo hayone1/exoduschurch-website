@@ -2,6 +2,7 @@
 import type { BoundingBox, CardData } from '~/types';
 import { UseElementSize } from '@vueuse/components';
 import { animate, motion, MotionValue, useDomRef } from 'motion-v';
+import { useResizeObserver } from '@vueuse/core';
 
 interface PositionMotionValue {
     xPosValue: MotionValue<number>
@@ -44,25 +45,8 @@ const dividerMotionPosition: PositionMotionValue[] = carousalsContent.map(
         return { xPosValue, yPosValue, constraint }
         // constraintSize: useElementSize(useTemplateRef(constraintRefPrefix + index)),
     });
-const dividerMotionTransform = dividerMotionPosition.map(
-    (motionPosition, index) => computed(() => {
-        const motionTransform = getMotionTransform(motionPosition);
-        if (carousalsContent[index]?.length === 2) {
-            return [ motionTransform.leftClipPath, motionTransform.rightClipPath ]
-        }
-        return [
-            motionTransform.topLeftClipPath, motionTransform.topRightClipPath,
-            motionTransform.bottomLeftClipPath, motionTransform.bottomRightClipPath
-        ]
-    }
-));
 
-// const controlsGestureHint = [
-//     ['.carousal-control', {  }],
-    
-// ];
-
-// var carousalControlsAnimationControl: AnimationPlaybackControls
+var dividerMotionTransform: ComputedRef<MotionValue<string>[]>[] = [];
 
 onMounted(() => {
     // carousalControlsAnimationControl = animate('.carousal-control',
@@ -74,38 +58,51 @@ onMounted(() => {
             repeatType: 'mirror',
             ease: 'circInOut',
             repeatDelay: 10,
-            
+
         }
-    )
+    );
+    dividerMotionTransform = dividerMotionPosition.map(
+    (motionPosition, index) => computed(() => {
+        const motionTransform = getMotionTransform(motionPosition);
+        if (carousalsContent[index]?.length === 2) {
+            return [motionTransform.leftClipPath, motionTransform.rightClipPath]
+        }
+        return [
+            motionTransform.topLeftClipPath, motionTransform.topRightClipPath,
+            motionTransform.bottomLeftClipPath, motionTransform.bottomRightClipPath
+        ]
+    }
+    ));
 })
 
-function onResize(entries: any) {
-    // console.log("component has been resized with constraints: ",
-    //     JSON.stringify(dividerMotionPosition[0]?.constraint.value)
-    // );
-    dividerMotionPosition.forEach((motionPosition, index) => {
-        resetDivider(index);
-    })
-}
+// function onResize(entries: any) {
 
-function resetDivider(index: number) {
-    if (typeof(dividerMotionPosition[index]) === 'undefined') {
-        return;
-    }
-    if (dividerMotionPosition[index].xPosValue.get() !== 0) {
-            dividerMotionPosition[index].xPosValue.jump(0);
-    }
+// }
+useResizeObserver(constraintRef, (entries) => {
+    //reset divider arrow
+    resetDivider();
+})
+
+function resetDivider() {
+    dividerMotionPosition.forEach(motionPosition => {
+        if (typeof (motionPosition) === 'undefined') {
+            return;
+        }
+        if (motionPosition.xPosValue.get() !== 0) {
+            motionPosition.xPosValue.jump(0);
+        }
+    });
 }
 
 function getMotionTransform(positionMotionValue: PositionMotionValue): ClipPathTransform {
     //     defaultBoundingBox == positionMotionValue.constraint.value);
-    if (!positionMotionValue) {return defaultClipPath};
+    if (!positionMotionValue) { return defaultClipPath };
     if (JSON.stringify(positionMotionValue.constraint.value) ===
-            JSON.stringify(defaultBoundingBox)) {
-        console.log("setting motion value with default boundingbox: ");
+        JSON.stringify(defaultBoundingBox)) {
+        // console.log("setting motion value with default boundingbox: ");
         return defaultClipPath;
     }
-    
+
     const xPercentTransform = useTransform(
         positionMotionValue.xPosValue,
         [positionMotionValue.constraint.value.left!, positionMotionValue.constraint.value.right!],
@@ -146,15 +143,15 @@ const slotPosition: Record<string, string> = {
 
 function getDragConstraints(index: number, width: number, height: number,
     enableAllAxis: boolean = true): Partial<BoundingBox> {
-        // dividerMotionPosition[index]!.width = width;
-        // dividerMotionPosition[index]!.height = height;
-        const constraint = {
-            left: -(width / 2),
-            right: (width / 2),
-            top: enableAllAxis ? -(height / 2) : 0,
-            bottom: enableAllAxis ? (height / 2) : 0,
-        };
-        // console.log("getDragConstraints called: ", JSON.stringify(constraint));
+    // dividerMotionPosition[index]!.width = width;
+    // dividerMotionPosition[index]!.height = height;
+    const constraint = {
+        left: -(width / 2),
+        right: (width / 2),
+        top: enableAllAxis ? -(height / 2) : 0,
+        bottom: enableAllAxis ? (height / 2) : 0,
+    };
+    // console.log("getDragConstraints called: ", JSON.stringify(constraint));
 
     if (JSON.stringify(constraint) !==
         JSON.stringify(defaultBoundingBox)) {
@@ -173,7 +170,7 @@ function enableExtraCarousals(item: any, asString = false) {
 </script>
 
 <template>
-    <motion.div v-resize-observer="onResize">
+    <motion.div>
         <!-- <div vresiz>
 
         </div> -->
@@ -193,18 +190,19 @@ function enableExtraCarousals(item: any, asString = false) {
                                 flex text-neutral-800 z-2">
                     <UIcon name="i-icon-park-outline-direction-adjustment-two" size="30" />
                 </motion.div>
+
                 <!-- visual divider lines -->
                 <motion.div :class='`absolute self-center border-1 z-1 h-full`'
-                            :style="{ x: dividerMotionPosition[index]!.xPosValue }"/>
-                <motion.div v-if="(item as CardData[]).length > 2"
-                            :class='`absolute self-center border-1 z-1 w-full`'
-                            :style="{ y: dividerMotionPosition[index]!.yPosValue }"/>
+                    :style="{ x: dividerMotionPosition[index]!.xPosValue }" />
+                <motion.div v-if="(item as CardData[]).length > 2" :class='`absolute self-center border-1 z-1 w-full`'
+                    :style="{ y: dividerMotionPosition[index]!.yPosValue }" />
+                <!-- visual divider lines -->
+
                 <!-- :style="{clipPath: dividerMotionTransform[index]!.value.leftClipPath}"> -->
                 <motion.div v-for="(cardData, inner_index) in (item as CardData[])"
-                            :class='`w-full ${(inner_index === 0 ? "" : "absolute")}`'
-                            :style="{clipPath: dividerMotionTransform[index]!.value[inner_index]}">
+                        :class='`w-full ${(inner_index === 0 ? "" : "absolute")}`'
+                        :style="{ clipPath: dividerMotionTransform[index]?.value[inner_index] }">
                     <PageCard :pageCardData="cardData" :offset="index" class="w-full bg-cover" />
-                    
                 </motion.div>
             </UseElementSize>
 

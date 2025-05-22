@@ -48,9 +48,14 @@ useMotionValueEvent(yClipPathSpring, "change", (latestValue) => {
         <div class="magicpattern-1 h-screen grid grid-cols-4
             gap-4 pt-10 px-4 justify-items-center" :class="parallaxVariant.backGroundColor">
 
+            <div class="z-0 absolute size-full flex justify-center">
+                <h2 class="absolute self-center font-bold text-6xl sm:text-8xl opacity-25 text-black">
+                {{ parallaxVariant.title }}
+            </h2>
+            </div>
             <div v-for="(node, index) in parallaxVariant.nodes"
                     :class="node.locationClass"
-                class="size-full">
+                class="size-full z-1">
                 <AnimatePresence>
                     <motion.div v-if="showNodes[index]?.value" class="size-full"
                         :initial="{ scale: 0 }"

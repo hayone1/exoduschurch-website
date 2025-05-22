@@ -2,6 +2,7 @@ import type { IParallaxVariant } from "~/types"
 
 export const useParallaxVariants = () => [
     {
+        title: "OUTREACH",
         backGroundColor: 'bg-neutral-100',
         graphic: {
             centralImage: '/images/dark/exodus-missions-logo.png',

@@ -8,6 +8,7 @@ export const useParallaxFlows = () => {
     return [
         {
             // focusNodes: ['node-1a','node-2', 'node-3','node-ia'],
+            title: "GIVE",
             visibilityNodesGroup: [
                 ['node-1a', 'node-1'],
                 ['node-2a','node-2'],

@@ -132,33 +132,22 @@ const defaultTransition = {
 <template>
     <!-- <div :style="{ backgroundColor: 'red' }"></div> -->
     <motion.div :class="carouselCardData.class">
-        <UCard>
-            <template #header>
-                <Placeholder class="h-8" />
-            </template>
-
-            <Placeholder class="h-32" />
-
-            <template #footer>
-                <Placeholder class="h-8" />
-            </template>
-        </UCard>
-        <UCard class="bg-transparent" :variant="carouselCardData.variant" :class="carouselCardData.cardClass">
+        <UCard class="bg-transparent text-white z-3 rounded-none" :variant="carouselCardData.variant" :class="carouselCardData.cardClass">
             <template v-if="carouselCardData.showHeader" #header>
-                <!-- <div :class="`flex w-full ${carouselCardData.contentJustification}`">
+                <div :class="`flex w-full ${carouselCardData.contentJustification}`">
                     <UButton v-if="carouselCardData.titleIcon" :icon="carouselCardData.titleIcon" size="xl" variant="link"
                         class="text-6xl text-white" :to="carouselCardData.titleIconLink" target="_blank" />
                     <h2 v-if="carouselCardData.title" class="text-2xl font-semibold">{{ carouselCardData.title }}</h2>
-                </div> -->
-                Hii
+                </div>
             </template>
-            <!-- <div class="w-full flex justify-center">
+
+            <div class="w-full flex justify-center">
                 <UCarousel ref="carousel" v-if="carouselCardData.carousels" arrows loop :autoplay="autoPlayOptions"
                         :items="carouselCardData.carousels" v-slot="{ item, index }" :ui="carouselCardData.carouselsUi"
                         :class="carouselCardData.carouselsClass">
                         <PageCard :pageCardData="(item as CardData)" :offset="index" />
                     </UCarousel>
-            </div> -->
+            </div>
 
             <template v-if="carouselCardData.showFooter" #footer>
                 <h2 v-if="carouselCardData.footer" :class="`w-full flex ${carouselCardData.contentJustification}`">
@@ -172,6 +161,7 @@ const defaultTransition = {
                 </div>
             </template>
         </UCard>
+        
         <!-- <div v-if="carouselCardData.backdropClasses" class="absolute size-full border-amber-500 border-2">
             <div class="-z-2 absolute size-full border-amber-400 border-2"
                 >

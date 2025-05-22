@@ -59,8 +59,6 @@ export const useCards = () => {
     backdropOnScreen: { opacity: 1 }
 };
 
-    const viewport = useViewport();
-    const colorMode = useColorMode();
     return [
         {
             title: "Welcome To",
@@ -85,7 +83,7 @@ export const useCards = () => {
             showHeader: true,
             backdropClasses: [
                 "bg-cover mask-repeat-x mask-[url(/images/brush-mask-1-from-top.svg)] bg-[url(/images/worship-stock-image-1.jpg)]",
-                "bg-cover mask-t-from-50% mask-t-to-70% sm:mask-t-from-10% sm:mask-t-to-60%  bg-[url(/images/worship-stock-image-1.jpg)]",
+                "bg-cover mask-t-from-60% mask-t-to-70% sm:mask-t-from-10% sm:mask-t-to-60%  bg-[url(/images/worship-stock-image-1.jpg)]",
                 "backdrop-grayscale mask-r-from-30% mask-r-to-50%",
             ]
         },
