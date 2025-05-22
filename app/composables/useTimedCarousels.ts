@@ -61,16 +61,20 @@ export const useTimedCarousels = () => {
 
     return [
         {
-            // title: "Special Meetings",
-            // showHeader: true,
-            contentJustification: "justify-center",
-            cardAnimation: defaultCarousalAnimation,
-            carouselsClass: 'pb-12 left-40 md:left-40 lg:left-20',
+            title: "Messages",
+            showHeader: true,
+            showFooter: true,
+            footer: "Hii",
+            // contentJustification: "justify-center",
+            // cardAnimation: defaultCarousalAnimation,
+            class: "border-2",
+            cardClass: "",
+            carouselsClass: '',
             carouselsUi: {
                 controls: 'absolute bottom-6 left-10',
                 // dots: 'top-1',
                 // dot: 'w-6 h-1',
-                item: 'basis-1/3'
+                item: 'basis-1/8'
             },
             carousels: [
                 {
@@ -78,41 +82,110 @@ export const useTimedCarousels = () => {
                     // cardClass: "bg-transparent",
                     // contentJustification: "justify-center",
                     class: "rounded-lg bg-cover bg-center bg-no-repeat bg-[url(/images/a-christmas-thought-the-most-precious-gift.jpg)]",
+                    footerButtons: [
+                        { label: "Listen" },
+                    ],
+                },
+                {
+                    title: "Adventures in the miraculous",
+                    class: "rounded-lg bg-cover bg-no-repeat bg-[url(/images/adventures-in-the-miraculous.jpg)]",
+                    footerButtons: [
+                        { label: "Listen" },
+                    ],
+                },
+                {
+                    title: "Burden of redemption",
+                    class: "rounded-lg bg-cover bg-no-repeat bg-[url(/images/burden-of-redemption.jpg)]",
+                    footerButtons: [
+                        { label: "Listen" },
+                    ],
+                },
+                {
+                    title: "God's will aand you",
+                    class: "rounded-lg bg-cover bg-no-repeat bg-[url(/images/God-will-and-you.jpg)]",
+                    footerButtons: [
+                        { label: "Listen" },
+                    ],
+                },
+                {
+                    title: "Heartbeats",
+                    // cardClass: "bg-transparent",
+                    // contentJustification: "justify-center",
+                    class: "rounded-lg bg-cover bg-center bg-no-repeat bg-[url(/images/heartbeats.jpg)]",
                     footerButtonsParentClass: "justify-center",
                     footerButtons: [
                         { label: "Listen" },
                     ],
-                    motionStyle: {
-                        background: 'url(/images/a-christmas-thought-the-most-precious-gift.jpg) center',
-                        backgroundSize: 'cover',
-                        backgroundColor: 'rgba(27, 28, 30, 0.5)'
-                    },
                 },
                 {
-                    title: "December",
-                    class: "rounded-lg bg-cover bg-no-repeat bg-[url(/images/adventures-in-the-miraculous.jpg)]",
+                    title: "Help and favour in God",
+                    // cardClass: "bg-transparent",
+                    // contentJustification: "justify-center",
+                    class: "rounded-lg bg-cover bg-center bg-no-repeat bg-[url(/images/help-and-favour-in-God.jpg)]",
                     footerButtonsParentClass: "justify-center",
                     footerButtons: [
-                        { label: "Share a testimony" },
-                        { label: "View testimonies", variant: 'outline' },
+                        { label: "Listen" },
                     ],
-                    motionStyle: {
-                        background: 'url(/images/adventures-in-the-miraculous.jpg'
-                    }
                 },
                 {
-                    title: "August",
-                    class: "rounded-lg bg-cover bg-no-repeat bg-[url(/images/burden-of-redemption.jpg)]",
-                    motionStyle: {
-                        background: 'url(/images/burden-of-redemption.jpg'
-                    }
+                    title: "In New Seasons",
+                    // cardClass: "bg-transparent",
+                    // contentJustification: "justify-center",
+                    class: "rounded-lg bg-cover bg-center bg-no-repeat bg-[url(/images/in-new-seasons.jpg)]",
+                    footerButtonsParentClass: "justify-center",
+                    footerButtons: [
+                        { label: "Listen" },
+                    ],
                 },
                 {
-                    title: "March",
-                    class: "rounded-lg bg-cover bg-no-repeat bg-[url(/images/God-will-and-you.jpg)]",
-                    motionStyle: {
-                        background: 'url(/images/God-will-and-you.jpg)'
-                    }
+                    title: "Prayer Focused: Making power available",
+                    // cardClass: "bg-transparent",
+                    // contentJustification: "justify-center",
+                    class: "rounded-lg bg-cover bg-center bg-no-repeat bg-[url(/images/prayer-focused-making-power-available.jpg)]",
+                    footerButtonsParentClass: "justify-center",
+                    footerButtons: [
+                        { label: "Listen" },
+                    ],
+                },
+                {
+                    title: "Recovery: Bouncing back from bondage",
+                    // cardClass: "bg-transparent",
+                    // contentJustification: "justify-center",
+                    class: "rounded-lg bg-cover bg-center bg-no-repeat bg-[url(/images/recovery-bouncing-back-from-bondage.jpg)]",
+                    footerButtonsParentClass: "justify-center",
+                    footerButtons: [
+                        { label: "Listen" },
+                    ],
+                },
+                {
+                    title: "Speedy Deliverance",
+                    // cardClass: "bg-transparent",
+                    // contentJustification: "justify-center",
+                    class: "rounded-lg bg-cover bg-center bg-no-repeat bg-[url(/images/speedy-deliverance.jpg)]",
+                    footerButtonsParentClass: "justify-center",
+                    footerButtons: [
+                        { label: "Listen" },
+                    ],
+                },
+                {
+                    title: "The amazing gosepl of christ",
+                    // cardClass: "bg-transparent",
+                    // contentJustification: "justify-center",
+                    class: "rounded-lg bg-cover bg-center bg-no-repeat bg-[url(/images/the-amazing-gospel-of-christ.jpg)]",
+                    footerButtonsParentClass: "justify-center",
+                    footerButtons: [
+                        { label: "Listen" },
+                    ],
+                },
+                {
+                    title: "The Spirit of faith",
+                    // cardClass: "bg-transparent",
+                    // contentJustification: "justify-center",
+                    class: "rounded-lg bg-cover bg-center bg-no-repeat bg-[url(/images/the-spirit-of-faith.jpg)]",
+                    footerButtonsParentClass: "justify-center",
+                    footerButtons: [
+                        { label: "Listen" },
+                    ],
                 },
             ].map(card => {
                 return {
@@ -120,21 +193,17 @@ export const useTimedCarousels = () => {
                     cardAnimation: defaultCardAnimation,
                     contentJustification: "justify-center",
                     showFooter: true,
+                    footerButtonsParentClass: "pt-20 justify-center",
                     carousels: [],
                     // showHeader: true,
-                    // class: "-z-1",
-                    cardClass: "bg-transparent h-50 w-full border-2",
+                    // class: "border-2",
+                    cardClass: "bg-transparent h-50 w-full",
                     variant: "solid",
                     // bodyButtonsParentClass: "justify-center h-80",
                     // cardAnimation: defaultCarousalAnimation
                 } as CardData
             }),
-            class: "",
-            // cardClass: "size-full",
-            variant: "subtle",
-            backdropClasses: [
-                "backdrop-blur-lg",
-            ]
+            variant: "solid",
         },
     ] as CardData[]
 }

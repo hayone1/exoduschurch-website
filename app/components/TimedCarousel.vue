@@ -72,8 +72,8 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
 }
 
 const springConfig = { damping: 20, stiffness: 40, restDelta: 0.001 };
-var carouselIndex = 0;
-const motionCarouselIndex = motionValue(0);
+var carouselIndex = ref(carouselCardData.carousels?.length - 1);
+// const motionCarouselIndex = motionValue(0);
 // const motionCarouselIndexSpring = useSpring(motionCarouselIndex, springConfig);
 // const backgroundColorTransform = useTransform(
 //     motionCarouselIndexSpring,
@@ -96,22 +96,26 @@ onMounted(() => {
 
     // }, 1000)
     carousel.value?.emblaApi?.on('autoplay:select', () => {
-        carouselIndex++;
-        if (carouselIndex === carouselCardData.carousels?.length) {
-            carouselIndex = 0;
+        carouselIndex.value++;
+        if (carouselIndex.value === carouselCardData.carousels?.length) {
+            carouselIndex.value = 0;
         }
-        motionCarouselIndex.set(carouselIndex);
+        // motionCarouselIndex.set(carouselIndex);
     });
 })
 
 function overrideCarousalCardClass(cardData: CardData): CardData {
     return {
         ...cardData,
-        cardClass: "bg-transparent size-full"
+        class: cardData.class + " max-w-80 aspect-1/1",
+        cardClass: "bg-transparent h-80 border-2"
     };
 }
 
 const carousel = useTemplateRef('carousel');
+const activeCarousel = computed(() =>
+    overrideCarousalCardClass(carouselCardData.carousels[carouselIndex.value]!)
+);
 const autoPlayOptions = {
     delay: 2000,
     stopOnInteraction: false,
@@ -127,40 +131,66 @@ const defaultTransition = {
 
 <template>
     <!-- <div :style="{ backgroundColor: 'red' }"></div> -->
-    <motion.div :class="`h-screen rounded-none sm:rounded-lg ${carouselCardData.class}`" :transition="defaultTransition"
-        >
+    <motion.div :class="carouselCardData.class">
+        <UCard>
+            <template #header>
+                <Placeholder class="h-8" />
+            </template>
 
-        <div v-if="carouselCardData.backdropClasses" class="absolute size-full">
+            <Placeholder class="h-32" />
+
+            <template #footer>
+                <Placeholder class="h-8" />
+            </template>
+        </UCard>
+        <UCard class="bg-transparent" :variant="carouselCardData.variant" :class="carouselCardData.cardClass">
+            <template v-if="carouselCardData.showHeader" #header>
+                <!-- <div :class="`flex w-full ${carouselCardData.contentJustification}`">
+                    <UButton v-if="carouselCardData.titleIcon" :icon="carouselCardData.titleIcon" size="xl" variant="link"
+                        class="text-6xl text-white" :to="carouselCardData.titleIconLink" target="_blank" />
+                    <h2 v-if="carouselCardData.title" class="text-2xl font-semibold">{{ carouselCardData.title }}</h2>
+                </div> -->
+                Hii
+            </template>
+            <!-- <div class="w-full flex justify-center">
+                <UCarousel ref="carousel" v-if="carouselCardData.carousels" arrows loop :autoplay="autoPlayOptions"
+                        :items="carouselCardData.carousels" v-slot="{ item, index }" :ui="carouselCardData.carouselsUi"
+                        :class="carouselCardData.carouselsClass">
+                        <PageCard :pageCardData="(item as CardData)" :offset="index" />
+                    </UCarousel>
+            </div> -->
+
+            <template v-if="carouselCardData.showFooter" #footer>
+                <h2 v-if="carouselCardData.footer" :class="`w-full flex ${carouselCardData.contentJustification}`">
+                    {{ carouselCardData.footer }}
+                </h2>
+                <div v-if="carouselCardData.footerButtons"
+                    :class="`flex flex-row flex-wrap gap-2 ${carouselCardData.footerButtonsParentClass}`">
+                    <UButton v-for="buttonData in carouselCardData.footerButtons" :label="buttonData.label"
+                        :variant="buttonData.variant" color="neutral" :class="buttonData.class"
+                        :icon="buttonData.icon" />
+                </div>
+            </template>
+        </UCard>
+        <!-- <div v-if="carouselCardData.backdropClasses" class="absolute size-full border-amber-500 border-2">
+            <div class="-z-2 absolute size-full border-amber-400 border-2"
+                >
+            </div>
             <motion.div v-for="overlayClass in carouselCardData.backdropClasses"
-                :class="`absolute size-full rounded-none sm:rounded-lg ${overlayClass}`"
+                class="absolute size-full rounded-none sm:rounded-lg"
+                :class="overlayClass"
                 :initial="pageCardAnimation(offset).backdropOffscreen"
                 :whileInView="pageCardAnimation(offset).backdropOnScreen" :inViewOptions="{ once: true }" />
 
-        </div>
+        </div> -->
         <!-- <ul class="absolute size-full flex justify-center">
             <motion.li v-for="(carouselCard, index) in carouselCardData.carousels.slice(0, 2)" class="timed-card"
                 :data-first="(index === 0)">
-                <PageCard :pageCardData="overrideCarousalCardClass(carouselCard)" :offset="offset" />
+                <PageCard :carouselCardData="overrideCarousalCardClass(carouselCard)" :offset="offset" />
             </motion.li>
         </ul> -->
-        
-        <div class="absolute size-full flex flex-nowrap flex-row justify-end
-            items-end overflow-hidden">
-            <UCarousel ref="carousel" v-if="carouselCardData.carousels" arrows loop :autoplay="autoPlayOptions"
-                :items="carouselCardData.carousels" v-slot="{ item, index }" :ui="carouselCardData.carouselsUi"
-                :class="carouselCardData.carouselsClass">
-                <PageCard :pageCardData="(item as CardData)" :offset="index" />
-            </UCarousel>
-            <!-- <PageCard :pageCardData="carouselCardData" :offset="offset"
-                /> -->
-        </div>
-        <div class="size-full opacity-30" :style="carouselCardData.carousels[motionCarouselIndex.get()]?.motionStyle">
-            <!-- <motion.div class="rounded-lg border-2"
-                style="{ boxShadow: '', background: '' }">
-    
-            </motion.div> -->
 
-        </div>
+
     </motion.div>
 </template>
 

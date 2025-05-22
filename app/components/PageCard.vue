@@ -92,6 +92,7 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
                     <h2 v-if="pageCardData.title" class="text-2xl font-semibold">{{ pageCardData.title }}</h2>
                 </div>
             </template>
+
             <motion.div :data-name="`main-card-body-${offset}`" :initial="pageCardAnimation(offset).textOffscreen"
                 :class="`flex flex-col ${pageCardData.contentJustification}`"
                 :whileInView="pageCardAnimation(offset).textOnScreen" :inViewOptions="{ once: true }">
@@ -118,6 +119,7 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
                 </div>
 
             </motion.div>
+            
             <template v-if="pageCardData.showFooter" #footer>
                 <h2 v-if="pageCardData.footer"
                     :class="`w-full flex ${pageCardData.contentJustification}`" >
