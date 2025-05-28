@@ -137,7 +137,8 @@ const defaultTransition = {
                 <div :class="`flex w-full ${carouselCardData.contentJustification}`">
                     <UButton v-if="carouselCardData.titleIcon" :icon="carouselCardData.titleIcon" size="xl" variant="link"
                         class="text-6xl text-white" :to="carouselCardData.titleIconLink" target="_blank" />
-                    <h2 v-if="carouselCardData.title" class="text-2xl font-semibold">{{ carouselCardData.title }}</h2>
+                    <h2 v-if="carouselCardData.title" :id="transformToId(carouselCardData.title)"
+                        class="text-2xl font-semibold">{{ carouselCardData.title }}</h2>
                 </div>
             </template>
 

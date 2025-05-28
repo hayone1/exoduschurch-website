@@ -70,6 +70,7 @@ interface ButtonContent {
     class?: string
     icon?: string
     color?: "error" | "primary" | "secondary" | "success" | "info" | "warning" | "neutral"
+    link?: string
 }
 
 interface BasicContent {

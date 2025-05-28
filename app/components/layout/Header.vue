@@ -1,10 +1,11 @@
 <script setup lang="ts">
 // import type { NavigationMenuItem } from '@nuxt/ui'
+const route = useRoute();
 const viewport = useViewport();
 const colorMode = useColorMode();
 const navLabels = [
-  "Community", "Sermons", "Events",
-  "Give", "Reach out"
+  "home", "about", "sermons",
+  "give","events",
 ];
 const backgroundColor = computed(() =>
   colorMode.value === 'light' ? "bg-white/50" : "bg-neutral-800/60"
@@ -13,9 +14,9 @@ const hoverStyle = computed(() =>
   colorMode.value === 'light' ? "hover:scale-105" : "hover:scale-105 hover:bg-neutral-800"
 );
 
-function navProps(label: string | undefined) {
+function navProps(label: string) {
   var navClass: string = "z-20";
-  var navLabel: string = label ?? "";
+  var navLabel: string = label.charAt(0).toUpperCase() + label.slice(1);
   if (colorMode.value === 'light') {
     navClass += " text-neutral-700";
   }
@@ -24,8 +25,8 @@ function navProps(label: string | undefined) {
     navLabel = "";
   }
   else if (viewport.isLessOrEquals('tablet')) {
-    navClass += " text-sm";
-    navLabel = label ?? "";
+    navClass += " ";
+    // navLabel = label ?? "";
     if (label === navLabels.at(-1)) {
       navClass = "hidden";
     }
@@ -38,67 +39,97 @@ function navProps(label: string | undefined) {
 
 const navItems = computed(() => [
   {
-    label: navProps(navLabels[0]).navLabel,
+    label: navProps(navLabels[0]!).navLabel,
     value: viewport.breakpoint, //workaround to allow computed to run reactively
+    icon: 'i-fluent-home-20-regular',
+    avatar: {
+      icon: 'i-fluent-home-20-regular'
+    },
+    to: '/',
+    class: navProps(navLabels[0]!).navClass,
+    active: route.path === '/',
+    children: []
+  },
+  {
+    label: navProps(navLabels[1]!).navLabel,
     icon: 'i-fluent-people-community-20-regular',
     avatar: {
       icon: 'i-fluent-people-community-20-regular'
     },
-    to: '/getting-started',
-    class: navProps(navLabels[0]).navClass,
-    active: true,
-    children: []
-  },
-  {
-    label: navProps(navLabels[1]).navLabel,
-    icon: 'i-fluent-headphones-sound-wave-20-filled',
-    avatar: {
-      icon: 'i-fluent-headphones-sound-wave-20-filled'
-    },
-    to: '/composables',
-    class: navProps(navLabels[1]).navClass,
-    children: []
-  },
-  {
-    label: navProps(navLabels[2]).navLabel,
-    icon: 'i-fluent-calendar-20-regular',
-    avatar: {
-      icon: 'i-fluent-calendar-20-regular'
-    },
-    to: '/components',
-    class: navProps(navLabels[2]).navClass,
+    // to: '/' + navLabels[3],
+    class: navProps(navLabels[1]!).navClass,
+    active: route.path.includes(navLabels[1]!),
     children: [
       {
-        label: 'Supernatural School',
+        label: 'Community',
+        to: '/community'
       },
       {
-        label: 'Rise',
+        label: 'Service Units',
+        to: '/community#service-units'
       },
-      {
-        label: 'Faith & Fire',
-      },
+      // {
+      //   label: 'Faith & Fire',
+      // },
     ]
     
   },
   {
-    label: navProps(navLabels[3]).navLabel,
+    label: navProps(navLabels[2]!).navLabel,
+    icon: 'i-fluent-headphones-sound-wave-20-filled',
+    avatar: {
+      icon: 'i-fluent-headphones-sound-wave-20-filled'
+    },
+    to: '/#' + navLabels[2],
+    class: navProps(navLabels[2]!).navClass,
+    active: route.path.includes(navLabels[2]!),
+    children: []
+  },
+  {
+    label: navProps(navLabels[3]!).navLabel,
     icon: 'i-fluent-handshake-20-regular',
     avatar: {
       icon: 'i-fluent-handshake-20-regular'
     },
-    to: 'https://github.com/nuxt/ui',
-    class: navProps(navLabels[3]).navClass,
-    target: '_blank'
+    to: '/#' + navLabels[3],
+    class: navProps(navLabels[3]!).navClass,
+    active: route.path.includes(navLabels[3]!),
+    // target: '_blank'
   },
   {
-    label: navProps(navLabels[4]).navLabel,
-    to: '/components',
-    icon: 'i-fluent-mail-multiple-20-regular',
+    label: navProps(navLabels[4]!).navLabel,
+    icon: 'i-fluent-calendar-20-regular',
     avatar: {
-      icon: 'i-fluent-mail-multiple-20-regular'
+      icon: 'i-fluent-calendar-20-regular'
     },
-    class: navProps(navLabels[4]).navClass,
-  }
+    // to: '/' + navLabels[3],
+    class: navProps(navLabels[4]!).navClass,
+    active: route.path.includes(navLabels[4]!),
+    children: [
+      {
+        label: 'Supernatural School',
+        to: '/events#supernatural-school'
+      },
+      {
+        label: 'Rise',
+        to: '/events#rise'
+      },
+      // {
+      //   label: 'Faith & Fire',
+      // },
+    ]
+    
+  },
+  
+  // {
+  //   label: navProps(navLabels[4]!).navLabel,
+  //   to: '/components',
+  //   icon: 'i-fluent-mail-multiple-20-regular',
+  //   avatar: {
+  //     icon: 'i-fluent-mail-multiple-20-regular'
+  //   },
+  //   class: navProps(navLabels[4]!).navClass,
+  // }
 ].map(navItem => {
   if (colorMode.value === 'light') {
     const { icon, ...newNavItem } = navItem;

@@ -1,6 +1,7 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
 import Components from 'unplugin-vue-components/vite'
 import MotionResolver from 'motion-v/resolver'
+
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
@@ -13,6 +14,17 @@ export default defineNuxtConfig({
       isCustomElement: (tag) => ['o-arc', 'o-progress'].includes(tag),
     }
   },
+  // content: {
+  //   build: {
+  //     markdown: {},
+  //     csv: {
+  //       // Convert CSV data to JSON objects
+  //       json: true,
+  //       // Specify custom delimiter (default is ',')
+  //       delimiter: ','
+  //     }
+  //   }
+  // },
   // vite: {
   //   plugins: [
   //     Components({

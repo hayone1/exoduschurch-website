@@ -34,3 +34,7 @@ export function divideIntoParts(value: number, n: number): number[] {
 
   return result;
 }
+
+export function transformToId(input: string) {
+  return input.replace(" ", "-").toLowerCase()
+}

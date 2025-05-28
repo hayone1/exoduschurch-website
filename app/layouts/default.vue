@@ -12,7 +12,7 @@
   </ClientOnly>
   
   <section id="main-body">
-    <slot />
+    <slot ></slot>
   </section>
 
   <ClientOnly fallbackTag="span">

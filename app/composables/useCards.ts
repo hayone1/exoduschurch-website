@@ -91,10 +91,10 @@ export const useCards = () => {
             // title: "Testimonies",
             contentJustification: "justify-center",
             footerButtonsParentClass: "justify-center",
-            footerButtons: [
-                { label: "Share a testimony" },
-                { label: "View testimonies", variant: 'outline' },
-            ],
+            // footerButtons: [
+            //     { label: "Share a testimony" },
+            //     { label: "View testimonies", variant: 'outline' },
+            // ],
             class: "col-span-full md:col-span-5 lg:col-span-3",
             cardClass: "bg-transparent",
             variant: "solid",
@@ -103,9 +103,10 @@ export const useCards = () => {
             bodyButtons: [{
                 label: "Testimonies",
                 variant: 'link',
+                link: 'https://bit.ly/exodus_testimonies',
                 class: "text-5xl md:text-4xl font-extrabold text-neutral-600"
             }],
-            showFooter: true,
+            // showFooter: true,
             // showHeader: true,
             backdropClasses: [
                 "mask-contain mask-center mask-no-repeat -z-1 mask-[url(/images/brush-mask-0-linear.svg)] bg-white"
@@ -152,9 +153,9 @@ export const useCards = () => {
         {
             contentJustification: "justify-center",
             footerButtonsParentClass: "justify-center",
-            footerButtons: [
-                { label: "Join a unit" },
-            ],
+            // footerButtons: [
+            //     { label: "Join a unit" },
+            // ],
             class: "col-span-full md:col-span-5 lg:col-span-3",
             cardClass: "bg-transparent",
             variant: "solid",
@@ -165,7 +166,7 @@ export const useCards = () => {
                 variant: 'link',
                 class: "text-6xl md:text-4xl font-extrabold text-white-600"
             }],
-            showFooter: true,
+            // showFooter: true,
             // showHeader: true,
             backdropClasses: [
                 "mask-contain mask-center mask-no-repeat -z-1 mask-[url(/images/brush-mask-0-linear.svg)] bg-neutral-600/30"

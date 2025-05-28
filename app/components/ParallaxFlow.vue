@@ -136,7 +136,7 @@ onMounted(() => {
             <motion.div class="size-10  bg-transparent
             border-green-500 border-1 rounded-full pointer-events-none"
                 :style="{ x: mouseFollowerX, y: mouseFollowerY }" ref="mouseFollower" />
-            <h2 class="absolute self-center font-bold text-8xl opacity-25">
+            <h2 :id="transformToId(parallaxFlow.title)" class="absolute self-center font-bold text-8xl opacity-25">
                 {{ parallaxFlow.title }}
             </h2>
         </div>

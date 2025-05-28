@@ -75,7 +75,7 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
     <motion.div class="sm:rounded-lg" :class="pageCardData.class"
         :initial="pageCardAnimation(offset).offscreen" :whileInView="pageCardAnimation(offset).onscreen"
         :inViewOptions="{ once: true, margin: '50% 0px' }">
-        <div v-if="pageCardData.backdropClasses" class="absolute size-full">
+        <div v-if="pageCardData.backdropClasses" class="absolute size-full pointer-events-none">
             <motion.div v-for="overlayClass in pageCardData.backdropClasses"
                 :class="`absolute size-full rounded-none sm:rounded-lg ${overlayClass}`"
                 :initial="pageCardAnimation(offset).backdropOffscreen"
@@ -103,7 +103,8 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
                     class="rounded-xl" />
                 
                 <ClientOnly>
-                    <ImgCompareCarousal v-if="pageCardData.comparisonCarousals" :carousalsContent="pageCardData.comparisonCarousals" />
+                    <ImgCompareCarousal v-if="pageCardData.comparisonCarousals"
+                        :carousalsContent="pageCardData.comparisonCarousals" />
                 </ClientOnly>
 
                 <p v-if="pageCardData.body" :class="pageCardData.bodyClass">{{ pageCardData.body }}</p>
@@ -114,7 +115,7 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
                     :class="`flex flex-row flex-wrap gap-2 ${pageCardData.bodyButtonsParentClass}`">
                     <UButton v-for="buttonData in pageCardData.bodyButtons" :label="buttonData.label"
                         :variant="buttonData.variant" :color="buttonData.color" :class="buttonData.class"
-                        :icon="buttonData.icon" @click="bodyButtonHandler" />
+                        :icon="buttonData.icon" @click="bodyButtonHandler" :to="buttonData.link" />
 
                 </div>
 
@@ -129,7 +130,7 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
                     :class="`flex flex-row flex-wrap gap-2 ${pageCardData.footerButtonsParentClass}`">
                     <UButton v-for="buttonData in pageCardData.footerButtons" :label="buttonData.label"
                         :variant="buttonData.variant" color="neutral" :class="buttonData.class"
-                        :icon="buttonData.icon" />
+                        :icon="buttonData.icon" :to="buttonData.link" />
                 </div>
             </template>
         </UCard>
