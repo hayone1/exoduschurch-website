@@ -3,10 +3,10 @@ import type { StyleValue } from 'vue';
 
 interface CardData {
     backgroundImage?: string
-    motionStyle?: Record<string,string>
+    motionStyle?: Record<string, string>
     backdropClasses?: string[]
     contentJustification?: string
-    title?: string
+    title: string
     titleIcon?: string
     titleIconLink?: string
     textWithImage?: InlineImageText
@@ -71,6 +71,12 @@ interface ButtonContent {
     icon?: string
     color?: "error" | "primary" | "secondary" | "success" | "info" | "warning" | "neutral"
     link?: string
+}
+interface ImageContent {
+    url: string
+    aspectRatio?: string
+    placeholder?: string
+    alt?: string
 }
 
 interface BasicContent {

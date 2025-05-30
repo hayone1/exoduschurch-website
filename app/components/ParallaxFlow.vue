@@ -4,7 +4,6 @@ import type { PointerLocation, IParallaxFlow } from '~/types';
 import type { Edge, Node } from '@vue-flow/core';
 import { VueFlow, Panel, useVueFlow } from '@vue-flow/core';
 import { Background } from '@vue-flow/background'
-import { UseElementSize } from '@vueuse/components';
 import { animate, frame, motion, MotionValue, motionValue, useMotionValue, useSpring } from "motion-v"
 import type { Reactive, WatchHandle } from 'vue';
 
@@ -21,8 +20,8 @@ const { fitView } = useVueFlow();
 const parallaxFocusThresholds = divideIntoParts(
     1, parallaxFlow.visibilityNodesGroup.length + 1
 );
-var visibleNodesElement: Element[][];
 
+const route = useRoute();
 const xPoint = useMotionValue(0);
 const yPoint = useMotionValue(0);
 const springConfig = { damping: 5, stiffness: 20, restDelta: 0.001 };
@@ -36,6 +35,12 @@ const mouseInMainContainer = useMouseInElement(mainContainer);
 const mouseFollowerX = useSpring(xPoint, springConfig);
 const mouseFollowerY = useSpring(yPoint, springConfig);
 var visibleNodeGroups: string[] = [];
+
+var element_id: string;
+const elementRef = useTemplateRef('elementRef');
+if (typeof(route.fullPath) !== 'undefined' && route.fullPath.includes("#")) {
+    element_id = route.fullPath.split("#").at(-1)!;
+}
 
 var nodes: globalThis.Ref<
     Node<any, any, string>[],
@@ -92,7 +97,7 @@ const mouseMovementWatcher = watchEffect(
         //     mouseInMainContainer.elementX.value,
         //     mouseInMainContainer.elementY.value,
         // )
-    });
+});
 watch(mouseInMainContainer.isOutside, (isOutside) => {
     if (!isOutside) {
         mouseMovementWatcher.resume();
@@ -117,13 +122,23 @@ function updateNodes() {
 
 
 onMounted(() => {
-    // visibleNodesElement = parallaxFlow.visibleNodesGroup.map(nodeGroup =>
-    //     nodeGroup.map(node => document.querySelector(`[data-id="${node}"]`))
-    // ) as Element[][];
 
     updateNodes();
     edges = parallaxFlow.edges;
-})
+
+    if (element_id === elementRef.value?.id) {
+        nextTick(() => {
+            setTimeout(() => {
+                console.log("element_id found:", element_id);
+                elementRef.value?.scrollIntoView(
+                    {
+                        behavior: "smooth",
+                    }
+                );
+            }, 500) //not sure if this is good code lol
+        })
+    }
+});
 
 // onUnmounted(() => {
 //     sizeWatcher.stop();
@@ -136,11 +151,11 @@ onMounted(() => {
             <motion.div class="size-10  bg-transparent
             border-green-500 border-1 rounded-full pointer-events-none"
                 :style="{ x: mouseFollowerX, y: mouseFollowerY }" ref="mouseFollower" />
-            <h2 :id="transformToId(parallaxFlow.title)" class="absolute self-center font-bold text-8xl opacity-25">
+            <h2  class="absolute self-center font-bold text-8xl opacity-25">
                 {{ parallaxFlow.title }}
             </h2>
         </div>
-        <div :class="`h-screen overfow-hidden ${parallaxFlow.backGroundColor.value.parentBackground}`">
+        <div ref="elementRef" :id="transformToId(parallaxFlow.title)" :class="`h-screen overfow-hidden ${parallaxFlow.backGroundColor.value.parentBackground}`">
             <VueFlow :nodes="nodes" :edges="edges" :zoom-on-scroll="false" :zoom-on-pinch="false"
                 :zoom-on-double-click="false" :pan-on-scroll="false" :pan-on-drag="false" :prevent-scrolling="true">
                 <Background :patternColor="parallaxFlow.backGroundColor.value.patternBackground" :size="1.4" />

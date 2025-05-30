@@ -9,7 +9,7 @@ data:
     - id: testimony-1
       name: Boluwatife Morawo
       title: Safety
-      date: 28-05-2025
+      date: 2025-05-27
       event: Sunday Service
       body:
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
@@ -19,21 +19,21 @@ data:
     - id: testimony-1
       name: Boluwatife Morawo
       title: Safety
-      date: 28-05-2025
+      date: 2025-05-27
       event: Sunday Service
+      body:
+        God has been so good
+    - id: testimony-1
+      name: Nkire Faith
+      title: Safety
+      date: 2025-05-28
+      event: Thursday Service
       body:
         God has been so good
     - id: testimony-1
       name: Boluwatife Morawo
       title: Safety
-      date: 28-05-2025
-      event: Sunday Service
-      body:
-        God has been so good
-    - id: testimony-1
-      name: Boluwatife Morawo
-      title: Safety
-      date: 28-05-2025
+      date: 2025-05-28
       event: Sunday Service
       body:
         God has been so good

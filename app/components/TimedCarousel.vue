@@ -1,7 +1,5 @@
 <script setup lang="ts">
 // import type { setInterval } from '#imports';
-import { motion, motionValue } from 'motion-v';
-import type { StyleValue } from 'vue';
 import type { CardData, CardAnimation } from '~/types';
 
 //the const defines defaults, the defineProps is used for typing
@@ -14,6 +12,7 @@ const {
     offset: number
     bodyButtonHandler?: (event: MouseEvent) => void
 }>();
+const route = useRoute();
 
 const pageCardAnimation = (delayIndex: number): CardAnimation => {
     return carouselCardData.cardAnimation ?? {
@@ -71,38 +70,7 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
 
 }
 
-const springConfig = { damping: 20, stiffness: 40, restDelta: 0.001 };
 var carouselIndex = ref(carouselCardData.carousels?.length - 1);
-// const motionCarouselIndex = motionValue(0);
-// const motionCarouselIndexSpring = useSpring(motionCarouselIndex, springConfig);
-// const backgroundColorTransform = useTransform(
-//     motionCarouselIndexSpring,
-//     // [0, carouselCardData.carousels!.length-1],
-//     divideIntoParts(
-//         carouselCardData.carousels!.length, carouselCardData.carousels!.length
-//     ),
-//     carouselCardData.carousels?.map(carousel =>
-//         carousel.motionStyle!.backgroundColor
-//     ) as string[]
-// );
-
-// backgroundColorTransform.on('change', (currentValue) => {
-//     console.log("New color is: ", currentValue);
-
-// })
-
-onMounted(() => {
-    // window.setInterval(() => {
-
-    // }, 1000)
-    carousel.value?.emblaApi?.on('autoplay:select', () => {
-        carouselIndex.value++;
-        if (carouselIndex.value === carouselCardData.carousels?.length) {
-            carouselIndex.value = 0;
-        }
-        // motionCarouselIndex.set(carouselIndex);
-    });
-})
 
 function overrideCarousalCardClass(cardData: CardData): CardData {
     return {
@@ -113,9 +81,6 @@ function overrideCarousalCardClass(cardData: CardData): CardData {
 }
 
 const carousel = useTemplateRef('carousel');
-const activeCarousel = computed(() =>
-    overrideCarousalCardClass(carouselCardData.carousels[carouselIndex.value]!)
-);
 const autoPlayOptions = {
     delay: 2000,
     stopOnInteraction: false,
@@ -127,17 +92,46 @@ const defaultTransition = {
     // delay: ((delayIndex) / 10) + .4,
     ease: "easeOut"
 }
+
+var element_id: string;
+const elementRef = useTemplateRef('elementRef');
+if (typeof(route.fullPath) !== 'undefined' && route.fullPath.includes("#")) {
+    element_id = route.fullPath.split("#").at(-1)!;
+}
+
+onMounted(() => {
+    carousel.value?.emblaApi?.on('autoplay:select', () => {
+        carouselIndex.value++;
+        if (carouselIndex.value === carouselCardData.carousels?.length) {
+            carouselIndex.value = 0;
+        }
+        // motionCarouselIndex.set(carouselIndex);
+    });
+    if (element_id === elementRef.value?.id) {
+        nextTick(() => {
+            setTimeout(() => {
+                elementRef.value?.scrollIntoView(
+                    {
+                        behavior: "smooth",
+                    }
+                );
+            }, 500) //not sure if this is good code lol
+        })
+    }
+})
 </script>
 
 <template>
     <!-- <div :style="{ backgroundColor: 'red' }"></div> -->
-    <motion.div :class="carouselCardData.class">
-        <UCard class="bg-transparent text-white z-3 rounded-none" :variant="carouselCardData.variant" :class="carouselCardData.cardClass">
+    <div :class="carouselCardData.class"
+        ref="elementRef" :id="transformToId(carouselCardData.title!)">
+        <UCard class="bg-transparent text-white z-3 rounded-none"
+            :variant="carouselCardData.variant" :class="carouselCardData.cardClass">
             <template v-if="carouselCardData.showHeader" #header>
                 <div :class="`flex w-full ${carouselCardData.contentJustification}`">
                     <UButton v-if="carouselCardData.titleIcon" :icon="carouselCardData.titleIcon" size="xl" variant="link"
                         class="text-6xl text-white" :to="carouselCardData.titleIconLink" target="_blank" />
-                    <h2 v-if="carouselCardData.title" :id="transformToId(carouselCardData.title)"
+                    <h2 v-if="carouselCardData.title"
                         class="text-2xl font-semibold">{{ carouselCardData.title }}</h2>
                 </div>
             </template>
@@ -151,7 +145,7 @@ const defaultTransition = {
             </div>
 
             <template v-if="carouselCardData.showFooter" #footer>
-                <h2 v-if="carouselCardData.footer" :class="`w-full flex ${carouselCardData.contentJustification}`">
+                <h2 v-if="carouselCardData.footer" class="w-full flex" :class="carouselCardData.contentJustification">
                     {{ carouselCardData.footer }}
                 </h2>
                 <div v-if="carouselCardData.footerButtons"
@@ -163,26 +157,7 @@ const defaultTransition = {
             </template>
         </UCard>
         
-        <!-- <div v-if="carouselCardData.backdropClasses" class="absolute size-full border-amber-500 border-2">
-            <div class="-z-2 absolute size-full border-amber-400 border-2"
-                >
-            </div>
-            <motion.div v-for="overlayClass in carouselCardData.backdropClasses"
-                class="absolute size-full rounded-none sm:rounded-lg"
-                :class="overlayClass"
-                :initial="pageCardAnimation(offset).backdropOffscreen"
-                :whileInView="pageCardAnimation(offset).backdropOnScreen" :inViewOptions="{ once: true }" />
-
-        </div> -->
-        <!-- <ul class="absolute size-full flex justify-center">
-            <motion.li v-for="(carouselCard, index) in carouselCardData.carousels.slice(0, 2)" class="timed-card"
-                :data-first="(index === 0)">
-                <PageCard :carouselCardData="overrideCarousalCardClass(carouselCard)" :offset="offset" />
-            </motion.li>
-        </ul> -->
-
-
-    </motion.div>
+    </div>
 </template>
 
 

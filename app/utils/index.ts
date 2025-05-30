@@ -1,3 +1,5 @@
+import { CalendarDate } from "@internationalized/date";
+
 export function shuffle<T>(array: T[]) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
@@ -37,4 +39,18 @@ export function divideIntoParts(value: number, n: number): number[] {
 
 export function transformToId(input: string) {
   return input.replace(" ", "-").toLowerCase()
+}
+
+export function getCalenderDate(date: Date) {
+    return new CalendarDate(
+        date.getFullYear(),
+        date.getMonth() + 1,
+        date.getDate()
+    );
+}
+
+export function paginateArray<T>(array: T[], currentSection: number, itemsInSection: number) {
+    const startIndex = (currentSection - 1) * itemsInSection;
+    const endIndex = startIndex + itemsInSection;
+    return array.slice(startIndex, endIndex);
 }

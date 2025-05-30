@@ -46,7 +46,8 @@ const navItems = computed(() => [
       icon: 'i-fluent-home-20-regular'
     },
     to: '/',
-    class: navProps(navLabels[0]!).navClass,
+    class: "hidden",
+    // class: navProps(navLabels[0]!).navClass,
     active: route.path === '/',
     children: []
   },
@@ -65,8 +66,12 @@ const navItems = computed(() => [
         to: '/community'
       },
       {
-        label: 'Service Units',
-        to: '/community#service-units'
+        label: 'Technical Unit',
+        to: '/community#technical-unit'
+      },
+      {
+        label: 'Choir Unit',
+        to: '/community#choir'
       },
       // {
       //   label: 'Faith & Fire',
@@ -80,7 +85,7 @@ const navItems = computed(() => [
     avatar: {
       icon: 'i-fluent-headphones-sound-wave-20-filled'
     },
-    to: '/#' + navLabels[2],
+    to: '/' + navLabels[2],
     class: navProps(navLabels[2]!).navClass,
     active: route.path.includes(navLabels[2]!),
     children: []
@@ -151,11 +156,17 @@ const navItems = computed(() => [
 
 <template>
   <!-- <div class="pt-4 sm:py-4"> -->
-  <div class="pt-4">
-    <UContainer :class="`col-span-10 rounded-full border-solid border-secondary border-1
-                        transition delay-150 duration-300 ease-in-out hover:-translate-y-1
-                        ${hoverStyle} max-w-fit ${backgroundColor}`">
-      <UNavigationMenu :items="navItems" variant="pill" color="secondary" highlight class="flex justify-center-safe" />
-    </UContainer>
-  </div>
+    <!-- <div class="flex">
+    </div> -->
+    <div class="pt-4">
+      <UButton variant="soft" color="neutral" class="absolute top-0 left-0 sm:left-5 bg-transparent" to="/">
+        <NuxtImg src="/images/exodus-missions-logo-icon.png" height="70px" />
+      </UButton>
+      <UContainer :class="`col-span-10 rounded-full border-solid border-secondary border-1
+                          transition delay-150 duration-300 ease-in-out hover:-translate-y-1
+                          ${hoverStyle} max-w-fit ${backgroundColor}`">
+        <UNavigationMenu :items="navItems" variant="pill" color="secondary" highlight class="flex justify-center-safe" />
+      </UContainer>
+
+    </div>
 </template>

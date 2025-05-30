@@ -112,8 +112,8 @@ onUnmounted(() => {
     </motion.div>
 
   </section>
-  <section id="grainy-background" class="pointer-events-none">
-    <svg xmlns='http://www.w3.org/2000/svg' class="fixed w-screen h-screen opacity-25 z-0">
+  <section id="grainy-background" class="absolute w-screen h-screen pointer-events-none">
+    <svg xmlns='http://www.w3.org/2000/svg' class="fixed size-full opacity-25 z-0">
       <filter id='noiseFilter'>
         <feTurbulence type='fractalNoise' baseFrequency='5.2' numOctaves='1' stitchTiles='stitch' />
       </filter>

@@ -69,12 +69,18 @@ export const useCards = () => {
                 postText: "dus Church",
                 imageClass: "h-15 sm:h-20 pb-5"
             },
-            // backgroundImage: "bg-[linear-gradient(to_right,_#1e3a8a_30%,_transparent_70%),url('/images/worship-stock-image-1.jpg')]",
             bodyButtons: [
-                { label: "I'm New", color: 'neutral' },
-                { label: "About us", color: 'neutral', variant: 'outline' },
+                {
+                    label: "I'm New",
+                    color: 'neutral',
+                    link: 'https://portal.exoduschurch.global/external/register/'
+                },
+                {
+                    label: "About us",
+                    color: 'neutral',
+                    variant: 'outline'
+                },
             ],
-            // body: "making disciples of all nations",
             class: "-z-1 flex flex-row col-span-full -translate-y-3",
             cardClass: "mt-20 bg-gradient-to-r h-[70vh]",
             variant: "solid",
@@ -82,8 +88,8 @@ export const useCards = () => {
             showFooter: true,
             showHeader: true,
             backdropClasses: [
-                "bg-cover mask-repeat-x mask-[url(/images/brush-mask-1-from-top.svg)] bg-[url(/images/worship-stock-image-1.jpg)]",
-                "bg-cover mask-t-from-60% mask-t-to-70% sm:mask-t-from-10% sm:mask-t-to-60%  bg-[url(/images/worship-stock-image-1.jpg)]",
+                "bg-cover mask-repeat-x mask-[url(/images/brush-mask-1-from-top.svg)] bg-[url(/images/main/supernatural-school-december-7.jpg)]",
+                "bg-cover mask-t-from-60% mask-t-to-70% sm:mask-t-from-10% sm:mask-t-to-60% bg-[url(/images/main/supernatural-school-december-7.jpg)]",
                 "backdrop-grayscale mask-r-from-30% mask-r-to-50%",
             ]
         },
@@ -99,11 +105,12 @@ export const useCards = () => {
             cardClass: "bg-transparent",
             variant: "solid",
             //should apply to all button?
-            bodyButtonsParentClass: "justify-center h-80 pt-30",
+            bodyButtonsParentClass: "justify-center h-80 md:pt-20",
             bodyButtons: [{
                 label: "Testimonies",
                 variant: 'link',
-                link: 'https://bit.ly/exodus_testimonies',
+                link: '/testimonies',
+                // link: 'https://bit.ly/exodus_testimonies',
                 class: "text-5xl md:text-4xl font-extrabold text-neutral-600"
             }],
             // showFooter: true,
@@ -120,28 +127,31 @@ export const useCards = () => {
                 {
                     label: "Follow Us",
                     variant: "soft",
-                    class: "text-xl"
+                    class: "text-xl bg-transparent"
                 },
             ],
             class: "col-span-full md:col-span-5 lg:col-span-3",
             cardClass: "bg-transparent",
             variant: "solid",
-            bodyButtonsParentClass: "justify-center h-80 pt-30",
+            bodyButtonsParentClass: "justify-center h-80 pt-30 md:pb-5",
             bodyButtons: [
                 {
                 icon: "i-mdi-instagram",
                 variant: 'solid',
-                class: "text-5xl md:text-4xl font-extrabold bg-linear-65 from-purple-500 to-red-500"
+                class: "text-5xl md:text-4xl font-extrabold bg-linear-65 from-purple-500 to-red-500",
+                link: "https://www.instagram.com/exoduschurch_/#"
             },
                 {
                 icon: "i-mdi-telegram",
                 variant: 'solid',
-                class: "text-5xl md:text-4xl font-extrabold bg-blue-500"
+                class: "text-5xl md:text-4xl font-extrabold bg-blue-500",
+                link: "https://t.me/ExodusChurch"
             },
                 {
                 icon: "i-mdi-youtube",
                 variant: 'solid',
-                class: "text-5xl md:text-4xl font-extrabold bg-red-500"
+                class: "text-5xl md:text-4xl font-extrabold bg-red-500",
+                link: "https://www.youtube.com/@ExodusMissions"
             },
         ],
             showFooter: true,
@@ -160,7 +170,7 @@ export const useCards = () => {
             cardClass: "bg-transparent",
             variant: "solid",
             //should apply to all button?
-            bodyButtonsParentClass: "justify-center h-80 pt-30",
+            bodyButtonsParentClass: "justify-center h-80 md:pt-20",
             bodyButtons: [{
                 label: "Serve",
                 variant: 'link',
@@ -234,7 +244,8 @@ export const useCards = () => {
                             class: "text-3xl md:text-4xl font-extrabold text-white z-0"
                         }],
                         backdropClasses: [
-                            "-z-1 bg-cover bg-[url(/images/worship-stock-image-1.jpg)]"
+                            "-z-2 bg-cover bg-center bg-[url(/images/events/supernatural-school-december-2.jpg)]",
+                            "-z-1 backdrop-blur-xs backdrop-opacity-100"
                         ],
                     },
                     {
@@ -245,7 +256,8 @@ export const useCards = () => {
                             class: "text-3xl md:text-4xl font-extrabold text-white"
                         }],
                         backdropClasses: [
-                            "-z-1 bg-cover bg-[url(/images/worship-stock-image-2.jpg)]"
+                            "-z-1 bg-cover bg-center bg-[url(/images/events/supernatural-school-december-nkire.jpg)]",
+                            "-z-1 backdrop-grayscale",
                         ],
                     },
                 ],
@@ -259,7 +271,8 @@ export const useCards = () => {
                             class: "text-3xl md:text-4xl font-extrabold text-white"
                         }],
                         backdropClasses: [
-                            "-z-1 bg-cover bg-[url(/images/worship-stock-image-2.jpg)]"
+                            "-z-1 bg-cover bg-center bg-[url(/images/events/supernatural-school-december-4.jpg)]",
+                            "-z-1 bg-black/60"
                         ],
                     },
                     {
@@ -270,7 +283,8 @@ export const useCards = () => {
                             class: "text-3xl md:text-4xl font-extrabold text-white"
                         }],
                         backdropClasses: [
-                            "-z-1 bg-cover bg-[url(/images/worship-stock-image-2.jpg)]"
+                            "-z-1 bg-cover bg-center bg-[url(/images/events/supernatural-school-december-8.jpg)]",
+                            "-z-1 bg-black/60"
                         ],
                     },
                     {
@@ -281,7 +295,8 @@ export const useCards = () => {
                             class: "text-3xl md:text-4xl font-extrabold text-white"
                         }],
                         backdropClasses: [
-                            "-z-1 bg-cover bg-[url(/images/worship-stock-image-3.jpg)]"
+                            "-z-1 bg-cover bg-[url(/images/events/supernatural-school-december-10.jpg)]",
+                            "-z-1 bg-black/60"
                         ],
                     },
                     {
@@ -292,7 +307,8 @@ export const useCards = () => {
                             class: "text-3xl md:text-4xl font-extrabold text-white"
                         }],
                         backdropClasses: [
-                            "-z-1 bg-cover bg-[url(/images/worship-stock-image-4.jpg)]"
+                            "-z-1 bg-cover bg-[url(/images/events/supernatural-school-december-11.jpg)]",
+                            "-z-1 bg-black/60"
                         ],
                     },
                 ],

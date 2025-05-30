@@ -1,6 +1,6 @@
 <script setup lang="ts">
-import { NuxtImg } from '#components';
 import type { DropdownMenuItem } from '@nuxt/ui';
+import type { ButtonContent } from '~/types';
 
 const colorMode = useColorMode();
 const colorModeitems = computed<DropdownMenuItem[]>(() => [
@@ -38,12 +38,34 @@ const currentColorMode = computed(() => colorModeitems.value.find(
 const textStyle = computed(() =>
   colorMode.value === 'light' ? "text-2xl text-black" : "text-2xl text-white"
 );
+const socialButtons: ButtonContent[] = [
+  {
+    label: "instagram",
+    icon: "i-mdi-instagram",
+    color: "neutral",
+    link: "https://www.instagram.com/exoduschurch_/#"
+  },
+  {
+    label: "youtube",
+    icon: "i-mdi-youtube",
+    color: "error",
+    link: "https://www.youtube.com/@ExodusMissions"
+  },
+  {
+    label: "telegram",
+    icon: "i-mdi-telegram",
+    color: "info",
+    link: "https://t.me/ExodusChurch"
+  },
+]
 </script>
 <template>
+  <br />
   <footer class="bottom-0 w-full mb-2 px-2">
     <USeparator :label="`© ${new Date().getFullYear()} Exodus Church`" />
     <div class="grid grid-cols-3 max-w-full my-2">
-      <div class="justify-self-start grid grid-cols-2 justify-items-center content-center divide-x-1 divide-muted max-w-30">
+      <div
+        class="justify-self-start grid grid-cols-2 justify-items-center content-center divide-x-1 divide-muted max-w-30">
         <!-- <div>ok</div> -->
         <!-- <NuxtImg src="/images/light/exodus-missions-logo.png" class="h-5"/> -->
         <UButtonGroup>
@@ -55,9 +77,9 @@ const textStyle = computed(() =>
       </div>
       <div class="justify-self-center text-white">Making disciples of all nations</div>
       <UButtonGroup orientation="horizontal" class="justify-self-end grid grid-cols-3">
-        <UButton icon="i-mdi-instagram" variant="link" color="neutral" :class="textStyle" />
-        <UButton icon="i-mdi-youtube" variant="link" color="error" :class="textStyle" />
-        <UButton icon="i-mdi-telegram" variant="link" color="info" :class="textStyle" />
+        <UButton v-for="socialButton in socialButtons" :icon="socialButton.icon"
+          :to="socialButton.link" variant="link" :color="socialButton.color"
+          :class="textStyle" target="_blank" />
       </UButtonGroup>
     </div>
   </footer>

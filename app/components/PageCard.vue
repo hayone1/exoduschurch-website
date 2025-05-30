@@ -43,7 +43,7 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
             transition: {
                 duration:  .6,
                 //will happen after the text animation is complete
-                delay:  ((delayIndex) / 10) + .4,
+                delay:  ((delayIndex) / 10) + .1,
                 ease: "easeOut"
             },
         },
@@ -59,7 +59,7 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
             transition: {
                 duration:  .6,
                 //will finish after the backdrop animation is complete
-                delay: ((delayIndex) / 10) + .8,
+                delay: ((delayIndex) / 10) + .3,
                 ease: "easeOut"
             },
         },

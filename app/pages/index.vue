@@ -1,11 +1,12 @@
 <script setup lang="ts">
-import type { CardAnimation, CardData } from '~/types';
-
-import { useWindowSize } from '@vueuse/core';
 import type { MotionValue } from 'motion-v';
 
-
-const windowSize = useWindowSize();
+const route = useRoute();
+// var element_id: string;
+// if (typeof(route.fullPath) !== 'undefined' && route.fullPath.includes("#")) {
+//     element_id = route.fullPath.split("#").at(-1)!;
+// //   section?.scrollIntoView({ behavior: "smooth", block: "end", inline: "nearest" });
+// }
 const parallaxFlows = useParallaxFlows();
 const parallaxVariants = useParallaxVariants();
 const pageCardsData = useCards();
@@ -39,6 +40,9 @@ onMounted(() => {
     parallaxVariantProgress = parallaxVariants.map((parallaxVariantData, index) =>
         getParallaxScrollProgress(parallaxFlows.length + index)
     );
+    // const section = document.getElementById(element_id);
+    // console.log("section JSON: ", JSON.stringify(section));
+    // console.log("Eement ID: ", element_id);
 })
 
 //to detect scroll progress for an individual parallax flow component
@@ -49,16 +53,6 @@ function getParallaxScrollProgress(index: number) {
         [0, 1]
     )
 }
-
-// useMotionValueEvent(parallaxScroll.scrollYProgress, 'change', (current) => {
-//     console.log("[Flow Parent]: parallaxScroll Value: ", current)
-// })
-// useMotionValueEvent(parallaxScrollProgress(0), 'change', (current) => {
-//     console.log("[0 - Flow Parent's child]: parallaxScroll Value: ", current)
-// })
-// useMotionValueEvent(parallaxScrollProgress(1), 'change', (current) => {
-//     console.log("[1 - Flow Parent's child]: parallaxScroll Value: ", current)
-// })
 
 //-----------------Parallax---------------------
 
@@ -89,11 +83,11 @@ const rowCount = "grid-rows-" + Math.ceil(pageCardsData.length / 2);
     <ClientOnly>
         <div ref="parallaxSectionParent" class="cursor-crosshair" :style="{ height: parallaxSectionHeight }">
             <div v-for="(parallaxFlowData, index) in parallaxFlows" class="sticky top-0">
-                <ParallaxFlow :parallaxFlow="parallaxFlowData" :scrollYProgress="parallaxFlowsProgress[index]" />
+                <ParallaxFlow :parallaxFlow="parallaxFlowData" :scrollYProgress="parallaxFlowsProgress[index]!" />
             </div>
             <div v-for="(parallaxVariantData, index) in parallaxVariants" class="sticky top-0">
                 <ParallaxVariant :parallaxVariant="parallaxVariantData"
-                    :scrollYProgress="parallaxVariantProgress[index]" />
+                    :scrollYProgress="parallaxVariantProgress[index]!" />
             </div>
         </div>
         <TimedCarousel v-for="timedCarousal in timedCarousals" :carouselCardData="timedCarousal" :offset="0" />

@@ -31,7 +31,7 @@ We also give everyone an opportunity to serve the Lord in groups called service 
 <br />
 <br />
 
-# Service Units
+<!-- <h2 class="text-3xl">Service Units</h2> -->
 
 ::info
 ---
@@ -46,7 +46,11 @@ bodyButtons:
     - label: 'Join Technical Unit'
       color: 'neutral'
 ---
-The technical unit is in charge of the 1 2 3
+A unit saddled with the responsibility of managing the audio and video
+coverage of our services including in-house audio and video support,
+live-streaming, recording, post-production, and publishing.
+
+<br />
 ::
 <br />
 <br />
@@ -81,7 +85,14 @@ bodyButtons:
     - label: 'Join Choir'
       color: 'neutral'
 ---
-The Choir unit does a b and c.
+The Exodus Church Choir is the worship arm of the Exodus Church,
+responsible for ministering God's word in songs and leading God’s
+people in worship.
+
+<br />
+Through spirit inspired worship , the choir creates an atmosphere that
+opens the  hearts of men and prepares God's people for a deeper
+encounter with Him.
 ::
 <br />
 <br />
