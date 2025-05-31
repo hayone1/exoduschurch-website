@@ -10,7 +10,7 @@ title: Community
 image:
     url: '/images/welcome.png'
 positions:
-    body: 'order-last'
+    # body: 'order-last'
     image: 'order-first'
 bodyButtons:
     - label: 'Join Us'
@@ -41,8 +41,8 @@ title: Technical Unit
 image:
     url: '/images/service-units/technical-unit.jpg'
 positions:
-    body: 'order-last sm:order-first'
-    image: 'order-first sm:order-last'
+    # body: 'order-last sm:order-first'
+    image: "order-first md:order-last"
 bodyButtons:
     - label: 'Join Us!!!'
       color: 'neutral'
@@ -63,8 +63,8 @@ title: Ushering
 image:
     url: '/images/service-units/ushering-unit-long.jpeg'
 positions:
-    body: 'order-last'
-    image: 'order-first'
+    # body: 'order-last'
+    image: "order-first"
 bodyButtons:
     - label: 'Join Ushering Unit'
       color: 'neutral'
@@ -88,8 +88,8 @@ title: Choir
 image:
     url: '/images/service-units/choir-unit.jpg'
 positions:
-    body: 'order-first'
-    image: 'order-last'
+    #body: 'order-first'
+    image: "order-first md:order-last"
 bodyButtons:
     - label: 'Join Choir'
       color: 'neutral'
@@ -115,8 +115,8 @@ title: Media & Publicity
 image:
     url: '/images/service-units/media-unit.png'
 positions:
-    body: 'order-last'
-    image: 'order-first'
+    # body: 'order-last'
+    image: "order-first"
 bodyButtons:
     - label: 'Join Choir'
       color: 'neutral'
@@ -125,8 +125,8 @@ Publicity team is primarily incharge of putting the exodus church out there
 We capture moments in pictures, videos for the all to see.
 
 <br />
-There are 4 primary Teams in Publicity
 
+There are 4 primary Teams in Publicity:
 1. **Photography team**: We handle the pictures for services
 2. **Video editing team**: We handle video sermon excerpts, regular social media engaging videos
 3. **Graphics design team**: We handle poster, or anything graphics related to the church.

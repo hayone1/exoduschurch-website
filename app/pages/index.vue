@@ -2,6 +2,23 @@
 import type { MotionValue } from 'motion-v';
 
 const route = useRoute();
+useSeoMeta({
+    titleTemplate: 'Home %separator %s',
+    title: 'Exodus Church',
+    description: 'Making disciples of all nations',
+    //ToDo: get this from environment variaable instead
+    // ogUrl: window.location.href,
+    // ogTitle: 'Exodus CHurch',
+    // ogImage: 'http://localhost:3000/images/main/about.png',
+    // ogDescription: 'Welcome to Exodus Church',
+    robots: 'index, follow'
+});
+defineOgImageComponent('Main', {
+    headline: 'Welcome To',
+    logo: '/images/exodus-missions-logo-icon.png',
+    icon: 'i-mdi-instagram',
+})
+
 // var element_id: string;
 // if (typeof(route.fullPath) !== 'undefined' && route.fullPath.includes("#")) {
 //     element_id = route.fullPath.split("#").at(-1)!;

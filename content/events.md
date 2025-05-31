@@ -5,6 +5,7 @@ description: 'Experience transformation in our special Meetings.'
 
 ::info
 ---
+id: supernatural-school
 title: Supernatural School
 video:
     url: '/images/events/supernatural-school-december-2024-trailer.mp4'
@@ -38,16 +39,17 @@ That is **Supernatural School.** 🔥
 
 ::info
 ---
+id: rise
 title: RISE
 image:
-    url: '/images/worship-stock-image-4.jpg'
+    url: '/images/events/supernatural-school-december-10.jpg'
     # placeholder: '/images/events/supernatural-school-august-2023-1.jpg'
     alt: 'RISE'
 positions:
     # body: 'order-first'
     # image: 'order-last'
-    body: 'order-last sm:order-first'
-    image: 'order-first sm:order-last'
+    body: "order-last sm:order-first"
+    #image: "order-first md:order-last"
 buttonColumns: 'grid-cols-2'
 bodyButtons:
     - label: 'RISE Ajah | Coming Soon'

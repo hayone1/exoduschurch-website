@@ -10,7 +10,13 @@ if (route.query.section_id) {
 
 useSeoMeta({
     title: page.value?.title,
-    description: page.value?.description
+    description: page.value?.description,
+    ogTitle: '%s',
+    robots: 'index, follow',
+})
+defineOgImageComponent('Main', {
+    logo: '/images/exodus-missions-logo-icon.png',
+    icon: 'i-mdi-instagram',
 })
 
 

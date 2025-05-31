@@ -78,7 +78,8 @@ export const useCards = () => {
                 {
                     label: "About us",
                     color: 'neutral',
-                    variant: 'outline'
+                    variant: 'outline',
+                    link: '/about'
                 },
             ],
             class: "z-0 flex flex-row col-span-full -translate-y-3",
@@ -225,10 +226,10 @@ export const useCards = () => {
             // showFooter: true,
             // showHeader: true,
             backdropClasses: [
-                `bg-cover bg-[url(/images/pastor-desmond-1.jpg)] sm:bg-[url(/images/pastor-desmond-3-shape.jpg)] bg-right h-full`,
+                `bg-cover bg-[url(/images/people/pastor-desmond-1.jpg)] sm:bg-[url(/images/people/pastor-desmond-3-shape.jpg)] bg-right h-full`,
                 // "bg-cover mask-t-from-50% mask-t-to-70% sm:mask-t-from-10% sm:mask-t-to-60%  bg-[url(/images/worship-stock-image-1.jpg)]",
                 // "backdrop-grayscale mask-r-from-30% mask-r-to-50%",
-                "backdrop-blur-xs sm:backdrop-blur-lg mask-cover mask-[url(/images/pastor-desmond-1-mask.png)] sm:mask-[url(/images/pastor-desmond-3-mask.png)] mask-right h-full",
+                "backdrop-blur-xs sm:backdrop-blur-lg mask-cover mask-[url(/images/people/pastor-desmond-1-mask.png)] sm:mask-[url(/images/people/pastor-desmond-3-mask.png)] mask-right h-full",
             ]
         },
         {

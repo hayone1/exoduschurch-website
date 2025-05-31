@@ -1,3 +1,33 @@
+<script lang="ts" setup>
+import { defineOrganization, defineWebPage, defineWebSite, useSchemaOrg } from '@unhead/schema-org/vue'
+
+// we can remove a lot of boilerplate from Schema.org by providing template params
+const route = useRoute()
+useHead({
+  templateParams: {
+    schemaOrg: {
+      host: 'https://nuxtseo.com',
+      path: route.path,
+      inLanguage: 'en',
+    }
+  }
+})
+
+useSchemaOrg([
+  // much of the data will be inferred such as the title, description and all URLs
+  defineWebPage(),
+  defineWebSite({
+    name: 'Exodus Church',
+    description: 'Making disciples of all nations.',
+  }),
+  // choose an identity, either with definePerson or an defineOrganization
+  defineOrganization({
+    name: 'Exodus Missions',
+  })
+])
+</script>
+
+
 <template>
   <UApp>
     <NuxtLayout>

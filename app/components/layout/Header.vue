@@ -62,6 +62,10 @@ const navItems = computed(() => [
     active: route.path.includes(navLabels[1]!),
     children: [
       {
+        label: 'About Us',
+        to: '/about'
+      },
+      {
         label: 'Community',
         to: '/community'
       },
@@ -161,9 +165,9 @@ const navItems = computed(() => [
     <!-- <div class="flex">
     </div> -->
     <div class="pt-4">
-      <UButton variant="soft" color="neutral" class="absolute top-0 left-0 sm:left-5 bg-transparent" to="/">
+      <ULink class="absolute top-0 left-0 sm:left-5 bg-transparent" to="/" aria-label="Home">
         <NuxtImg src="/images/exodus-missions-logo-icon.png" height="70px" />
-      </UButton>
+      </ULink>
       <UContainer :class="`col-span-10 rounded-full border-solid border-secondary border-1
                           transition delay-150 duration-300 ease-in-out hover:-translate-y-1
                           ${hoverStyle} max-w-fit ${backgroundColor} backdrop-blur-lg`">

@@ -1,7 +1,4 @@
 // https://nuxt.com/docs/api/configuration/nuxt-config
-import Components from 'unplugin-vue-components/vite'
-import MotionResolver from 'motion-v/resolver'
-
 export default defineNuxtConfig({
   compatibilityDate: '2024-11-01',
   devtools: { enabled: true },
@@ -12,6 +9,17 @@ export default defineNuxtConfig({
   vue: {
     compilerOptions: {
       isCustomElement: (tag) => ['o-arc', 'o-progress'].includes(tag),
+    }
+  },
+  site: {
+    // url: 'https://localhost.com',
+    name: 'Exodus Church',
+    description: 'Welcome to Exodus Church',
+    defaultLocale: 'en', // not needed if you have @nuxtjs/i18n installed
+  },
+  app: {
+    head: {
+      titleTemplate: '%s - %siteName',
     }
   },
   // content: {
