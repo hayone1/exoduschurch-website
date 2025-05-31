@@ -21,12 +21,12 @@ title: Community
 At the Exodus church, we're big on community and every member feels known and loved.
 
 We believe in achieving great things as a family and fulfilling prophesies together as the
-body of Christ. :br:br We have small nuclear families called cells where everyone knows his/her neighbour well.
+body of Christ. \:br\:br We have small nuclear families called cells where everyone knows his/her neighbour well.
 
 We also give everyone an opportunity to serve the Lord in groups called service units.
 ::
 
-:br:br
+\:br\:br
 
 <!-- <h2 class="text-3xl">Service Units</h2> -->
 
@@ -49,7 +49,7 @@ live-streaming, recording, post-production, and publishing.
 :br
 ::
 
-:br:br
+\:br\:br
 
 ::info
 ---
@@ -68,15 +68,19 @@ We arrange, decorate, cleanup and warmly welcome members and guests to service.
 
 :br
 
- With much joy, we make everyone know that they are welcome and have found a family in
-the exodus church. 
+ 
+
+With much joy, we make everyone know that they are welcome and have found a family in
+the exodus church.
 
 :br
+
+ 
 
 :br
 ::
 
-:br:br
+\:br\:br
 
 ::info
 ---
@@ -96,16 +100,20 @@ people in worship.
 
 :br
 
- Through spirit inspired worship , the choir creates an atmosphere that
+ 
+
+Through spirit inspired worship , the choir creates an atmosphere that
 opens the hearts of men and prepares God's people for a deeper
-encounter with Him. 
+encounter with Him.
 
 :br
+
+ 
 
 :br
 ::
 
-:br:br
+\:br\:br
 
 ::info
 ---
@@ -123,6 +131,8 @@ Publicity team is primarily incharge of putting the exodus church out there
 We capture moments in pictures, videos for the all to see.
 
 :br
+
+ 
 
 There are 4 primary Teams in Publicity:
 
