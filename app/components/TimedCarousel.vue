@@ -152,7 +152,7 @@ onMounted(() => {
                     :class="`flex flex-row flex-wrap gap-2 ${carouselCardData.footerButtonsParentClass}`">
                     <UButton v-for="buttonData in carouselCardData.footerButtons" :label="buttonData.label"
                         :variant="buttonData.variant" color="neutral" :class="buttonData.class"
-                        :icon="buttonData.icon" />
+                        :icon="buttonData.icon" :to="buttonData.link" />
                 </div>
             </template>
         </UCard>

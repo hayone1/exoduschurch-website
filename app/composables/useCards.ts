@@ -1,4 +1,4 @@
-import type { CardAnimation, CardData } from "~/types";
+import type { ButtonContent, CardAnimation, CardData } from "~/types";
 
 
 export const useCards = () => {
@@ -81,7 +81,7 @@ export const useCards = () => {
                     variant: 'outline'
                 },
             ],
-            class: "-z-1 flex flex-row col-span-full -translate-y-3",
+            class: "z-0 flex flex-row col-span-full -translate-y-3",
             cardClass: "mt-20 bg-gradient-to-r h-[70vh]",
             variant: "solid",
             footer: "Making disciples of all nations.",
@@ -174,7 +174,8 @@ export const useCards = () => {
             bodyButtons: [{
                 label: "Serve",
                 variant: 'link',
-                class: "text-6xl md:text-4xl font-extrabold text-white-600"
+                class: "text-6xl md:text-4xl font-extrabold text-white-600",
+                link: "/community#technical-unit"
             }],
             // showFooter: true,
             // showHeader: true,
@@ -182,11 +183,13 @@ export const useCards = () => {
                 "mask-contain mask-center mask-no-repeat -z-1 mask-[url(/images/brush-mask-0-linear.svg)] bg-neutral-600/30"
             ]
         },
-        
         {
-            titleIcon: "i-fluent-location-ripple-20-regular",
             contentJustification: "justify-center",
-            titleIconLink: "https://github.com/nuxt/ui",
+            titleButton: {
+                label: "location",
+                icon: "i-fluent-location-ripple-20-regular",
+                link: "https://maps.app.goo.gl/iSkjrBP6eAdRfNX88"
+            } as ButtonContent,
             showHeader: true,
             bodies: [
                 {
@@ -253,6 +256,7 @@ export const useCards = () => {
                         bodyButtons: [{
                             label: "Supernatural School",
                             variant: 'link',
+                            color: 'primary',
                             class: "text-3xl md:text-4xl font-extrabold text-white"
                         }],
                         backdropClasses: [
@@ -268,6 +272,7 @@ export const useCards = () => {
                         bodyButtons: [{
                             label: "RISE",
                             variant: 'link',
+                            color: 'error',
                             class: "text-3xl md:text-4xl font-extrabold text-white"
                         }],
                         backdropClasses: [
@@ -280,6 +285,7 @@ export const useCards = () => {
                         bodyButtons: [{
                             label: "RISE",
                             variant: 'link',
+                            color: 'warning',
                             class: "text-3xl md:text-4xl font-extrabold text-white"
                         }],
                         backdropClasses: [
@@ -292,6 +298,7 @@ export const useCards = () => {
                         bodyButtons: [{
                             label: "RISE",
                             variant: 'link',
+                            color: 'primary',
                             class: "text-3xl md:text-4xl font-extrabold text-white"
                         }],
                         backdropClasses: [
@@ -304,6 +311,7 @@ export const useCards = () => {
                         bodyButtons: [{
                             label: "RISE",
                             variant: 'link',
+                            color: 'secondary',
                             class: "text-3xl md:text-4xl font-extrabold text-white"
                         }],
                         backdropClasses: [

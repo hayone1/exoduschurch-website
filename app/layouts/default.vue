@@ -8,7 +8,7 @@
   </ClientOnly>
 
   <ClientOnly fallbackTag="span">
-    <layoutHeader />
+    <layoutHeader class="sticky top-0 z-2"/>
   </ClientOnly>
   
   <section id="main-body">

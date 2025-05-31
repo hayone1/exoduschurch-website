@@ -19,6 +19,11 @@ useSeoMeta({
     <br />
     <UContainer>
         <UCard v-if="page" variant="subtle" class="justify-center">
+            <template v-if="page?.title" #header>
+                <h1 class="w-full text-center text-4xl">
+                    {{ page.title }}
+                </h1>
+            </template>
             <ContentRenderer :value="page" />
         </UCard>
         <div v-else>Page not found</div>

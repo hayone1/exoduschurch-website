@@ -7,8 +7,7 @@ interface CardData {
     backdropClasses?: string[]
     contentJustification?: string
     title: string
-    titleIcon?: string
-    titleIconLink?: string
+    titleButton?: ButtonContent
     textWithImage?: InlineImageText
     bodyImage?: string
     qrCodeUrl?: string
@@ -31,6 +30,18 @@ interface CardData {
     cardClass?: string
     variant?: "outline" | "subtle" | "solid" | "soft"
     cardAnimation?: CardAnimation
+}
+
+interface CardTableData {
+    id: string
+    author: string
+    showCardTitle?: boolean
+    title: string
+    date: string
+    body: string
+    bodyButtons: ButtonContent[]
+    image?: ImageContent
+    event: string
 }
 
 interface IParallaxFlow {

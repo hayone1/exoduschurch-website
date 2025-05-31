@@ -174,7 +174,7 @@ function enableExtraCarousals(item: any, asString = false) {
 
         </div> -->
         <UCarousel ref="constraintRef" arrows dots loop v-slot="{ item, index }" :items="carousalsContent"
-            class="z-1 w-full border-2" :watchDrag="false" :ui="{
+            class="z-0 w-full border-2" :watchDrag="false" :ui="{
                 controls: 'carousal-control absolute -top-12 sm:-top-14 -inset-x-6 sm:inset-x-12',
                 dots: 'top-1',
                 dot: 'w-6 h-1'

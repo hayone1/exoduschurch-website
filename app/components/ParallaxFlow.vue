@@ -155,7 +155,7 @@ onMounted(() => {
                 {{ parallaxFlow.title }}
             </h2>
         </div>
-        <div ref="elementRef" :id="transformToId(parallaxFlow.title)" :class="`h-screen overfow-hidden ${parallaxFlow.backGroundColor.value.parentBackground}`">
+        <div ref="elementRef" :id="transformToId(parallaxFlow.title)" :class="`h-screen overfow-hidden z-3 ${parallaxFlow.backGroundColor.value.parentBackground}`">
             <VueFlow :nodes="nodes" :edges="edges" :zoom-on-scroll="false" :zoom-on-pinch="false"
                 :zoom-on-double-click="false" :pan-on-scroll="false" :pan-on-drag="false" :prevent-scrolling="true">
                 <Background :patternColor="parallaxFlow.backGroundColor.value.patternBackground" :size="1.4" />

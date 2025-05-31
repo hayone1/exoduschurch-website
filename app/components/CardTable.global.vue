@@ -101,6 +101,8 @@ const sortData = computed(() => [
 
 ] satisfies DropdownMenuItem[])
 
+const currentPageNumber = ref(1);
+
 const transformedData = computed(() => {
     const filteredData = data.filter(cardData => {
         const parsedDate = parseDate(cardData.date);
@@ -136,14 +138,18 @@ const transformedData = computed(() => {
         const comparison = data1.event.localeCompare(data2.event);
         return sortAscending.value ? comparison : -(comparison)
     });
+    currentPageNumber.value = 1;
     return eventSortedData;
 }
 
 );
 
 
-const currentPageNumber = ref(1);
-const cardsPerPage = ref(10);
+
+const cardsPerPage = ref(
+    viewport.isLessOrEquals('mobileWide') ?
+    5 : 15
+);
 const pageSiblingCount = ref(2);
 watch(viewport.breakpoint, () => {
   viewport.isLessOrEquals('mobileWide') ?
@@ -265,7 +271,7 @@ const paginatedData = computed(() => paginateArray(
                     :min="1" :max="100" />
                 <p>Per page</p>
             </UButtonGroup>
-            <UPagination v-model="currentPageNumber" :itemsPerPage="cardsPerPage"
+            <UPagination v-model:page="currentPageNumber" :itemsPerPage="cardsPerPage"
                 :total="totaltransformedCards" :siblingCount="pageSiblingCount" />
 
         </div>

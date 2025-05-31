@@ -10,6 +10,7 @@ const {
     buttonColumns = 'grid-cols-1',
     bodyButtons = [],
 } = defineProps<{
+    id: string
     title: string,
     positions?: {
         body: string,
@@ -24,7 +25,7 @@ const {
 }>();
 
 const route = useRoute();
-const section_id = transformToId(title);
+// const section_id = transformToId(title);
 var element_id: string;
 const elementRef = useTemplateRef('elementRef');
 if (typeof (route.fullPath) !== 'undefined' && route.fullPath.includes("#")) {
@@ -48,7 +49,7 @@ onMounted(() => {
 
 </script>
 <template>
-    <div :id="section_id" ref="elementRef"
+    <div :id="id" ref="elementRef"
         class="grid grid-cols-1 md:grid-cols-2 justify-items-center sm:justify-items-start items-center gap-4">
         <div :class="positions.image">
             <NuxtImg v-if="image" class="rounded-lg" :class="image.aspectRatio" :src="image.url"

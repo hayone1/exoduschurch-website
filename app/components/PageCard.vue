@@ -87,9 +87,12 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
 
             <template v-if="pageCardData.showHeader" #header>
                 <div :class="`flex w-full ${pageCardData.contentJustification}`">
-                    <UButton v-if="pageCardData.titleIcon" :icon="pageCardData.titleIcon" size="xl" variant="link"
-                        class="text-6xl text-white" :to="pageCardData.titleIconLink" target="_blank" />
-                    <h2 v-if="pageCardData.title" class="text-2xl font-semibold">{{ pageCardData.title }}</h2>
+                    <UButton v-if="pageCardData.titleButton" :icon="pageCardData.titleButton.icon"
+                        size="xl" variant="link" class="text-6xl text-white"
+                        :to="pageCardData.titleButton.link" target="_blank" />
+                    <h2 v-if="pageCardData.title" class="text-2xl font-semibold">
+                        {{ pageCardData.title }}
+                    </h2>
                 </div>
             </template>
 
@@ -112,10 +115,10 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
                 <CardGrid v-if="pageCardData.bodies" :content="pageCardData.bodies" />
 
                 <div v-if="pageCardData.bodyButtons"
-                    :class="`flex flex-row flex-wrap gap-2 ${pageCardData.bodyButtonsParentClass}`">
+                    class="flex flex-row flex-wrap gap-2" :class="pageCardData.bodyButtonsParentClass">
                     <UButton v-for="buttonData in pageCardData.bodyButtons" :label="buttonData.label"
                         :variant="buttonData.variant" :color="buttonData.color" :class="buttonData.class"
-                        :icon="buttonData.icon" @click="bodyButtonHandler" :to="buttonData.link" />
+                        :icon="buttonData.icon" @click="bodyButtonHandler" :to="buttonData.link"/>
 
                 </div>
 
@@ -130,7 +133,7 @@ const pageCardAnimation = (delayIndex: number): CardAnimation => {
                     :class="`flex flex-row flex-wrap gap-2 ${pageCardData.footerButtonsParentClass}`">
                     <UButton v-for="buttonData in pageCardData.footerButtons" :label="buttonData.label"
                         :variant="buttonData.variant" color="neutral" :class="buttonData.class"
-                        :icon="buttonData.icon" :to="buttonData.link" />
+                        :icon="buttonData.icon" :to="buttonData.link" target="_blank" />
                 </div>
             </template>
         </UCard>
