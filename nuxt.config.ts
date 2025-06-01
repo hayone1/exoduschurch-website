@@ -22,17 +22,11 @@ export default defineNuxtConfig({
       titleTemplate: '%s - %siteName',
     }
   },
-  // content: {
-  //   build: {
-  //     markdown: {},
-  //     csv: {
-  //       // Convert CSV data to JSON objects
-  //       json: true,
-  //       // Specify custom delimiter (default is ',')
-  //       delimiter: ','
-  //     }
-  //   }
-  // },
+  content: {
+    preview: {
+      api: 'https://api.nuxt.studio'
+    }
+  },
   // vite: {
   //   plugins: [
   //     Components({

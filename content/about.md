@@ -23,20 +23,15 @@ We are a highly evangelistical ministry with a deep desire for all that Jesus Lo
 
 With a global vision at heart, we teach, train and equip believers to walk in purpose by the Spirit
 both individually and as one big family.
-
-<br />
-
+:br
 We currently have a reach in:
 - **Abuja**
 - **Lagos**
 - Various Universities and counting...
-
-<br />
-
+:br
 We are the **Exodus Church** and we're **Making disciples of all nations**.🔥
 ::
-<br />
-<br />
+:br
 
 ::info
 ---
@@ -57,15 +52,9 @@ Pastor Abhulimen Desmond MD. is the set man over the Exodus Church and the Exodu
 Burning with a zeal for the doctrine of our Lord Jesus and a strong belief is going
 to the streets and highways  to compel man into the kingdom, he has heeded the call to make disciples
 of Jesus in the nations of the earth.
-
-<br />
-
+:br
 He is also an AI Engineer and evangelist and loves what he does.
-
-<br />
+:br
 Follow to get edifying content from his online presence.
-<br />
-<br />
+:br
 ::
-<br />
-<br />

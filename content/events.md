@@ -23,19 +23,15 @@ bodyButtons:
 ---
 Supernatural as the name implies is a school by and of the Spirit; where the Supernatural
 becomes so tangible and expressive, that everbody walks in it.
-
-<br />
+:br
 We are taught on the gift and gifts of the Spirit and proceed to walk in the same with so much joy.
 Image a conference where someone who got born again just yesterday can speak in tongues, preach the gospel and
 heal the sick today.
-<br />
-
+:br
 That is **Supernatural School.** 🔥
-
-<br />
+:br
 ::
-<br />
-<br />
+:br
 
 ::info
 ---
@@ -75,11 +71,8 @@ shine God's light in a radical way.
 
 It is filled with impartations by teaching and more to get's men and women on their feet ready
 to run for Jesus and never be tired.
-
-<br />
-
+:br
 **Rejoice!** Rise is coming to city close to you.
-<br />
-<br />
+:br
 ::
 
