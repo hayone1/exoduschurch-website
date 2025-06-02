@@ -229,7 +229,7 @@ const paginatedData = computed(() => paginateArray(
 
                     <UModal :title="cardData.title"
                         :description="`${cardData.author} | ${cardData.date} | ${cardData.event}`">
-                        <NuxtImg v-if="cardData.image" class="rounded-lg" :class="cardData.image.aspectRatio"
+                        <NuxtPicture v-if="cardData.image" class="rounded-lg" :class="cardData.image.aspectRatio"
                             :src="cardData.image.url" :placeholder="cardData.image.placeholder"
                             :alt="cardData.image.alt" loading="lazy" />
 
