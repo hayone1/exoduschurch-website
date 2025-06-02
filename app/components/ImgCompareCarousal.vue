@@ -201,7 +201,7 @@ function enableExtraCarousals(item: any, asString = false) {
                 <motion.div v-if="showPageCard" v-for="(cardData, inner_index) in (item as CardData[])"
                     :class='`w-full ${(inner_index === 0 ? "" : "absolute")}`'
                     :style="{ clipPath: dividerMotionTransform[index][inner_index] }">
-                    <PageCard :pageCardData="cardData" :offset="index" class="w-full bg-cover" />
+                    <LazyPageCard hydrate-on-idle :pageCardData="cardData" :offset="index" class="w-full bg-cover" />
                 </motion.div>
 
             </UseElementSize>

@@ -240,12 +240,13 @@ export const useCards = () => {
             comparisonCarousals: [
                 [
                     {
-                        title: "December",
+                        title: "August",
                         bodyButtons: [{
                             label: "Supernatural School",
                             variant: 'link',
                             color: 'secondary',
-                            class: "text-3xl md:text-4xl font-extrabold text-white z-0"
+                            class: "text-3xl md:text-4xl font-extrabold text-white z-0",
+                            link: "/events#supernatural-school"
                         }],
                         backdropClasses: [
                             "-z-2 bg-cover bg-center bg-[url(/images/events/supernatural-school-december-2.jpg)]",
@@ -253,12 +254,13 @@ export const useCards = () => {
                         ],
                     },
                     {
-                        title: "August",
+                        title: "December",
                         bodyButtons: [{
                             label: "Supernatural School",
                             variant: 'link',
                             color: 'primary',
-                            class: "text-3xl md:text-4xl font-extrabold text-white"
+                            class: "text-3xl md:text-4xl font-extrabold text-white",
+                            link: "/events#supernatural-school"
                         }],
                         backdropClasses: [
                             "-z-1 bg-cover bg-center bg-[url(/images/events/supernatural-school-december-nkire.jpg)]",

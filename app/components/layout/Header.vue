@@ -164,13 +164,15 @@ const navItems = computed(() => [
   <!-- <div class="pt-4 sm:py-4"> -->
     <!-- <div class="flex">
     </div> -->
-    <div class="pt-4">
-      <ULink class="absolute top-0 left-0 sm:left-5 bg-transparent" to="/" aria-label="Home">
+    <div class="pt-4 pointer-events-none">
+      <ULink class="absolute top-0 left-0 sm:left-5 bg-transparent pointer-events-auto"
+          to="/" aria-label="Home">
         <NuxtImg src="/images/exodus-missions-logo-icon.png" height="70px" />
       </ULink>
-      <UContainer :class="`col-span-10 rounded-full border-solid border-secondary border-1
+      <UContainer class="col-span-10 rounded-full border-solid border-secondary border-1
                           transition delay-150 duration-300 ease-in-out hover:-translate-y-1
-                          ${hoverStyle} max-w-fit ${backgroundColor} backdrop-blur-lg`">
+                           max-w-fit backdrop-blur-lg pointer-events-auto"
+                          :class="`${hoverStyle} ${backgroundColor}`">
         <UNavigationMenu :items="navItems" variant="pill" color="secondary"
           highlight class="flex justify-center-safe" />
       </UContainer>

@@ -9,9 +9,6 @@ id: about
 title: About Us
 image:
     url: '/images/main/about.png'
-positions:
-    #body: "order-last md:order-first"
-    image: "order-first md:order-last"
 # bodyButtons:
 #     - label: 'Join Us'
 #       color: 'neutral'
@@ -39,8 +36,8 @@ id: meet-out-pastor
 title: Meet our Pastor
 image:
     url: '/images/people/pastor-desmond-3.jpg'
-positions:
-    image: "order-first"
+imagePosition:
+  large: order-last
 bodyButtons:
     - label: 'Instagram'
       color: 'neutral'

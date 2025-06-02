@@ -13,8 +13,8 @@ const {
     id: string
     title: string,
     imagePosition?: {
-        small: string
-        large: string
+        small?: string
+        large?: string
     }
     buttonColumns?: string
     bodyButtons?: ButtonContent[]

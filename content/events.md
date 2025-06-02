@@ -12,7 +12,7 @@ video:
     # placeholder: '/images/events/supernatural-school-august-2023-1.jpg'
     # alt: 'Supernatural School'
 bodyButtons:
-    - label: 'SS AUGUST 25 | Coming Soon'
+    - label: 'SS AUGUST 25 | Aug 15 - 16 | Coming Soon'
       color: 'neutral'
     - label: 'SS DECEMBER 25 | Stay Tuned'
       color: 'neutral'
