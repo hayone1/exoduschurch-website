@@ -5,7 +5,7 @@ const {
     title = "default title",
     imagePosition = {
         small: "order-first",
-        large: "order-last"
+        large: "order-first"
     },
     buttonColumns = 'grid-cols-1',
     bodyButtons = [],
@@ -34,8 +34,8 @@ if (typeof (route.fullPath) !== 'undefined' && route.fullPath.includes("#")) {
 }
 
 const imagePos = ref(imagePosition.large);
-watch (viewport, () => {
-    if (viewport.isLessOrEquals('tablet')) {
+watch (viewport.breakpoint, () => {
+    if (viewport.isLessOrEquals('mobileWide')) {
         imagePos.value = imagePosition.small
     }
     else {

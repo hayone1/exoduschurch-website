@@ -4,7 +4,7 @@ import type { PointerLocation, IParallaxFlow } from '~/types';
 import type { Edge, Node } from '@vue-flow/core';
 import { VueFlow, Panel, useVueFlow } from '@vue-flow/core';
 import { Background } from '@vue-flow/background'
-import { animate, frame, motion, MotionValue, motionValue, useMotionValue, useSpring } from "motion-v"
+import { animate, frame, motion, MotionValue, motionValue, stagger, useMotionValue, useSpring } from "motion-v"
 import type { Reactive, WatchHandle } from 'vue';
 
 const {
@@ -36,9 +36,21 @@ const mouseFollowerX = useSpring(xPoint, springConfig);
 const mouseFollowerY = useSpring(yPoint, springConfig);
 var visibleNodeGroups: string[] = [];
 
+const scrollHintAnim = ({
+    opacity: [0, 1, 0],
+});
+const scrollHintTransition = (delay: number) => ({
+        repeat: Infinity,
+        duration: 1,
+        repeatType: 'mirror' as const,
+        ease: 'easeOut',
+        delay: delay,
+        repeatDelay: 3,
+})
+
 var element_id: string;
 const elementRef = useTemplateRef('elementRef');
-if (typeof(route.fullPath) !== 'undefined' && route.fullPath.includes("#")) {
+if (typeof (route.fullPath) !== 'undefined' && route.fullPath.includes("#")) {
     element_id = route.fullPath.split("#").at(-1)!;
 }
 
@@ -71,14 +83,6 @@ useMotionValueEvent(scrollYProgress, 'change', (currentProgress) => {
             });
 
         }
-        // else if (scrollYProgress.getPrevious() > offsetThreshold &&
-        //     currentProgress <= threshold) {
-        //     fitView({
-        //         nodes: parallaxFlow.focusNodes.slice(0, index),
-        //         duration: 500
-        //     });
-        //     console.log("focus on Nodes: ", JSON.stringify(parallaxFlow.focusNodes.slice(0, index)))
-        // }
     });
 })
 
@@ -97,7 +101,7 @@ const mouseMovementWatcher = watchEffect(
         //     mouseInMainContainer.elementX.value,
         //     mouseInMainContainer.elementY.value,
         // )
-});
+    });
 watch(mouseInMainContainer.isOutside, (isOutside) => {
     if (!isOutside) {
         mouseMovementWatcher.resume();
@@ -148,14 +152,25 @@ onMounted(() => {
 <template>
     <div ref="mainContainer">
         <div class="absolute size-full overflow-hidden flex justify-center">
-            <motion.div class="size-10  bg-transparent
-            border-green-500 border-1 rounded-full pointer-events-none"
+            <motion.div class="size-10 bg-transparent
+                border-green-500 border-1 rounded-full pointer-events-none"
                 :style="{ x: mouseFollowerX, y: mouseFollowerY }" ref="mouseFollower" />
-            <h2  class="absolute self-center font-bold text-8xl opacity-25">
+            <h2 class="absolute self-center font-bold text-8xl opacity-25">
                 {{ parallaxFlow.title }}
             </h2>
+            <div class="absolute bottom-0 right-1/2 translate-x-1/2 flex flex-col items-center">
+                <motion.div :animate="scrollHintAnim" :transition="scrollHintTransition(0.2)">
+                    <UIcon name="i-fluent-chevron-down-20-filled" size="30" />
+                </motion.div>
+                <motion.div :animate="scrollHintAnim" :transition="scrollHintTransition(0.4)"
+                    class="-translate-y-6">
+                    <UIcon name="i-fluent-chevron-down-20-filled" size="30" />
+                </motion.div>
+                <p class="text-muted text-center -translate-y-9 ">Scroll</p>
+            </div>
         </div>
-        <div ref="elementRef" :id="transformToId(parallaxFlow.title)" :class="`h-screen overfow-hidden z-3 ${parallaxFlow.backGroundColor.value.parentBackground}`">
+        <div ref="elementRef" :id="transformToId(parallaxFlow.title)"
+            :class="`h-screen overfow-hidden z-3 ${parallaxFlow.backGroundColor.value.parentBackground}`">
             <VueFlow :nodes="nodes" :edges="edges" :zoom-on-scroll="false" :zoom-on-pinch="false"
                 :zoom-on-double-click="false" :pan-on-scroll="false" :pan-on-drag="false" :prevent-scrolling="true">
                 <Background :patternColor="parallaxFlow.backGroundColor.value.patternBackground" :size="1.4" />

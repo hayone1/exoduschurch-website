@@ -11,9 +11,6 @@ video:
     url: '/images/events/supernatural-school-december-2024-trailer.mp4'
     # placeholder: '/images/events/supernatural-school-august-2023-1.jpg'
     # alt: 'Supernatural School'
-positions:
-    body: 'order-last'
-    image: 'order-first'
 bodyButtons:
     - label: 'SS AUGUST 25 | Coming Soon'
       color: 'neutral'
@@ -41,11 +38,8 @@ image:
     url: '/images/events/supernatural-school-december-10.jpg'
     # placeholder: '/images/events/supernatural-school-august-2023-1.jpg'
     alt: 'RISE'
-positions:
-    # body: 'order-first'
-    # image: 'order-last'
-    body: "order-last sm:order-first"
-    #image: "order-first md:order-last"
+imagePosition:
+  large: order-last
 buttonColumns: 'grid-cols-2'
 bodyButtons:
     - label: 'RISE Ajah | Coming Soon'
