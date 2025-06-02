@@ -55,6 +55,6 @@ export default defineNuxtConfig({
     'nuxt-viewport',
     'motion-v/nuxt',
     'nuxt-qrcode',
-    '@nuxthub/core'
+    // '@nuxthub/core'
   ]
 })
