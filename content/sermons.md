@@ -268,8 +268,8 @@ data:
     image:
       url: /images/sermons/heartbeats.jpg
     body: >
-      Heartbeats- Intimacy with the holy spirit- 
-
+      Heartbeats - Intimacy with the holy spirit
+      
 
       Get ready to be introduced into an understanding of fellowship with the
       person
@@ -286,13 +286,13 @@ data:
       'intimacy with the holy spirit' really mean?
 
 
-      -Good morning holyspirit- He helps our infirmities.
+      - Good morning holyspirit: He helps our infirmities.
 
-      -He is the reality of scripture- and the breath
+      - He is the reality of scripture: and the breath
 
-      -He helps our sanctification- tearing the flesh into the spirit.
+      - He helps our sanctification: tearing the flesh into the spirit.
 
-      -Can i lose the holy spirit- is my heart beating?
+      - Can i lose the holy spirit: is my heart beating?
 
 
       We cover these and more- Dive in and share with a friend and more!🍃🔥
