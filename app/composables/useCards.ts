@@ -217,10 +217,14 @@ export const useCards = () => {
             contentJustification: "justify-start",
             // backgroundImage: "bg-[linear-gradient(to_right,_#1e3a8a_30%,_transparent_70%),url('/images/worship-stock-image-1.jpg')]",
             bodyButtons: [
-                { label: "Abhulimen Desmond", color: 'neutral' },
+                {
+                    label: "Abhulimen Desmond",
+                    color: 'neutral',
+                    link: '/about#meet-out-pastor'
+                },
             ],
             // body: "making disciples of all nations",
-            class: "col-span-full lg:col-span-5 -z-1 flex flex-row h-100 border-2",
+            class: "col-span-full lg:col-span-5 flex flex-row h-100 border-2",
             cardClass: "mt-20 bg-gradient-to-r",
             variant: "solid",
             // showFooter: true,
