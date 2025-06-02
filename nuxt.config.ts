@@ -38,10 +38,7 @@ export default defineNuxtConfig({
   //   ],
   // },
   image: {
-    domains: ['hayone1.github.io'],
-    alias: {
-      github: 'https://github.com/hayone1/throneofgrace_site-configs'
-    }
+    provider: "ipx",
   },
 
   modules: [

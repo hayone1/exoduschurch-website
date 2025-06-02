@@ -40,6 +40,12 @@ const textStyle = computed(() =>
 );
 const socialButtons: ButtonContent[] = [
   {
+    label: "phone",
+    icon: "i-mdi-telephone",
+    color: "neutral",
+    link: "tel:+234816685058"
+  },
+  {
     label: "instagram",
     icon: "i-mdi-instagram",
     color: "neutral",
@@ -76,7 +82,7 @@ const socialButtons: ButtonContent[] = [
         </UButtonGroup>
       </div>
       <div class="justify-self-center text-white">Making disciples of all nations</div>
-      <UButtonGroup orientation="horizontal" class="justify-self-end grid grid-cols-3">
+      <UButtonGroup orientation="horizontal" class="justify-self-end grid grid-cols-4">
         <UButton v-for="socialButton in socialButtons" :icon="socialButton.icon"
           :to="socialButton.link" variant="link" :color="socialButton.color"
           :class="textStyle" target="_blank" />
