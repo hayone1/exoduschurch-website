@@ -159,11 +159,12 @@ onMounted(() => {
                 {{ parallaxFlow.title }}
             </h2>
             <div class="absolute bottom-0 right-1/2 translate-x-1/2 flex flex-col items-center">
-                <motion.div :animate="scrollHintAnim" :transition="scrollHintTransition(0.2)">
+                <motion.div :animate="scrollHintAnim" :transition="scrollHintTransition(0.2)"
+                    :initial="{ opacity: 1 }">
                     <UIcon name="i-fluent-chevron-down-20-filled" size="30" />
                 </motion.div>
                 <motion.div :animate="scrollHintAnim" :transition="scrollHintTransition(0.4)"
-                    class="-translate-y-6">
+                    :initial="{ opacity: 1 }" class="-translate-y-6">
                     <UIcon name="i-fluent-chevron-down-20-filled" size="30" />
                 </motion.div>
                 <p class="text-muted text-center -translate-y-9 ">Scroll</p>

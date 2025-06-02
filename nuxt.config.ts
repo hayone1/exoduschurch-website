@@ -32,6 +32,11 @@ export default defineNuxtConfig({
       minimize: false
     }
   },
+  vite: {
+    build: {
+      minify: false,
+    },
+  }
   // vite: {
   //   plugins: [
   //     Components({
