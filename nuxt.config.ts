@@ -45,13 +45,11 @@ export default defineNuxtConfig({
     '@nuxt/content',
     '@nuxt/eslint',
     '@nuxt/fonts',
-    '@nuxt/icon',
     '@nuxt/image',
     '@nuxt/ui',
     '@nuxtjs/seo',
     'nuxt-viewport',
     'motion-v/nuxt',
     'nuxt-qrcode',
-    // '@nuxthub/core'
   ]
 })
