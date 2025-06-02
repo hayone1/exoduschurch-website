@@ -27,6 +27,11 @@ export default defineNuxtConfig({
       api: 'https://api.nuxt.studio'
     }
   },
+  webpack: {
+    optimization: {
+      minimize: false
+    }
+  },
   // vite: {
   //   plugins: [
   //     Components({
