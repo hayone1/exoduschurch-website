@@ -2,12 +2,13 @@
 import { defineOrganization, defineWebPage, defineWebSite, useSchemaOrg } from '@unhead/schema-org/vue'
 
 // we can remove a lot of boilerplate from Schema.org by providing template params
-const route = useRoute()
+// const route = useRoute()
+const url = useRequestURL();
 useHead({
   templateParams: {
     schemaOrg: {
-      host: 'https://nuxtseo.com',
-      path: route.path,
+      host: url.href,
+      path: url.pathname,
       inLanguage: 'en',
     }
   }

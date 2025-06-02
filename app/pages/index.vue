@@ -1,13 +1,12 @@
 <script setup lang="ts">
 import type { MotionValue } from 'motion-v';
 
-const route = useRoute();
 useSeoMeta({
     titleTemplate: 'Home %separator %s',
     title: 'Exodus Church',
     description: 'Making disciples of all nations',
     //ToDo: get this from environment variaable instead
-    // ogUrl: window.location.href,
+    // ogUrl: url.href,
     // ogTitle: 'Exodus CHurch',
     // ogImage: 'http://localhost:3000/images/main/about.png',
     // ogDescription: 'Welcome to Exodus Church',
