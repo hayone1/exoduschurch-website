@@ -99,7 +99,7 @@ onUnmounted(() => {
 
 <template>
   <section id="animated-background" ref="animatedBackgroundRef">
-    <motion.div v-if="colorMode.value === 'light'" :class="`-z-5 fixed w-screen h-screen
+    <motion.div v-if="colorMode.value === 'light'" :class="`-z-5 fixed size-full
                     overflow-hidden grid grid-cols-${blobsColumsNo}`"
       :animate="{ scale: 1.4, transition: defaultTransition }">
       <motion.div v-for="(blob, index) in backgroundBlobs" :id=blob.id class="pointer-events-none" :initial="{
@@ -112,7 +112,7 @@ onUnmounted(() => {
     </motion.div>
 
   </section>
-  <section id="grainy-background" class="absolute w-screen h-screen pointer-events-none">
+  <section id="grainy-background" class="absolute h-screen pointer-events-none">
     <svg xmlns='http://www.w3.org/2000/svg' class="fixed size-full opacity-25 z-1">
       <filter id='noiseFilter'>
         <feTurbulence type='fractalNoise' baseFrequency='5.2' numOctaves='1' stitchTiles='stitch' />

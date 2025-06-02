@@ -1,5 +1,6 @@
 import type { Variant, VariantLabels } from 'motion-v';
 import type { StyleValue } from 'vue';
+import { z } from '@nuxt/content'
 
 interface CardData {
     backgroundImage?: string

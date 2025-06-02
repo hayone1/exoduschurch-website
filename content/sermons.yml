@@ -1,10 +1,5 @@
----
 title: Sermons
 description: Listen to God's word on the go.
----
-
-::card-table
----
 data:
   - id: a-christmas-thought-the-most-precious-gift
     author: Abulimen Desmond
@@ -573,5 +568,3 @@ data:
       - label: Listen
         color: neutral
         link: https://t.me/ExodusChurch/793
----
-::

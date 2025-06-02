@@ -36,10 +36,10 @@ if (typeof (route.fullPath) !== 'undefined' && route.fullPath.includes("#")) {
 const imagePos = ref(imagePosition.large);
 watch (viewport.breakpoint, () => {
     if (viewport.isLessOrEquals('mobileWide')) {
-        imagePos.value = imagePosition.small
+        imagePos.value = imagePosition.small ?? "order-first"
     }
     else {
-        imagePos.value = imagePosition.large
+        imagePos.value = imagePosition.large ?? "order-first"
     }
 }, { immediate: true })
 
@@ -69,7 +69,7 @@ onMounted(() => {
                 <source :src="video.url" type="video/mp4">
             </video>
         </div>
-        <div>
+        <div class="order-first">
             <h2 v-if="title" class="text-2xl font-semibold text-center w-full">
                 {{ title }}
             </h2>

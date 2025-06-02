@@ -32,7 +32,7 @@ defineOgImageComponent('Main', {
             </template>
             <ContentRenderer :value="page" />
         </UCard>
-        <div v-else>Page not found</div>
+        <NotFound v-else />
     </UContainer>
 </template>
 

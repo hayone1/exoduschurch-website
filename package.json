@@ -30,7 +30,7 @@
     "@zumer/orbit": "^1.3.0",
     "eslint": "^9.25.1",
     "motion-v": "^1.0.2",
-    "nuxt": "^3.17.1",
+    "nuxt": "^3.17.4",
     "nuxt-qrcode": "^0.4.1",
     "nuxt-viewport": "^2.3.0",
     "typescript": "^5.8.3",

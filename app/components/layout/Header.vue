@@ -97,7 +97,7 @@ const navItems = computed(() => [
     avatar: {
       icon: 'i-fluent-headphones-sound-wave-20-filled'
     },
-    to: '/' + navLabels[2],
+    to: '/' + navLabels[2] + "-list",
     class: navProps(navLabels[2]!).navClass,
     active: route.path.includes(navLabels[2]!),
     children: []

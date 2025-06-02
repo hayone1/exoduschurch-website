@@ -110,7 +110,7 @@ export const useCards = () => {
             bodyButtons: [{
                 label: "Testimonies",
                 variant: 'link',
-                link: '/testimonies',
+                link: '/testimonies-list',
                 // link: 'https://bit.ly/exodus_testimonies',
                 class: "text-5xl md:text-4xl font-extrabold text-neutral-600"
             }],

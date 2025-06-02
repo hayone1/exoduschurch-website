@@ -2,7 +2,7 @@
 import { CalendarDate, DateFormatter, parseDate, getLocalTimeZone } from '@internationalized/date';
 import type { DropdownMenuItem } from '@nuxt/ui';
 import { motion } from 'motion-v';
-import type { ButtonContent, ImageContent } from '~/types';
+import type { ButtonContent, CardTableData, ImageContent } from '~/types';
 
 const viewport = useViewport();
 const {
@@ -10,17 +10,7 @@ const {
     data = []
 } = defineProps<{
     defaultStartDate?: string,
-    data: {
-        id: string
-        author: string,
-        showCardTitle?: boolean
-        title: string,
-        date: string,
-        body: string,
-        bodyButtons: ButtonContent[]
-        image?: ImageContent
-        event: string
-    }[]
+    data: CardTableData[]
 }>();
 
 const formatter = new DateFormatter('en-US', {
@@ -193,7 +183,7 @@ const paginatedData = computed(() => paginateArray(
                     </template>
                 </UPopover>
                 <UButtonGroup>
-                    <UBadge color="neutral" variant="subtle" size="lg" label="Name" />
+                    <UBadge color="neutral" variant="subtle" size="lg" label="Title" />
                     <UInputMenu v-model="titleFilters" :items="titles" multiple placeholder="Prayer Focused"
                         class="rounded-tl-none rounded-bl-none" />
                 </UButtonGroup>
@@ -227,9 +217,9 @@ const paginatedData = computed(() => paginateArray(
                         </h2>
                     </template>
 
-                    <UModal :title="cardData.title"
+                    <UModal :title="cardData.title" class="w-full"
                         :description="`${cardData.author} | ${cardData.date} | ${cardData.event}`">
-                        <NuxtPicture v-if="cardData.image" class="rounded-lg" :class="cardData.image.aspectRatio"
+                        <NuxtImg v-if="cardData.image" class="rounded-lg" :class="cardData.image.aspectRatio"
                             :src="cardData.image.url" :placeholder="cardData.image.placeholder"
                             :alt="cardData.image.alt" loading="lazy" />
 

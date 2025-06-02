@@ -8,6 +8,7 @@ description: Join the Exodus Church
 bodyButtons:
   - label: Join Us
     color: neutral
+    link: 'https://portal.exoduschurch.global/external/register/'
   - label: Join a cell
     color: neutral
     variant: soft

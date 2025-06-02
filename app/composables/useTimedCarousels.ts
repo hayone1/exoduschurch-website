@@ -66,7 +66,7 @@ export const useTimedCarousels = () => {
             footerButtons: [
                 {
                     label: "View all sermons",
-                    link: "/sermons"
+                    link: "/sermons-list"
                 },
             ],
             showHeader: true,

@@ -37,14 +37,14 @@ title: Meet our Pastor
 image:
     url: '/images/people/pastor-desmond-3.jpg'
 imagePosition:
-  large: order-last
+  large: "order-last"
 bodyButtons:
     - label: 'Instagram'
       color: 'neutral'
       icon: 'i-mdi-instagram'
       link: 'https://www.instagram.com/uwa_ose/'
 ---
-Pastor Abhulimen Desmond MD. is the set man over the Exodus Church and the Exodus Missions.
+Pastor Abhulimen Desmond, M.Sc. is the set man over the Exodus Church and the Exodus Missions.
 
 Burning with a zeal for the doctrine of our Lord Jesus and a strong belief is going
 to the streets and highways  to compel man into the kingdom, he has heeded the call to make disciples

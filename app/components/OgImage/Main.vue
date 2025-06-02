@@ -4,16 +4,16 @@
  */
 import { computed } from 'vue'
 
-const props = withDefaults(defineProps<{
+const {
+    title = 'title',
+    description = 'description',
+} = defineProps<{
     title?: string, description?: string,
-    headline?: string, logo?: string
-}>(), {
-    title: 'title',
-    description: 'description',
+    headline?: string, logo?: string,
+    socials?: { label: string, icon: string }[]
+}>()
 
-})
-
-const title = computed(() => props.title.slice(0, 60))
+// const title = computed(() => props.title.slice(0, 60))
 </script>
 
 <template>
@@ -47,12 +47,19 @@ const title = computed(() => props.title.slice(0, 60))
                 style="display: block; line-clamp: 3; text-overflow: ellipsis;">
                 {{ description }}
             </p>
+            <div class="flex flex-row gap-4">
+                <div v-for="social in socials"
+                    class="flex flex-row gap-1 items-center text-2xl text-white">
+                    <UIcon :name="social.icon" mode="svg" class="top-0.5"/>
+                    <p>{{ social.label }}</p>
+                </div>
+
+            </div>
         </div>
 
         <div class="rounded-full absolute top-[250px] right-[190px] size-40
         border-2 bg-orange-50 flex justify-center">
             <NuxtImg v-if="logo" height="150" :src="logo" />
-
         </div>
         <!-- <NuxtImg v-if="logo" class="rounded-full absolute top-[250px] right-[190px] size-40
         border-2 border-black flex" :src="logo"/> -->

@@ -35,15 +35,21 @@ const colorModeitems = computed<DropdownMenuItem[]>(() => [
 const currentColorMode = computed(() => colorModeitems.value.find(
   menuItem => menuItem.checked === true
 ));
-const textStyle = computed(() =>
-  colorMode.value === 'light' ? "text-2xl text-black" : "text-2xl text-white"
-);
+// const textStyle = computed(() =>
+//   colorMode.value === 'light' ? "text-2xl text-white" : "text-2xl text-white"
+// );
 const socialButtons: ButtonContent[] = [
   {
-    label: "phone",
-    icon: "i-mdi-telephone",
+    label: "email",
+    icon: "i-mdi-gmail",
     color: "neutral",
-    link: "tel:+234816685058"
+    link: "mailto:marchintogrowth@gmail.com"
+  },
+  {
+    label: "phone",
+    icon: "i-mdi-whatsapp",
+    color: "primary",
+    link: "https://wa.me/2348166785058"
   },
   {
     label: "instagram",
@@ -82,10 +88,11 @@ const socialButtons: ButtonContent[] = [
         </UButtonGroup>
       </div>
       <div class="justify-self-center text-white">Making disciples of all nations</div>
-      <UButtonGroup orientation="horizontal" class="justify-self-end grid grid-cols-4">
-        <UButton v-for="socialButton in socialButtons" :icon="socialButton.icon"
+      <UButtonGroup orientation="horizontal" class="justify-self-end flex flex-wrap ">
+        <UButton v-for="(socialButton, index) in socialButtons" :icon="socialButton.icon"
           :to="socialButton.link" variant="link" :color="socialButton.color"
-          :class="textStyle" target="_blank" />
+          target="_blank" class="text-white"
+          :class='(index === socialButtons.length-1 ? "hidden sm:block": "block")' />
       </UButtonGroup>
     </div>
   </footer>
